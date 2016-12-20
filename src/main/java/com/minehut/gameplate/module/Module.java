@@ -1,6 +1,7 @@
-package com.minehut.gameplate.modules;
+package com.minehut.gameplate.module;
 
 import com.minehut.gameplate.GamePlate;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 
 /**
@@ -8,8 +9,12 @@ import org.bukkit.event.Listener;
  */
 public abstract class Module implements Listener {
 
-    public void initialize() {
+    public void enable() {
         GamePlate.getInstance().register(this);
+    }
+
+    public void disable() {
+        HandlerList.unregisterAll(this);
     }
 
 }
