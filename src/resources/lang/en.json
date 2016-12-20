@@ -1,21 +1,19 @@
 {
   "language": "en",
   "data": [
-    { "type": "generic",
+    { "type": "ui",
       "messages": [
-        { "id": "welcome", "message": "Welcome to GamePlate."}
+        { "id": "welcome", "message": "Welcome to GamePlate."},
+        { "id": "teamJoin", "message": "You joined {0}."}
       ]
     },
 
     { "type": "error",
       "messages": [
-        { "id": "buildheight", "message": "You have reached the maximum build height ({0} blocks)"}
-      ]
-    },
-
-    { "type": "error",
-      "messages": [
-        { "id": "json", "message": "There was an error loading the map.json: {0}"}
+        { "id": "json", "message": "There was an error loading the map.json: {0}"},
+        { "id": "buildHeight", "message": "You have reached the maximum build height ({0} blocks)"},
+        { "id": "teamFull", "message": "{0} is full."},
+        { "id": "teamOverflowed", "message": "{0} is completely full."}
       ]
     }
   ]
