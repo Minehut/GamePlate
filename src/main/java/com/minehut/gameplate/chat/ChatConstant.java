@@ -11,6 +11,7 @@ public enum ChatConstant {
     UI_TEAM_JOIN("ui.teamJoin"),
 
     GAME_BUILD_HEIGHT("game.buildHeight"),
+    GAME_BLOCKED_CRAFT("game.blockedCraft"),
 
     ERROR_JSON("error.json"),
     ERROR_TEAM_FULL("error.teamFull"),
