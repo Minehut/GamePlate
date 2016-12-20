@@ -2,6 +2,7 @@ package com.minehut.gameplate.module;
 
 import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.modules.buildHeight.BuildHeightModuleBuilder;
+import com.minehut.gameplate.module.modules.teamManager.TeamManagerBuilder;
 import org.bukkit.Bukkit;
 
 import java.lang.reflect.InvocationTargetException;
@@ -15,7 +16,8 @@ public class ModuleFactory {
 
     private void addBuilders() {
         this.builderClasses.addAll(Arrays.asList(
-                BuildHeightModuleBuilder.class
+                BuildHeightModuleBuilder.class,
+                TeamManagerBuilder.class
         ));
     }
 
