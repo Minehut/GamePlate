@@ -18,6 +18,8 @@
         { "id": "buildHeight", "message": "You have reached the maximum build height ({0} blocks)"},
         { "id": "teamFull", "message": "{0} is full."},
         { "id": "teamOverflowed", "message": "{0} is completely full."},
+        { "id": "blockedCraft", "message": "Crafting {0} is not allowed!" },
+        { "id": "error.blockedPlace", "message": "Placement of {0} is not allowed!" },
         { "id": "inventoryNotViewable", "message": "Player's inventory is not currently viewable"}
       ]
     }
