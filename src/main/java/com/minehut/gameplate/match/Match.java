@@ -3,11 +3,14 @@ package com.minehut.gameplate.match;
 import com.google.gson.JsonObject;
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.GamePlate;
+import com.minehut.gameplate.event.MatchEndEvent;
 import com.minehut.gameplate.map.CurrentMap;
 import com.minehut.gameplate.map.LoadedMap;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.ModuleCollection;
 import com.minehut.gameplate.module.ModuleLoadTime;
+import com.minehut.gameplate.module.modules.team.TeamModule;
+import org.bukkit.Bukkit;
 
 import java.util.UUID;
 
@@ -34,6 +37,16 @@ public class Match {
                 module.enable();
             }
         }
+    }
+
+    public void end(TeamModule teamModule) {
+        setMatchState(MatchState.ENDED);
+        MatchEndEvent event = new MatchEndEvent(teamModule);
+        Bukkit.getPluginManager().callEvent(event);
+    }
+
+    public void setMatchState(MatchState matchState) {
+        this.matchState = matchState;
     }
 
     public void unregisterModules() {

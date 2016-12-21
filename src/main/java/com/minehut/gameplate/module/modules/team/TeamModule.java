@@ -1,6 +1,7 @@
 package com.minehut.gameplate.module.modules.team;
 
 import com.minehut.gameplate.chat.ChatConstant;
+import com.minehut.gameplate.module.GameObjectiveModule;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.util.CachedPlayer;
 import com.minehut.gameplate.util.ChatUtil;
@@ -22,6 +23,7 @@ public class TeamModule extends Module {
     private int maxPlayers;
     private int maxOverflow;
     private JoinAllowance joinAllowance;
+    private List<GameObjectiveModule> objectives;
 
     public enum JoinAllowance {
         ALL,
@@ -45,6 +47,7 @@ public class TeamModule extends Module {
         this.maxOverflow = maxOverflow;
         this.joinAllowance = joinAllowance;
         this.members = new ArrayList<>();
+        this.objectives = new ArrayList<>();
     }
 
     /*
@@ -60,6 +63,7 @@ public class TeamModule extends Module {
 
         this.members = new ArrayList<>();
         this.members.add(new CachedPlayer(player));
+        this.objectives = new ArrayList<>();
     }
 
     public void addPlayer(Player player, boolean message) {
@@ -122,5 +126,9 @@ public class TeamModule extends Module {
 
     public List<CachedPlayer> getMembers() {
         return members;
+    }
+
+    public List<GameObjectiveModule> getObjectives() {
+        return objectives;
     }
 }
