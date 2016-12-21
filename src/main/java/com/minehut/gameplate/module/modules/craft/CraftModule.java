@@ -50,7 +50,7 @@ public class CraftModule extends Module {
         for (ItemInfo info : blocked) {
             if (info.material.equals(result.getType()) && info.dataEqual(result.getData().getData())) {
                 event.setCancelled(true);
-                ChatUtil.sendWarningMessage((Player) event.getWhoClicked(), ChatConstant.GAME_BLOCKED_CRAFT, ChatColor.AQUA.toString() + info.material.name() + ChatColor.GRAY.toString());
+                ChatUtil.sendWarningMessage((Player) event.getWhoClicked(), ChatConstant.ERROR_BLOCKED_CRAFT, ChatColor.AQUA.toString() + info.material.name() + ChatColor.GRAY.toString());
             }
         }
     }

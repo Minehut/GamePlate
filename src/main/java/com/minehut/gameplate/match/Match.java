@@ -1,10 +1,13 @@
 package com.minehut.gameplate.match;
 
 import com.google.gson.JsonObject;
+import com.minehut.gameplate.GameHandler;
+import com.minehut.gameplate.GamePlate;
 import com.minehut.gameplate.map.CurrentMap;
 import com.minehut.gameplate.map.LoadedMap;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.ModuleCollection;
+import com.minehut.gameplate.module.ModuleLoadTime;
 
 import java.util.UUID;
 
@@ -15,15 +18,22 @@ public class Match {
     private UUID uuid;
     private CurrentMap currentMap;
     private ModuleCollection<Module> modules;
+    private MatchState matchState;
 
     public Match(UUID uuid, CurrentMap currentMap) {
         this.uuid = uuid;
+        this.modules = new ModuleCollection<>();
         this.currentMap = currentMap;
+        this.matchState = MatchState.WAITING;
     }
 
-    //todo
     public void registerModules() {
-
+        for (ModuleLoadTime time : ModuleLoadTime.getOrdered()) {
+            for (Module module : GameHandler.getGameHandler().getModuleFactory().build(this, time)) {
+                modules.add(module);
+                module.enable();
+            }
+        }
     }
 
     public void unregisterModules() {
@@ -44,5 +54,9 @@ public class Match {
 
     public JsonObject getJson() {
         return this.currentMap.getMap().getJsonObject();
+    }
+
+    public MatchState getMatchState() {
+        return matchState;
     }
 }

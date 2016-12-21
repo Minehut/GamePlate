@@ -19,11 +19,8 @@ public class GameHandler {
     private static GameHandler handler;
     private final ModuleFactory moduleFactory;
     private RepositoryManager repositoryManager;
-    private WeakReference<World> matchWorld;
     private Match match;
     private CurrentMap currentMap;
-    private File matchFile;
-    private boolean globalMute;
 
     public GameHandler() throws RotationLoadException {
         handler = this;
@@ -33,11 +30,14 @@ public class GameHandler {
     public void load() throws RotationLoadException {
         repositoryManager = new RepositoryManager();
         repositoryManager.setupRotation();
+
+        final World oldWorld = currentMap != null ? currentMap.getWorld() : null;
+
         currentMap = new CurrentMap(repositoryManager.getRotation().getNext(), UUID.randomUUID());
         Bukkit.getScheduler().scheduleSyncDelayedTask(GamePlate.getInstance(), new Runnable() {
             @Override
             public void run() {
-                cycleAndMakeMatch();
+                cycleAndMakeMatch(oldWorld);
             }
         });
     }
@@ -46,11 +46,10 @@ public class GameHandler {
         return handler;
     }
 
-    public void cycleAndMakeMatch() {
+    public void cycleAndMakeMatch(World oldWorld) {
         if (repositoryManager.getRotation().getNext().equals(currentMap.getMap())) {
             repositoryManager.getRotation().move();
         }
-        World oldMatchWorld = matchWorld == null ? null : matchWorld.get();
         currentMap.run();
         if (match != null) match.unregisterModules();
         this.match = new Match(currentMap.getUuid(), currentMap);
@@ -59,19 +58,13 @@ public class GameHandler {
         Bukkit.getServer().getPluginManager().callEvent(new CycleCompleteEvent(match));
 
         currentMap = new CurrentMap(repositoryManager.getRotation().getNext(), UUID.randomUUID());
-        Bukkit.unloadWorld(oldMatchWorld, true);
+        if (oldWorld != null) {
+            Bukkit.unloadWorld(oldWorld, false);
+        }
     }
 
     public RepositoryManager getRepositoryManager() {
         return repositoryManager;
-    }
-
-    public World getMatchWorld() {
-        return matchWorld.get();
-    }
-
-    public void setMatchWorld(World world) {
-        matchWorld = new WeakReference<>(world);
     }
 
     public Match getMatch() {
@@ -82,24 +75,11 @@ public class GameHandler {
         this.match = match;
     }
 
-    public File getMatchFile() {
-        return matchFile;
+    public ModuleFactory getModuleFactory() {
+        return moduleFactory;
     }
 
-    public void setMatchFile(File file) {
-        matchFile = file;
-    }
-
-    public boolean getGlobalMute() {
-        return globalMute;
-    }
-
-    public void setGlobalMute(boolean globalMute) {
-        this.globalMute = globalMute;
-    }
-
-    public boolean toggleGlobalMute() {
-        globalMute = !globalMute;
-        return globalMute;
+    public CurrentMap getCurrentMap() {
+        return currentMap;
     }
 }

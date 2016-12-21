@@ -13,6 +13,7 @@ public class CurrentMap implements Runnable {
 
     private final UUID uuid;
     private LoadedMap map;
+    private World world;
 
     public CurrentMap(LoadedMap map, UUID uuid) {
         this.map = map;
@@ -34,10 +35,11 @@ public class CurrentMap implements Runnable {
     @Override
     public void run() {
         GenerateMap.copyWorldFromRepository(map.getFolder(), uuid);
-        World world = new WorldCreator("matches/" + uuid.toString()).generator(new NullChunkGenerator()).createWorld();
+        this.world = new WorldCreator("matches/" + uuid.toString()).generator(new NullChunkGenerator()).createWorld();
         world.setPVP(true);
+    }
 
-        GamePlate.getInstance().getGameHandler().setMatchWorld(world);
-        GamePlate.getInstance().getGameHandler().setMatchFile(new File("matches/" + uuid.toString() + "/"));
+    public World getWorld() {
+        return world;
     }
 }

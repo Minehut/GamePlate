@@ -10,12 +10,11 @@ public enum ChatConstant {
     UI_WELCOME("ui.welcome"),
     UI_TEAM_JOIN("ui.teamJoin"),
 
-    GAME_BUILD_HEIGHT("game.buildHeight"),
-    GAME_BLOCKED_CRAFT("game.blockedCraft"),
-
     ERROR_JSON("error.json"),
     ERROR_TEAM_FULL("error.teamFull"),
-    ERROR_TEAM_OVERFLOWED("error.teamOverflowed");
+    ERROR_TEAM_OVERFLOWED("error.teamOverflowed"),
+    ERROR_BUILD_HEIGHT("error.buildHeight"),
+    ERROR_BLOCKED_CRAFT("error.blockedCraft");
 
     private final String path;
 
