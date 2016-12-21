@@ -106,7 +106,7 @@ public abstract class Repository {
     }
 
     private LoadedMap loadMap(File map) throws Exception {
-        JsonObject json = JsonUtil.convertFileToJSON(map.getPath() + "/map.json");
+        JsonObject json = JsonUtil.convertFileToJSON(new File(map.getPath() + "/map.json"));
 
         String name = json.get("name").getAsString();
         String version = json.get("version").getAsString();

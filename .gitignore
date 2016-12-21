@@ -2,3 +2,10 @@
 *.iml
 .classpath/
 .project/
+/target/
+
+.project
+
+.classpath
+
+*.prefs
