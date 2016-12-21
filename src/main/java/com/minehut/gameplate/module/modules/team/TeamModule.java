@@ -24,6 +24,7 @@ public class TeamModule extends Module {
     private int maxOverflow;
     private JoinAllowance joinAllowance;
     private List<GameObjectiveModule> objectives;
+    private boolean observer;
 
     public enum JoinAllowance {
         ALL,
@@ -39,9 +40,10 @@ public class TeamModule extends Module {
      * Used for TeamType.TRADITIONAL modes.
      */
 
-    public TeamModule(String id, String name, ChatColor color, int maxPlayers, int maxOverflow, JoinAllowance joinAllowance) {
+    public TeamModule(String id, String name, boolean observer, ChatColor color, int maxPlayers, int maxOverflow, JoinAllowance joinAllowance) {
         this.id = id;
         this.name = name;
+        this.observer = observer;
         this.color = color;
         this.maxPlayers = maxPlayers;
         this.maxOverflow = maxOverflow;
@@ -130,5 +132,9 @@ public class TeamModule extends Module {
 
     public List<GameObjectiveModule> getObjectives() {
         return objectives;
+    }
+
+    public boolean isObserver() {
+        return observer;
     }
 }

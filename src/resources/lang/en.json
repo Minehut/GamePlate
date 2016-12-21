@@ -4,7 +4,11 @@
     { "type": "ui",
       "messages": [
         { "id": "welcome", "message": "Welcome to GamePlate."},
-        { "id": "teamJoin", "message": "You joined {0}."}
+        { "id": "teamJoin", "message": "You joined {0}."},
+        { "id": "potionEffects", "message": "Potion Effects"},
+        { "id": "noPotionEffects", "message": "No Potion Effects"},
+        { "id": "hungerLevel", "message": "Hunger Level"},
+        { "id": "healthLevel", "message": "Health Level"}
       ]
     },
 
@@ -13,7 +17,8 @@
         { "id": "json", "message": "There was an error loading the map.json: {0}"},
         { "id": "buildHeight", "message": "You have reached the maximum build height ({0} blocks)"},
         { "id": "teamFull", "message": "{0} is full."},
-        { "id": "teamOverflowed", "message": "{0} is completely full."}
+        { "id": "teamOverflowed", "message": "{0} is completely full."},
+        { "id": "inventoryNotViewable", "message": "Player's inventory is not currently viewable"}
       ]
     }
   ] 

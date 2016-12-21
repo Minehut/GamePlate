@@ -9,8 +9,13 @@ public enum ChatConstant {
 
     UI_WELCOME("ui.welcome"),
     UI_TEAM_JOIN("ui.teamJoin"),
+    UI_POTION_EFFECTS("ui.potionEffects"),
+    UI_NO_POTION_EFFECTS("ui.noPotionEffects"),
+    UI_HUNGER_LEVEL("ui.hungerLevel"),
+    UI_HEALTH_LEVEL("ui.healthLevel"),
 
     ERROR_JSON("error.json"),
+    ERROR_INVENTORY_NOT_VIEWABLE("error.inventoryNotViewable"),
     ERROR_TEAM_FULL("error.teamFull"),
     ERROR_TEAM_OVERFLOWED("error.teamOverflowed"),
     ERROR_BUILD_HEIGHT("error.buildHeight"),

@@ -65,6 +65,26 @@ public class Match {
         return currentMap;
     }
 
+    public boolean isWaiting() {
+        return matchState == MatchState.WAITING;
+    }
+
+    public boolean isStarting() {
+        return matchState == MatchState.STARTING;
+    }
+
+    public boolean isRunning() {
+        return matchState == MatchState.PLAYING;
+    }
+
+    public boolean hasEnded() {
+        return matchState == MatchState.ENDED || matchState == MatchState.CYCLING;
+    }
+
+    public boolean isState(MatchState state) {
+        return this.matchState == state;
+    }
+
     public JsonObject getJson() {
         return this.currentMap.getMap().getJsonObject();
     }

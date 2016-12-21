@@ -64,6 +64,15 @@ public class TeamManager extends Module {
         return GameHandler.getGameHandler().getMatch().getModules().getModules(TeamModule.class);
     }
 
+    public static TeamModule getObservers() {
+        for (TeamModule teamModule : getTeamModules()) {
+            if (teamModule.isObserver()) {
+                return teamModule;
+            }
+        }
+        return null;
+    }
+
     public TeamType getTeamType() {
         return teamType;
     }
