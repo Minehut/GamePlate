@@ -22,6 +22,21 @@ import org.bukkit.event.vehicle.VehicleExitEvent;
 
 public class ObserverModule extends Module {
 
+    /*
+     * Returns true if the player is on the observers team OR the player is dead.
+     */
+    public static boolean isObserver(Player player) {
+        TeamModule team = TeamManager.getTeamByPlayer(player);
+
+        if (team != null && team.isObserver() || RespawnModule.isPlayerDead(player)) {
+            return true;
+        } else if (!GameHandler.getGameHandler().getMatch().isRunning()) { //the game hasn't started yet
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @EventHandler
     public void onCardinalSpawn(GameSpawnEvent event) {
         if (event.getTeam().isObserver()) {
@@ -150,21 +165,6 @@ public class ObserverModule extends Module {
     public void onEntityCombustEvent(EntityCombustByBlockEvent event) {
         if (event.getEntity() instanceof Player && isObserver((Player)event.getEntity())){
             event.getEntity().setFireTicks(0);
-        }
-    }
-
-    /*
-     * Returns true if the player is on the observers team OR the player is dead.
-     */
-    public static boolean isObserver(Player player) {
-        TeamModule team = TeamManager.getTeamByPlayer(player);
-
-        if (team != null && team.isObserver() || RespawnModule.isPlayerDead(player)) {
-            return true;
-        } else if (!GameHandler.getGameHandler().getMatch().isRunning()) { //the game hasn't started yet
-            return true;
-        } else {
-            return false;
         }
     }
 
