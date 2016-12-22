@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.*;
+import com.minehut.gameplate.module.modules.regions.types.BlockRegion;
 import com.minehut.gameplate.module.modules.regions.types.CuboidRegion;
 import com.minehut.gameplate.module.modules.regions.types.CylinderRegion;
 import com.minehut.gameplate.util.Numbers;
@@ -57,6 +58,8 @@ public class RegionModuleBuilder extends ModuleBuilder {
                 return parseCuboidRegion(jsonObject);
             } else if (type.equalsIgnoreCase("cylinder")) {
                 return parseCylinderRegion(jsonObject);
+            } else if (type.equalsIgnoreCase("block")) {
+                return parseBlockRegion(jsonObject);
             }
 
         } else {
@@ -89,5 +92,16 @@ public class RegionModuleBuilder extends ModuleBuilder {
         }
 
         return new CylinderRegion(id, base, radius, height);
+    }
+
+    private static RegionModule parseBlockRegion(JsonObject jsonObject) {
+        Vector location = Numbers.parseVector(jsonObject.get("location").getAsString());
+
+        String id = null;
+        if (jsonObject.has("id")) {
+            id = jsonObject.get("id").getAsString();
+        }
+
+        return new BlockRegion(id, location);
     }
 }

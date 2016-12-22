@@ -31,10 +31,8 @@ public class CuboidRegion extends RegionModule {
         super.setBlocks(results);
     }
 
-
     @Override
-    public boolean contains(Location location) {
-        Vector vector = location.toVector();
+    public boolean contains(Vector vector) {
         return vector.isInAABB(this.min, this.max);
     }
 
@@ -61,4 +59,5 @@ public class CuboidRegion extends RegionModule {
     public double getZMax() {
         return max.getZ();
     }
+
 }
