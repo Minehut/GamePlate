@@ -11,6 +11,7 @@ import com.minehut.gameplate.module.modules.matchTimer.MatchTimerModuleBuilder;
 import com.minehut.gameplate.module.modules.objectives.ObjectivesModuleBuilder;
 import com.minehut.gameplate.module.modules.objectives.lastAlive.LastAliveGameObjectiveBuilder;
 import com.minehut.gameplate.module.modules.observers.ObserversModuleBuilder;
+import com.minehut.gameplate.module.modules.regions.RegionModuleBuilder;
 import com.minehut.gameplate.module.modules.respawn.RespawnModuleBuilder;
 import com.minehut.gameplate.module.modules.teamManager.TeamManagerBuilder;
 import com.minehut.gameplate.module.modules.timeLimit.TimeLimitModuleBuilder;
@@ -43,7 +44,8 @@ public class ModuleFactory {
                 TrackerBuilder.class,
                 VisibilityModuleBuilder.class,
                 ObjectivesModuleBuilder.class,
-                LastAliveGameObjectiveBuilder.class
+                LastAliveGameObjectiveBuilder.class,
+                RegionModuleBuilder.class
         ));
     }
 
