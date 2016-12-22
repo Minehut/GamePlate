@@ -75,6 +75,11 @@ public class RespawnModule extends Module {
         if(!isPlayerDead(player)) return true;
 
         TeamModule team = TeamManager.getTeamByPlayer(player);
+
+        if (this.denyRespawns.contains(team)) {
+            return false;
+        }
+
         double timer = DEFAULT_RESPAWN_TIME;
         if (this.respawnTimers.containsKey(team)) {
             timer = this.respawnTimers.get(team);

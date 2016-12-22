@@ -1,5 +1,7 @@
 package com.minehut.gameplate.event;
 
+import com.minehut.gameplate.module.modules.team.TeamModule;
+import com.minehut.gameplate.module.modules.teamManager.TeamManager;
 import com.minehut.gameplate.module.modules.tracker.event.TrackerDamageEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -13,6 +15,7 @@ public class GameDeathEvent extends Event {
     private Player player;
     private Player killer;
     private EntityDamageEvent.DamageCause cause;
+    private TeamModule teamModule;
 
     private TrackerDamageEvent trackerDamageEvent;
 
@@ -20,6 +23,8 @@ public class GameDeathEvent extends Event {
         this.player = player;
         this.killer = killer;
         this.cause = cause;
+
+        this.teamModule = TeamManager.getTeamByPlayer(player);
     }
 
     public static HandlerList getHandlerList() {
@@ -54,4 +59,7 @@ public class GameDeathEvent extends Event {
         this.trackerDamageEvent = trackerDamageEvent;
     }
 
+    public TeamModule getTeamModule() {
+        return teamModule;
+    }
 }

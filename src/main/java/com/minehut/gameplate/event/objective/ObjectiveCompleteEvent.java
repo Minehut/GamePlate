@@ -1,6 +1,7 @@
 package com.minehut.gameplate.event.objective;
 
 import com.minehut.gameplate.module.GameObjectiveModule;
+import com.minehut.gameplate.module.modules.team.TeamModule;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
@@ -10,8 +11,8 @@ public class ObjectiveCompleteEvent extends ObjectiveEvent implements Cancellabl
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled;
 
-    public ObjectiveCompleteEvent(GameObjectiveModule objective, Player player) {
-        super(objective, player);
+    public ObjectiveCompleteEvent(GameObjectiveModule objective, TeamModule teamModule) {
+        super(objective, teamModule);
     }
 
     @Override
@@ -30,9 +31,5 @@ public class ObjectiveCompleteEvent extends ObjectiveEvent implements Cancellabl
 
     public HandlerList getHandlers() {
         return handlers;
-    }
-
-    public Player getPlayer() {
-        return player;
     }
 }

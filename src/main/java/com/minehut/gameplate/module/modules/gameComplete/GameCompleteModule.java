@@ -12,6 +12,8 @@ public class GameCompleteModule extends Module {
 
     @EventHandler
     public void onObjectiveComplete(ObjectiveCompleteEvent event) {
+        event.getObjective().addCompletedBy(event.getTeamModule());
+
         for (TeamModule team : TeamManager.getTeamModules()) {
             if (testWin(team)) {
                 GameHandler.getGameHandler().getMatch().end(team);
@@ -28,7 +30,7 @@ public class GameCompleteModule extends Module {
         int needed = team.getObjectives().size();
 
         for (GameObjectiveModule objective : team.getObjectives()) {
-            if (objective.isCompleted() && objective.getCompletedBy() == team) {
+            if (objective.isCompletedBy(team)) {
                 completed++;
             }
         }

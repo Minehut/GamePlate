@@ -2,6 +2,9 @@ package com.minehut.gameplate.module;
 
 import com.minehut.gameplate.module.modules.team.TeamModule;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by luke on 12/20/16.
  */
@@ -9,7 +12,7 @@ public class GameObjectiveModule extends Module {
     private String id;
     private String name;
     private Boolean showOnScoreboard;
-    private TeamModule completedBy = null;
+    private List<TeamModule> completedBy = new ArrayList<>();
 
     public GameObjectiveModule(String id, String name, Boolean showOnScoreboard) {
         this.id = id;
@@ -25,10 +28,6 @@ public class GameObjectiveModule extends Module {
         return this.name;
     }
 
-    public boolean isCompleted() {
-        return this.completedBy == null;
-    }
-
     public String getId() {
         return id;
     }
@@ -41,11 +40,15 @@ public class GameObjectiveModule extends Module {
         return showOnScoreboard;
     }
 
-    public TeamModule getCompletedBy() {
+    public List<TeamModule> getCompletedBy() {
         return completedBy;
     }
 
-    public void setCompletedBy(TeamModule completedBy) {
-        this.completedBy = completedBy;
+    public void addCompletedBy(TeamModule teamModule) {
+        this.completedBy.add(teamModule);
+    }
+
+    public boolean isCompletedBy(TeamModule teamModule) {
+        return this.completedBy.contains(teamModule);
     }
 }
