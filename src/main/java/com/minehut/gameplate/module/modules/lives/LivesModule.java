@@ -3,7 +3,9 @@ package com.minehut.gameplate.module.modules.lives;
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.event.GameDeathEvent;
 import com.minehut.gameplate.module.Module;
+import com.minehut.gameplate.module.modules.respawn.RespawnModule;
 import com.minehut.gameplate.module.modules.team.TeamModule;
+import com.minehut.gameplate.module.modules.teamManager.TeamManager;
 import org.bukkit.event.EventHandler;
 
 import java.util.HashMap;
@@ -20,6 +22,16 @@ public class LivesModule extends Module {
 
     @EventHandler
     public void onDeath(GameDeathEvent event) {
-        
+        TeamModule team = TeamManager.getTeamByPlayer(event.getPlayer());
+
+        if (this.lives.containsKey(team)) {
+            int lives = this.lives.get(team);
+            this.lives.put(team, lives - 1);
+            lives--;
+
+            if (lives <= 0) {
+                GameHandler.getGameHandler().getMatch().getModules().getModule(RespawnModule.class).setTeamCanRespawn(team, false);
+            }
+        }
     }
 }

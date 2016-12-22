@@ -20,6 +20,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -33,6 +34,8 @@ public class RespawnModule extends Module {
     private Map<UUID, Long> deadPlayers = new HashMap<>(); //Long = System time when player died. Used for respawn timers.
     private HashMap<TeamModule, Double> respawnTimers = new HashMap<>();
 
+    private ArrayList<TeamModule> denyRespawns = new ArrayList<>();
+
     public RespawnModule() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(GamePlate.getInstance(), new Runnable() {
             @Override
@@ -45,6 +48,15 @@ public class RespawnModule extends Module {
                 }
             }
         }, 0L, 0L);
+    }
+
+    public void setTeamCanRespawn(TeamModule team, boolean state) {
+        if (state) {
+            this.denyRespawns.remove(team);
+        } else {
+            this.denyRespawns.remove(team);
+            this.denyRespawns.add(team);
+        }
     }
 
     public double getTimeLeft(Player player) {

@@ -5,7 +5,15 @@ import com.minehut.gameplate.module.modules.arrowRemove.ArrowRemoveModuleBuilder
 import com.minehut.gameplate.module.modules.buildHeight.BuildHeightModuleBuilder;
 import com.minehut.gameplate.module.modules.craft.CraftModuleBuilder;
 import com.minehut.gameplate.module.modules.gameComplete.GameCompleteModuleBuilder;
+import com.minehut.gameplate.module.modules.inventoryView.InventoryViewModuleBuilder;
+import com.minehut.gameplate.module.modules.lives.LivesModuleBuilder;
+import com.minehut.gameplate.module.modules.matchTimer.MatchTimerModuleBuilder;
+import com.minehut.gameplate.module.modules.observers.ObserversModuleBuilder;
+import com.minehut.gameplate.module.modules.respawn.RespawnModuleBuilder;
 import com.minehut.gameplate.module.modules.teamManager.TeamManagerBuilder;
+import com.minehut.gameplate.module.modules.timeLimit.TimeLimitModuleBuilder;
+import com.minehut.gameplate.module.modules.tracker.TrackerBuilder;
+import com.minehut.gameplate.module.modules.visibility.VisibilityModuleBuilder;
 import org.bukkit.Bukkit;
 
 import java.lang.reflect.InvocationTargetException;
@@ -23,7 +31,15 @@ public class ModuleFactory {
                 TeamManagerBuilder.class,
                 ArrowRemoveModuleBuilder.class,
                 CraftModuleBuilder.class,
-                GameCompleteModuleBuilder.class
+                GameCompleteModuleBuilder.class,
+                LivesModuleBuilder.class,
+                RespawnModuleBuilder.class,
+                ObserversModuleBuilder.class,
+                MatchTimerModuleBuilder.class,
+                TimeLimitModuleBuilder.class,
+                InventoryViewModuleBuilder.class,
+                TrackerBuilder.class,
+                VisibilityModuleBuilder.class
         ));
     }
 
