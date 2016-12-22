@@ -1,0 +1,5 @@
+name: GamePlate
+description: Advanced Game Automation
+main: com.minehut.gameplate.GamePlate
+version: 1.0
+authors: [Minehut]
