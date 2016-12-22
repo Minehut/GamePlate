@@ -109,19 +109,31 @@ public abstract class Repository {
         JsonObject json = JsonUtil.convertFileToJSON(new File(map.getPath() + "/map.json"));
 
         String name = json.get("name").getAsString();
+
         String version = json.get("version").getAsString();
-        String objective = json.get("objective").getAsString();
+
+        String objective = "";
+        if (json.has("objective")) {
+            objective = json.get("objective").getAsString();
+        }
+
         List<Contributor> authors = new ArrayList<>();
         for (JsonElement e : json.getAsJsonArray("authors")) {
             authors.add(parseContributor(e.getAsJsonObject()));
         }
+
         List<Contributor> contributors = new ArrayList<>();
-        for (JsonElement e : json.getAsJsonArray("authors")) {
-            contributors.add(parseContributor(e.getAsJsonObject()));
+        if (json.has("contributors")) {
+            for (JsonElement e : json.getAsJsonArray("contributors")) {
+                contributors.add(parseContributor(e.getAsJsonObject()));
+            }
         }
+
         List<String> rules = new ArrayList<>();
-        for (JsonElement e : json.getAsJsonArray("rules")) {
-            rules.add(e.getAsString());
+        if (json.has("rules")) {
+            for (JsonElement e : json.getAsJsonArray("rules")) {
+                rules.add(e.getAsString());
+            }
         }
 
         return new LoadedMap(name, version, objective, authors, contributors, rules, map, json);
@@ -137,7 +149,11 @@ public abstract class Repository {
     private static Contributor parseContributor(JsonObject jsonObject) {
         UUID uuid = null;
         if (jsonObject.has("uuid")) {
-            uuid = UUID.fromString(jsonObject.get("uuid").getAsString());
+            try {
+                uuid = UUID.fromString(jsonObject.get("uuid").getAsString());
+            } catch (Exception e) {
+                Bukkit.getLogger().log(Level.SEVERE, "Invalid uuid: " + jsonObject.get("uuid").getAsString());
+            }
         }
 
         return new Contributor(jsonObject.get("name").getAsString(), uuid, jsonObject.get("contribution").getAsString());

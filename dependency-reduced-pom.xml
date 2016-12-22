@@ -5,12 +5,11 @@
   <artifactId>gameplate</artifactId>
   <version>1.0-SNAPSHOT</version>
   <build>
-    <sourceDirectory>${basedir}/src/main/java/</sourceDirectory>
     <resources>
       <resource>
         <targetPath>.</targetPath>
         <filtering>true</filtering>
-        <directory>${basedir}/src/main/resources/</directory>
+        <directory>src/main/resources</directory>
       </resource>
     </resources>
     <plugins>

@@ -3,6 +3,7 @@ package com.minehut.gameplate;
 import com.minehut.gameplate.chat.LocaleHandler;
 import com.minehut.gameplate.map.repository.exception.RotationLoadException;
 import com.minehut.gameplate.module.Module;
+import com.minehut.gameplate.util.Config;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -25,6 +26,9 @@ public class GamePlate extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        Config.reload(getConfig());
+        saveConfig();
+
         try {
             this.localeHandler = new LocaleHandler(this, Arrays.asList("lang/en.json"));
         } catch (IOException e) {
@@ -33,6 +37,7 @@ public class GamePlate extends JavaPlugin {
 
         try {
             this.gameHandler = new GameHandler();
+            gameHandler.load();
         } catch (RotationLoadException e) {
             e.printStackTrace();
         }

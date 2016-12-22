@@ -2,10 +2,12 @@ package com.minehut.gameplate.module.modules.teamManager;
 
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.chat.ChatConstant;
+import com.minehut.gameplate.event.PlayerChangeTeamEvent;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.ModuleCollection;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.util.ChatUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -31,7 +33,7 @@ public class TeamManager extends Module {
         TeamModule oldTeam = getTeamByPlayer(player);
 
         //Check if the team is full.
-        if (teamModule.getMembers().size() >= teamModule.getMaxPlayers()) {
+        if (!teamModule.isObserver() && teamModule.getMembers().size() >= teamModule.getMaxPlayers()) {
             if (player.hasPermission("gameplate.joinFull")) {
                 if (teamModule.getMembers().size() >= teamModule.getMaxOverflow()) {
                     ChatUtil.sendMessage(player, ChatConstant.ERROR_TEAM_OVERFLOWED, teamModule.getColor() + teamModule.getName() + ChatColor.DARK_PURPLE);
@@ -47,6 +49,9 @@ public class TeamManager extends Module {
         if (oldTeam != null) {
             oldTeam.removePlayer(player);
         }
+
+        PlayerChangeTeamEvent event = new PlayerChangeTeamEvent(player, teamModule, oldTeam);
+        Bukkit.getPluginManager().callEvent(event);
 
         return true;
     }

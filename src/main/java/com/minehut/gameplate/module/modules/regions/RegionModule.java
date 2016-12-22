@@ -48,4 +48,8 @@ public abstract class RegionModule extends Module {
     public List<Block> getBlocks() {
         return blocks;
     }
+
+    public Location getRandomLocation() {
+        return this.blocks.get(0).getLocation(); //todo: randomize
+    }
 }

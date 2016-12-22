@@ -23,7 +23,7 @@ public class DefaultRepository extends Repository {
     }
 
     private void cloneResources() throws IOException {
-        cloneFile("map.xml");
+        cloneFile("map.json");
         cloneFile("level.dat");
         cloneFile("region/r.0.0.mca" );
         cloneFile("region/r.0.-1.mca");

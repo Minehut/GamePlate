@@ -3,6 +3,7 @@ package com.minehut.gameplate.module;
 import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.modules.arrowRemove.ArrowRemoveModuleBuilder;
 import com.minehut.gameplate.module.modules.buildHeight.BuildHeightModuleBuilder;
+import com.minehut.gameplate.module.modules.connection.ConnectionModuleBuilder;
 import com.minehut.gameplate.module.modules.craft.CraftModuleBuilder;
 import com.minehut.gameplate.module.modules.gameComplete.GameCompleteModuleBuilder;
 import com.minehut.gameplate.module.modules.inventoryView.InventoryViewModuleBuilder;
@@ -39,13 +40,13 @@ public class ModuleFactory {
                 RespawnModuleBuilder.class,
                 ObserversModuleBuilder.class,
                 MatchTimerModuleBuilder.class,
-                TimeLimitModuleBuilder.class,
                 InventoryViewModuleBuilder.class,
                 TrackerBuilder.class,
                 VisibilityModuleBuilder.class,
                 ObjectivesModuleBuilder.class,
                 LastAliveGameObjectiveBuilder.class,
-                RegionModuleBuilder.class
+                RegionModuleBuilder.class,
+                ConnectionModuleBuilder.class
         ));
     }
 
