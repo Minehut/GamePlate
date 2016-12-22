@@ -1,0 +1,218 @@
+{
+  "name": "Example Capture The Wool Map",
+  "version": "1.0.0",
+  "authors": [
+    {"name": "Pixelific", "uuid": "no-connection-to-find-uuid", "contribution": "Lead Map Design."},
+    {"name": "Pixelific Jr.", "contribution": "Created the color scheme."}
+  ],
+  "contributors": [
+    {"name": "Luuke", "contribution": "Placed a total of 3 blocks."},
+    {"name": "ItsFoxyCreeper", "contribution": "Emotional Support."}
+  ],
+
+  "timeLimit": "15m",
+  "buildHeight": 90,
+
+  "teams": [
+    {
+      "id": "blue",
+      "name": "Blue Team",
+      "color": "blue",
+      "maxPlayers": 12,
+      "maxOverflow": 15
+    },
+    {
+      "id": "green",
+      "name": "Green Team",
+      "color": "lime"
+    }
+  ],
+
+  "objectives": [
+    {
+      "team": "blue",
+      "objective": "green-wool"
+    },
+    {
+      "team": "green",
+      "objective": "blue-wool"
+    }
+  ],
+
+  "spawns": [
+    {
+      "team": "blue",
+      "region": "blue-spawn"
+    },
+    {
+      "team": "green",
+      "region": {
+        "type": "block",
+        "location": "48, 34, 59"
+      }
+    }
+  ],
+
+  "regions": [
+    {
+      "id": "blue-spawn",
+      "pos1": "-23, 34, 93",
+      "pos2": "-34, 23, -59"
+    },
+    {
+      "id": "green-spawn",
+      "type": "cylinder",
+      "center": "20, 34, 50",
+      "radius": 40,
+      "height": 10
+    },
+    {
+      "id": "blue-wool-room",
+      "pos1": "93, 23, 934",
+      "pos2": "73, 34, 30"
+    },
+    {
+      "id": "green-wool-room",
+      "pos1": "34, 58, 26",
+      "pos2": "39, 26, 49"
+    }
+  ],
+
+  "filters": [
+    {
+      "type": "block-modify",
+      "method": "deny-all",
+      "regions": ["blue-spawn", "green-spawn"],
+      "message": "You may not modify the team spawns!"
+    },
+    {
+      "type": "enter",
+      "method": "allow-other-teams",
+      "team": "blue",
+      "regions": ["blue-wool-room"],
+      "message": "You may not enter your team's wool room!"
+    },
+    {
+      "type": "enter",
+      "method": "allow-other-teams",
+      "team": "green",
+      "regions": ["green-wool-room"],
+      "message": "You may not enter your team's wool room!"
+    }
+  ],
+
+  "capturables": [
+    {
+      "id": "blue-wool",
+      "material": "wool:4",
+      "region": {
+        "type": "block",
+        "location": "38, 43, 94"
+      }
+    },
+    {
+      "id": "green-wool",
+      "material": "wool:8",
+      "region": {
+        "type": "block",
+        "location": "38, 43, 94"
+      }
+    }
+  ],
+
+  "kits": [
+    {
+      "name": "spawn",
+      "items": [
+        {
+          "type": "item",
+          "material": "stone sword",
+          "slot": 0
+        },
+        {
+          "type": "item",
+          "material": "bow",
+          "slot": 1
+        },
+        {
+          "type": "item",
+          "material": "iron pickaxe",
+          "slot": 2
+        },
+        {
+          "type": "item",
+          "material": "iron spade",
+          "slot": 3
+        },
+        {
+          "type": "item",
+          "material": "glass",
+          "data": 2,
+          "slot": 4,
+          "amount": 64
+        },
+        {
+          "type": "item",
+          "material": "glass",
+          "data": 2,
+          "slot": 5,
+          "amount": 64
+        },
+        {
+          "type": "item",
+          "material": "arrow",
+          "slot": 27,
+          "amount": 64
+        },
+        {
+          "type": "item",
+          "material": "arrow",
+          "slot": 28,
+          "amount": 64
+        },
+        {
+          "type": "armor",
+          "material": "iron helmet"
+        },
+        {
+          "type": "armor",
+          "material": "iron leggings"
+        }
+      ]
+    },
+    {
+      "name": "blue",
+      "parents": ["spawn"],
+      "teams": ["blue"],
+      "items": [
+        {
+          "type": "armor",
+          "material": "leather chestplate",
+          "color": "0096D6"
+        },
+        {
+          "type": "armor",
+          "material": "leather boots",
+          "color": "0096D6"
+        }
+      ]
+    },
+    {
+      "name": "green",
+      "parents": ["spawn"],
+      "teams": ["green"],
+      "items": [
+        {
+          "type": "armor",
+          "material": "leather chestplate",
+          "color": "208749"
+        },
+        {
+          "type": "armor",
+          "material": "leather boots",
+          "color": "208749"
+        }
+      ]
+    }
+  ]
+}

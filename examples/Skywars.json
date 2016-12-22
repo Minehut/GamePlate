@@ -1,0 +1,92 @@
+{
+  "name": "Example Skywars Map",
+  "version": "1.0.0",
+  "authors": [
+    {"name": "Pixelific", "uuid": "example-uuid", "contribution": "Lead Map Design."},
+    {"name": "Pixelific Jr.", "contribution": "Created the color scheme."}
+  ],
+  "contributors": [
+    {"name": "Luuke", "contribution": "Placed a total of 3 blocks."},
+    {"name": "ItsFoxyCreeper", "contribution": "Emotional Support."}
+  ],
+
+  "timeLimit": "15m",
+  "buildHeight": 90,
+
+  "teams": "solo",
+  "teamJoinAllowance": "pregame",
+
+  "lives": {
+    "all": 1
+  },
+
+  "objectives": [
+    {
+      "team": "all",
+      "objective": "last-alive"
+    }
+  ],
+
+  "spawns": [
+    {
+      "type": "solo",
+      "region": {
+        "type": "block",
+        "location": "51, 34, 45"
+      },
+      "yaw": 40
+    },
+    {
+      "type": "solo",
+      "region": {
+        "type": "block",
+        "location": "52, 34, 45"
+      },
+      "yaw": 40
+    },
+    {
+      "type": "solo",
+      "region": {
+        "type": "block",
+        "location": "53, 34, 45"
+      },
+      "yaw": 40
+    }
+  ],
+
+  "kits": [
+    {
+      "name": "spawn",
+      "teams": ["all"],
+      "items": [
+        { "type": "item", "material": "stone sword", "slot": 0 },
+        { "type": "item", "material": "bow", "slot": 1 },
+        { "type": "item", "material": "iron pickaxe", "slot": 2 },
+        { "type": "item", "material": "iron spade", "slot": 3 },
+        { "type": "item", "material": "glass", "data": 2, "slot": 4, "amount": 64 },
+        { "type": "item", "material": "glass", "data": 2, "slot": 5, "amount": 64 },
+        { "type": "item", "material": "arrow", "slot": 27, "amount": 64 },
+        { "type": "item", "material": "arrow", "slot": 28, "amount": 64 },
+        { "type": "armor", "material": "iron helmet" },
+        { "type": "armor", "material": "iron leggings" }
+      ]
+    }
+  ],
+
+  "chests": [
+    {
+      "chance": 90,
+      "items": [
+        { "material": "snow ball", "amount": 10 },
+        { "material": "arrow", "amount": 15 },
+        { "material": "iron helmet" }
+      ]
+    },
+    {
+      "chance": 10,
+      "items": [
+        { "material": "diamond", "amount": 23 }
+      ]
+    }
+  ]
+}
