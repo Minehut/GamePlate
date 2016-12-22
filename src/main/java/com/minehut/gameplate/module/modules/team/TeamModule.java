@@ -137,4 +137,8 @@ public class TeamModule extends Module {
     public boolean isObserver() {
         return observer;
     }
+
+    public void addObjective(GameObjectiveModule objectiveModule) {
+        this.objectives.add(objectiveModule);
+    }
 }

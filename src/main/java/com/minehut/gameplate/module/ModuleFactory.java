@@ -65,7 +65,10 @@ public class ModuleFactory {
             try {
                 if (builder.getClass().getAnnotation(BuilderData.class).load().equals(time)) {
                     try {
-                        results.addAll(builder.load(match));
+                        ModuleCollection moduleCollection = builder.load(match);
+                        if (moduleCollection != null) {
+                            results.addAll(builder.load(match));
+                        }
                     } catch (Throwable t) {
                         t.printStackTrace();
                     }
@@ -73,7 +76,10 @@ public class ModuleFactory {
             } catch (NullPointerException e) {
                 if (time != ModuleLoadTime.NORMAL) ;
                 else try {
-                    results.addAll(builder.load(match));
+                    ModuleCollection moduleCollection = builder.load(match);
+                    if (moduleCollection != null) {
+                        results.addAll(builder.load(match));
+                    }
                 } catch (Throwable t) {
                     t.printStackTrace();
                 }

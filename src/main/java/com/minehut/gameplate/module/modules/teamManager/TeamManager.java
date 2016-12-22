@@ -60,6 +60,15 @@ public class TeamManager extends Module {
         return null;
     }
 
+    public static TeamModule getTeamById(String id) {
+        for (TeamModule teamModule : getTeamModules()) {
+            if (teamModule.getId().equals(id)) {
+                return teamModule;
+            }
+        }
+        return null;
+    }
+
     public static ModuleCollection<TeamModule> getTeamModules() {
         return GameHandler.getGameHandler().getMatch().getModules().getModules(TeamModule.class);
     }
