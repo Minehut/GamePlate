@@ -2,10 +2,9 @@ package com.minehut.gameplate.match;
 
 import com.google.gson.JsonObject;
 import com.minehut.gameplate.GameHandler;
-import com.minehut.gameplate.GamePlate;
 import com.minehut.gameplate.event.MatchEndEvent;
+import com.minehut.gameplate.event.MatchStartEvent;
 import com.minehut.gameplate.map.CurrentMap;
-import com.minehut.gameplate.map.LoadedMap;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.ModuleCollection;
 import com.minehut.gameplate.module.ModuleLoadTime;
@@ -47,6 +46,8 @@ public class Match {
 
     public void setMatchState(MatchState matchState) {
         this.matchState = matchState;
+        if(matchState.equals(MatchState.PLAYING))
+        	Bukkit.getPluginManager().callEvent(new MatchStartEvent(this));
     }
 
     public void unregisterModules() {
