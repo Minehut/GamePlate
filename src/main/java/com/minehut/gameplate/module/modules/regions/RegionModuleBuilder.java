@@ -1,5 +1,6 @@
 package com.minehut.gameplate.module.modules.regions;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.*;
@@ -19,7 +20,19 @@ public class RegionModuleBuilder extends ModuleBuilder {
 
     @Override
     public ModuleCollection<? extends Module> load(Match match) {
-        return null;
+        ModuleCollection results = new ModuleCollection();
+
+        if (match.getJson().has("regions")) {
+            for (JsonElement e : match.getJson().getAsJsonArray("regions")) {
+                JsonObject jsonObject = e.getAsJsonObject();
+                RegionModule regionModule = parseRegion(jsonObject);
+                if (regionModule != null) {
+                    results.add(regionModule);
+                }
+            }
+        }
+
+        return results;
     }
 
     public static RegionModule parseRegion(JsonObject containerObject, String key) {
@@ -31,21 +44,25 @@ public class RegionModuleBuilder extends ModuleBuilder {
         if (containerObject.get("key").isJsonPrimitive()) { //referencing a global region
             return RegionModule.getRegionById(containerObject.get("key").getAsString());
         } else {
-            JsonObject jsonObject = containerObject.get("key").getAsJsonObject();
-
-            if (jsonObject.has("type")) {
-                String type = jsonObject.get("type").getAsString();
-
-                if (type.equalsIgnoreCase("cuboid")) {
-                    return parseCuboidRegion(jsonObject);
-                } else if (type.equalsIgnoreCase("cylinder")) {
-                    return parseCylinderRegion(jsonObject);
-                }
-
-            } else {
-                return parseCuboidRegion(jsonObject);
-            }
+            parseRegion(containerObject.get("key").getAsJsonObject());
         }
+        return null;
+    }
+
+    public static RegionModule parseRegion(JsonObject jsonObject) {
+        if (jsonObject.has("type")) {
+            String type = jsonObject.get("type").getAsString();
+
+            if (type.equalsIgnoreCase("cuboid")) {
+                return parseCuboidRegion(jsonObject);
+            } else if (type.equalsIgnoreCase("cylinder")) {
+                return parseCylinderRegion(jsonObject);
+            }
+
+        } else {
+            return parseCuboidRegion(jsonObject);
+        }
+
         return null;
     }
 
