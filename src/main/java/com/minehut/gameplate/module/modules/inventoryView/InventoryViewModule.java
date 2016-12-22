@@ -41,7 +41,7 @@ public class InventoryViewModule extends Module {
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
-        if (ObserverModule.testObserver(event.getPlayer())) {
+        if (ObserverModule.isObserver(event.getPlayer())) {
             if (event.getRightClicked() instanceof Player && !event.getPlayer().isSneaking()){
                 if (event.getHand().equals(EquipmentSlot.HAND)) {
                     openInventory(event.getPlayer(), (Player) event.getRightClicked(), false);
@@ -51,7 +51,7 @@ public class InventoryViewModule extends Module {
     }
 
     public void openInventory(Player viewer, Player view, boolean message){
-        if (ObserverModule.testObserver(viewer) && !ObserverModule.testObserver(view)) {
+        if (ObserverModule.isObserver(viewer) && !ObserverModule.isObserver(view)) {
             viewer.openInventory(getFakeInventory(view, viewer.spigot().getLocale()));
             if (!viewing.containsKey(view.getUniqueId())) {
                 viewing.put(view.getUniqueId(), new ArrayList<UUID>());
@@ -247,7 +247,7 @@ public class InventoryViewModule extends Module {
      */
     @EventHandler
     public void onInteraction(PlayerInteractEvent event) {
-        if (ObserverModule.testObserver(event.getPlayer())) {
+        if (ObserverModule.isObserver(event.getPlayer())) {
             event.setCancelled(true);
             if ((event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) && (event.getPlayer().getInventory().getItemInMainHand() != null && event.getPlayer().getInventory().getItemInMainHand().getType().equals(Material.WRITTEN_BOOK))){
                 event.setUseInteractedBlock(Event.Result.DENY);

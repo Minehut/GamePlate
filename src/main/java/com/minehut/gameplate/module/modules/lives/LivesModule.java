@@ -1,5 +1,6 @@
 package com.minehut.gameplate.module.modules.lives;
 
+import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.event.GameDeathEvent;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.modules.team.TeamModule;
@@ -19,6 +20,6 @@ public class LivesModule extends Module {
 
     @EventHandler
     public void onDeath(GameDeathEvent event) {
-
+        
     }
 }
