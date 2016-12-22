@@ -7,6 +7,7 @@ import com.minehut.gameplate.module.modules.respawn.RespawnModule;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 
 import java.util.HashMap;
 
@@ -20,7 +21,7 @@ public class LivesModule extends Module {
         this.lives = lives;
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onDeath(GameDeathEvent event) {
         TeamModule team = TeamManager.getTeamByPlayer(event.getPlayer());
 
