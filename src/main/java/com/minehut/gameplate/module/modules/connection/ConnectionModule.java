@@ -1,9 +1,11 @@
 package com.minehut.gameplate.module.modules.connection;
 
 import com.minehut.gameplate.GameHandler;
+import com.minehut.gameplate.event.GameSpawnEvent;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -18,6 +20,13 @@ public class ConnectionModule extends Module {
     @EventHandler(priority = EventPriority.LOW)
     public void onJoin(PlayerJoinEvent event) {
         GameHandler.getGameHandler().getMatch().getModules().getModule(TeamManager.class).attemptJoinTeam(event.getPlayer(), TeamManager.getObservers());
+        Bukkit.broadcastMessage("Current map: " + GameHandler.getGameHandler().getCurrentMap().getMap().getName());
+        if (GameHandler.getGameHandler().getCurrentMap().getWorld() != null) {
+            Bukkit.broadcastMessage("world is not null!");
+        }
+        GameSpawnEvent spawnEvent = new GameSpawnEvent(event.getPlayer(), TeamManager.getObservers(), GameHandler.getGameHandler().getCurrentMap().getWorld().getSpawnLocation());
+        Bukkit.getPluginManager().callEvent(spawnEvent);
+        event.getPlayer().teleport(spawnEvent.getSpawn());
     }
 
     @EventHandler

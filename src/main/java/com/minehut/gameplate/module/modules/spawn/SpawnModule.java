@@ -38,13 +38,6 @@ public class SpawnModule extends Module {
         event.setSpawn(getRandomSpawn(event.getTeam()));
     }
 
-    @EventHandler
-    public void onTeamChange(PlayerChangeTeamEvent event) {
-        if (event.getNewTeam() != null) {
-
-        }
-    }
-
     public Location getRandomSpawn(Player player) {
         TeamModule teamModule = TeamManager.getTeamByPlayer(player);
         return getRandomSpawn(teamModule);

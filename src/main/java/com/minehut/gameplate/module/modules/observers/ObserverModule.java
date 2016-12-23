@@ -6,6 +6,9 @@ import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.modules.respawn.RespawnModule;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
+import com.minehut.gameplate.util.Items;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -37,10 +40,14 @@ public class ObserverModule extends Module {
         }
     }
 
+    private void giveObserversKit(Player player) {
+        player.getInventory().setItem(0, Items.createItem(Material.COMPASS, 1, (short) 0, ChatColor.BLUE + "Teleport Tool"));
+    }
+
     @EventHandler
     public void onCardinalSpawn(GameSpawnEvent event) {
         if (event.getTeam().isObserver()) {
-            //todo: apply observer kit
+            this.giveObserversKit(event.getPlayer());
         }
     }
 

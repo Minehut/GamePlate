@@ -10,6 +10,9 @@ import com.minehut.gameplate.util.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerRespawnEvent;
+
+import java.util.logging.Level;
 
 /**
  * Created by luke on 12/19/16.
@@ -84,6 +87,7 @@ public class TeamManager extends Module {
                 return teamModule;
             }
         }
+        Bukkit.getLogger().log(Level.SEVERE, "Unable to find observers team!");
         return null;
     }
 

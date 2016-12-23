@@ -50,14 +50,17 @@ public class GameHandler {
         if (repositoryManager.getRotation().getNext().equals(currentMap.getMap())) {
             repositoryManager.getRotation().move();
         }
-        currentMap.run();
+
         if (match != null) match.unregisterModules();
+
+        currentMap = new CurrentMap(repositoryManager.getRotation().getNext(), UUID.randomUUID());
+        currentMap.run();
+
         this.match = new Match(currentMap.getUuid(), currentMap);
         this.match.registerModules();
         GamePlate.getInstance().getLogger().info(this.match.getModules().size() + " modules loaded.");
         Bukkit.getServer().getPluginManager().callEvent(new CycleCompleteEvent(match));
 
-        currentMap = new CurrentMap(repositoryManager.getRotation().getNext(), UUID.randomUUID());
         if (oldWorld != null) {
             Bukkit.unloadWorld(oldWorld, false);
         }
