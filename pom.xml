@@ -26,6 +26,11 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
         </repository>
+
+        <repository>
+            <id>overcast-repo</id>
+            <url>https://repo.oc.tc/content/groups/public/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -41,6 +46,19 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20160212</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sk89q</groupId>
+            <artifactId>command-framework-core</artifactId>
+            <version>1.9-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.sk89q</groupId>
+            <artifactId>command-framework-bukkit</artifactId>
+            <version>1.9-SNAPSHOT</version>
+            <type>jar</type>
         </dependency>
 
     </dependencies>

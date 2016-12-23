@@ -18,32 +18,30 @@ import java.util.List;
  */
 public class SpawnModule extends Module {
 
-    private HashMap<TeamModule, List<SpawnNode>> spawns = new HashMap<>();
+    private List<SpawnNode> spawns = new ArrayList<>();
 
-    public void addTeamSpawn(TeamModule teamModule, SpawnNode spawnNode) {
-        List<SpawnNode> existingSpawns;
-        if (spawns.containsKey(teamModule)) {
-            existingSpawns = spawns.get(teamModule);
-        } else {
-            existingSpawns = new ArrayList<>();
-        }
-
-        existingSpawns.add(spawnNode);
-        spawns.put(teamModule, existingSpawns);
-
+    public SpawnModule(List<SpawnNode> spawns) {
+        this.spawns = spawns;
     }
 
     @EventHandler
     public void onGameSpawn(GameSpawnEvent event) {
-        event.setSpawn(getRandomSpawn(event.getTeam()));
+        event.setSpawn(event.getTeam().getRandomSpawn().toLocation());
     }
 
-    public Location getRandomSpawn(Player player) {
-        TeamModule teamModule = TeamManager.getTeamByPlayer(player);
-        return getRandomSpawn(teamModule);
-    }
+    /*
+     * Assigns a random spawnpoint to a team (solo team mode)
+     */
+    public void assignRandomSpawnpoint(TeamModule teamModule) {
+        SpawnNode spawnNode = null;
+        for (SpawnNode loop : spawns) {
+            if (loop.getTeamModule() == null) {
+                spawnNode = loop;
+            }
+        }
+        if(spawnNode == null) return;
 
-    public Location getRandomSpawn(TeamModule teamModule) {
-        return this.spawns.get(teamModule).get(0).getRegion().getRandomLocation(); //todo: randomize.
+        spawnNode.setTeamModule(teamModule);
+        teamModule.addSpawn(spawnNode);
     }
 }

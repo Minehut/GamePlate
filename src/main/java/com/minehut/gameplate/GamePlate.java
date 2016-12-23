@@ -1,9 +1,16 @@
 package com.minehut.gameplate;
 
+import com.minehut.gameplate.chat.ChatConstant;
 import com.minehut.gameplate.chat.LocaleHandler;
+import com.minehut.gameplate.chat.LocalizedChatMessage;
 import com.minehut.gameplate.map.repository.exception.RotationLoadException;
 import com.minehut.gameplate.module.Module;
+import com.minehut.gameplate.util.ChatUtil;
 import com.minehut.gameplate.util.Config;
+import com.sk89q.minecraft.util.commands.*;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -21,6 +28,8 @@ public class GamePlate extends JavaPlugin {
 
     private LocaleHandler localeHandler;
     private GameHandler gameHandler;
+
+    private CommandsManager commands;
 
     @Override
     public void onEnable() {
@@ -41,6 +50,40 @@ public class GamePlate extends JavaPlugin {
         } catch (RotationLoadException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setupCommands() {
+        this.commands = new CommandsManager<CommandSender>() {
+            @Override
+            public boolean hasPermission(CommandSender sender, String perm) {
+                return sender instanceof ConsoleCommandSender || sender.hasPermission(perm);
+            }
+        };
+    }
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+        String locale = ChatUtil.getLocale(sender);
+        try {
+            this.commands.execute(cmd.getName(), args, sender, sender);
+        } catch (CommandPermissionsException e) {
+            sender.sendMessage(ChatUtil.getWarningMessage(new LocalizedChatMessage(ChatConstant.ERROR_NO_PERMISSION).getMessage(locale)));
+        } catch (MissingNestedCommandException e) {
+            sender.sendMessage(ChatUtil.getWarningMessage(e.getUsage().replace("{cmd}", cmd.getName())));
+        } catch (CommandUsageException e) {
+            sender.sendMessage(ChatUtil.getWarningMessage(e.getMessage()));
+            sender.sendMessage(ChatUtil.getWarningMessage(e.getUsage()));
+        } catch (WrappedCommandException e) {
+            if (e.getCause() instanceof NumberFormatException) {
+                sender.sendMessage(ChatUtil.getWarningMessage(new LocalizedChatMessage(ChatConstant.ERROR_NUMBER_STRING).getMessage(locale)));
+            } else {
+                sender.sendMessage(ChatUtil.getWarningMessage(new LocalizedChatMessage(ChatConstant.ERROR_UNKNOWN_ERROR).getMessage(locale)));
+                e.printStackTrace();
+            }
+        } catch (CommandException e) {
+            sender.sendMessage(ChatUtil.getWarningMessage(ChatColor.RED + e.getMessage()));
+        }
+        return true;
     }
 
     @Override

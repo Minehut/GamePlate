@@ -29,7 +29,6 @@
 
   "spawns": [
     {
-      "type": "solo",
       "region": {
         "type": "block",
         "location": "51, 34, 45"
@@ -37,7 +36,6 @@
       "yaw": 40
     },
     {
-      "type": "solo",
       "region": {
         "type": "block",
         "location": "52, 34, 45"
@@ -45,7 +43,6 @@
       "yaw": 40
     },
     {
-      "type": "solo",
       "region": {
         "type": "block",
         "location": "53, 34, 45"

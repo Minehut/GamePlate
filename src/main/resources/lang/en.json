@@ -20,7 +20,11 @@
         { "id": "teamOverflowed", "message": "{0} is completely full."},
         { "id": "blockedCraft", "message": "Crafting {0} is not allowed!" },
         { "id": "error.blockedPlace", "message": "Placement of {0} is not allowed!" },
-        { "id": "inventoryNotViewable", "message": "Player's inventory is not currently viewable"}
+        { "id": "inventoryNotViewable", "message": "Player's inventory is not currently viewable"},
+        { "id": "unknownError", "message": "An unknown error has occurred. Please refer to the server console."},
+        { "id": "noPermission", "message": "You do not have permission."},
+        { "id": "numberString", "message": "Number expected, string received instead."},
+        { "id": "commandPlayerOnly", "message": "This command cannot be executed from the console."}
       ]
     }
   ] 

@@ -20,7 +20,11 @@ public enum ChatConstant {
     ERROR_TEAM_OVERFLOWED("error.teamOverflowed"),
     ERROR_BUILD_HEIGHT("error.buildHeight"),
     ERROR_BLOCKED_CRAFT("error.blockedCraft"),
-    ERROR_BLOCKED_PLACE("error.blockedPlace");
+    ERROR_BLOCKED_PLACE("error.blockedPlace"),
+    ERROR_NO_PERMISSION("error.noPermission"),
+    ERROR_NUMBER_STRING("error.numberString"),
+    ERROR_UNKNOWN_ERROR("error.unknownError"),
+    ERROR_COMMAND_PLAYERS_ONLY("error.commandPlayerOnly");
 
     private final String path;
 

@@ -28,6 +28,17 @@ public class TeamManager extends Module {
         this.teamType = teamType;
     }
 
+    public void createAndJoinTeamForPlayer(Player player) {
+        TeamModule teamModule = new TeamModule(player.getName(), player.getName(), false, ChatColor.YELLOW, 1, 1, TeamModule.JoinAllowance.NEVER);
+
+
+
+        teamModule.enable();
+        GameHandler.getGameHandler().getMatch().getModules().add(teamModule);
+
+        teamModule.addPlayer(player, false);
+    }
+
     /*
      * A player is attempting to join a team using /join or the team picker GUI.
      * returns TRUE if join was successful.

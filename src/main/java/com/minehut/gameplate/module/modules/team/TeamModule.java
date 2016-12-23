@@ -3,9 +3,11 @@ package com.minehut.gameplate.module.modules.team;
 import com.minehut.gameplate.chat.ChatConstant;
 import com.minehut.gameplate.module.GameObjectiveModule;
 import com.minehut.gameplate.module.Module;
+import com.minehut.gameplate.module.modules.spawn.SpawnModule;
+import com.minehut.gameplate.module.modules.spawn.SpawnNode;
 import com.minehut.gameplate.util.CachedPlayer;
 import com.minehut.gameplate.util.ChatUtil;
-import net.md_5.bungee.api.ChatColor;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -26,6 +28,8 @@ public class TeamModule extends Module {
     private List<GameObjectiveModule> objectives;
     private boolean observer;
 
+    private List<SpawnNode> spawns = new ArrayList<>();
+
     public enum JoinAllowance {
         ALL,
         PRE_GAME,
@@ -33,12 +37,7 @@ public class TeamModule extends Module {
         NEVER
     }
 
-
     private List<CachedPlayer> members;
-
-    /*
-     * Used for TeamType.TRADITIONAL modes.
-     */
 
     public TeamModule(String id, String name, boolean observer, ChatColor color, int maxPlayers, int maxOverflow, JoinAllowance joinAllowance) {
         this.id = id;
@@ -52,20 +51,12 @@ public class TeamModule extends Module {
         this.objectives = new ArrayList<>();
     }
 
-    /*
-     * Used for TeamType.SOLO modes.
-     */
-    public TeamModule(String id, String name, ChatColor color, int maxPlayers, int maxOverflow, JoinAllowance joinAllowance, Player player) {
-        this.id = id;
-        this.name = name;
-        this.color = color;
-        this.maxPlayers = maxPlayers;
-        this.maxOverflow = maxOverflow;
-        this.joinAllowance = joinAllowance;
+    public void addSpawn(SpawnNode spawnModule) {
+        this.spawns.add(spawnModule);
+    }
 
-        this.members = new ArrayList<>();
-        this.members.add(new CachedPlayer(player));
-        this.objectives = new ArrayList<>();
+    public SpawnNode getRandomSpawn() {
+        return this.spawns.get(0); //todo: randomize
     }
 
     public void addPlayer(Player player, boolean message) {
