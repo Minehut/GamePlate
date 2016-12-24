@@ -1,12 +1,15 @@
 package com.minehut.gameplate.module.modules.team;
 
 import com.minehut.gameplate.chat.ChatConstant;
+import com.minehut.gameplate.event.PlayerChangeTeamEvent;
 import com.minehut.gameplate.module.GameObjectiveModule;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.modules.spawn.SpawnModule;
 import com.minehut.gameplate.module.modules.spawn.SpawnNode;
+import com.minehut.gameplate.module.modules.teamManager.TeamManager;
 import com.minehut.gameplate.util.CachedPlayer;
 import com.minehut.gameplate.util.ChatUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -60,11 +63,19 @@ public class TeamModule extends Module {
     }
 
     public void addPlayer(Player player, boolean message) {
+        TeamModule oldTeam = TeamManager.getTeamByPlayer(player);
+        if (oldTeam != null) {
+            oldTeam.removePlayer(player);
+        }
+
         this.members.add(new CachedPlayer(player));
 
         if (message) {
             ChatUtil.sendMessage(player, ChatConstant.UI_TEAM_JOIN, this.color + this.name);
         }
+
+        PlayerChangeTeamEvent event = new PlayerChangeTeamEvent(player, this, oldTeam);
+        Bukkit.getPluginManager().callEvent(event);
     }
 
     public void removePlayer(Player player) {

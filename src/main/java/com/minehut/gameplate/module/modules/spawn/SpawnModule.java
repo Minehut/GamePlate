@@ -5,9 +5,11 @@ import com.minehut.gameplate.event.PlayerChangeTeamEvent;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +29,18 @@ public class SpawnModule extends Module {
     @EventHandler
     public void onGameSpawn(GameSpawnEvent event) {
         event.setSpawn(event.getTeam().getRandomSpawn().toLocation());
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onGameSpawnFinal(GameSpawnEvent event) {
+        event.getPlayer().teleport(event.getSpawn());
+    }
+
+    @EventHandler
+    public void onTeamChange(PlayerChangeTeamEvent event) {
+        TeamModule teamModule = TeamManager.getTeamByPlayer(event.getPlayer());
+        GameSpawnEvent gameSpawnEvent = new GameSpawnEvent(event.getPlayer(), teamModule, teamModule.getRandomSpawn().toLocation());
+        Bukkit.getPluginManager().callEvent(gameSpawnEvent);
     }
 
     /*

@@ -22,6 +22,7 @@ public class TeamCommands {
     public static void join(final CommandContext cmd, CommandSender sender) throws CommandException {
         if (!(sender instanceof Player)) {
             sender.sendMessage(ChatUtil.getWarningMessage(new LocalizedChatMessage(ChatConstant.ERROR_COMMAND_PLAYERS_ONLY).getMessage(ChatUtil.getLocale(sender))));
+            return;
         }
         Player player = (Player) sender;
 

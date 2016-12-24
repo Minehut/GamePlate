@@ -5,6 +5,7 @@ import com.minehut.gameplate.chat.ChatConstant;
 import com.minehut.gameplate.event.PlayerChangeTeamEvent;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.ModuleCollection;
+import com.minehut.gameplate.module.modules.spawn.SpawnModule;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.util.ChatUtil;
 import org.bukkit.Bukkit;
@@ -31,10 +32,10 @@ public class TeamManager extends Module {
     public void createAndJoinTeamForPlayer(Player player) {
         TeamModule teamModule = new TeamModule(player.getName(), player.getName(), false, ChatColor.YELLOW, 1, 1, TeamModule.JoinAllowance.NEVER);
 
-
-
         teamModule.enable();
         GameHandler.getGameHandler().getMatch().getModules().add(teamModule);
+
+        GameHandler.getGameHandler().getMatch().getModules().getModule(SpawnModule.class).assignRandomSpawnpoint(teamModule);
 
         teamModule.addPlayer(player, false);
     }

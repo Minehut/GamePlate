@@ -24,6 +24,14 @@
 
     "spawns": [
         {
+            "team": "observers",
+            "region": {
+                "type": "block",
+                "location": "0, 3, 0"
+            },
+            "yaw": 0
+        },
+        {
             "region": {
                 "type": "block",
                 "location": "51, 34, 45"

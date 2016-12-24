@@ -3,10 +3,13 @@ package com.minehut.gameplate;
 import com.minehut.gameplate.chat.ChatConstant;
 import com.minehut.gameplate.chat.LocaleHandler;
 import com.minehut.gameplate.chat.LocalizedChatMessage;
+import com.minehut.gameplate.commands.CycleCommands;
+import com.minehut.gameplate.commands.TeamCommands;
 import com.minehut.gameplate.map.repository.exception.RotationLoadException;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.util.ChatUtil;
 import com.minehut.gameplate.util.Config;
+import com.sk89q.bukkit.util.CommandsManagerRegistration;
 import com.sk89q.minecraft.util.commands.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -35,6 +38,8 @@ public class GamePlate extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        setupCommands();
+
         Config.reload(getConfig());
         saveConfig();
 
@@ -59,6 +64,11 @@ public class GamePlate extends JavaPlugin {
                 return sender instanceof ConsoleCommandSender || sender.hasPermission(perm);
             }
         };
+
+        CommandsManagerRegistration cmdRegister = new CommandsManagerRegistration(this, this.commands);
+
+        cmdRegister.register(TeamCommands.class);
+        cmdRegister.register(CycleCommands.class);
     }
 
     @Override

@@ -40,17 +40,16 @@ public class RegionModuleBuilder extends ModuleBuilder {
      * Parse a region from outside of the "regions" section of the map file.
      */
     public static RegionModule parseRegion(JsonObject containerObject, String key) {
-        if (!containerObject.has("key")) {
+        if (!containerObject.has(key)) {
             Bukkit.getLogger().log(Level.SEVERE, "Error parsing region: key not found '" + key + "'");
             return null;
         }
 
-        if (containerObject.get("key").isJsonPrimitive()) { //referencing a global region
+        if (containerObject.get(key).isJsonPrimitive()) { //referencing a global region
             return RegionModule.getRegionById(containerObject.get("key").getAsString());
         } else {
-            parseRegion(containerObject.get("key").getAsJsonObject());
+            return parseRegion(containerObject.get(key).getAsJsonObject());
         }
-        return null;
     }
 
     public static RegionModule parseRegion(JsonObject jsonObject) {
