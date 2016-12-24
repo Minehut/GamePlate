@@ -8,7 +8,8 @@
         { "id": "potionEffects", "message": "Potion Effects"},
         { "id": "noPotionEffects", "message": "No Potion Effects"},
         { "id": "hungerLevel", "message": "Hunger Level"},
-        { "id": "healthLevel", "message": "Health Level"}
+        { "id": "healthLevel", "message": "Health Level"},
+        { "id": "kitMenuTitle", "message": "Kit Selector"}
       ]
     },
 

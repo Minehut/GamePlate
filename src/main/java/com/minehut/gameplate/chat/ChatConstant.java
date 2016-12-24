@@ -14,6 +14,9 @@ public enum ChatConstant {
     UI_HUNGER_LEVEL("ui.hungerLevel"),
     UI_HEALTH_LEVEL("ui.healthLevel"),
 
+    UI_KIT_MENU_TITLE("ui.kitMenuTitle"),
+    UI_KIT_ICON("ui.kitMenuIcon"), // Not sure if these should be in here or even if we are going to make inventory titles and such localized, but I went ahead and tried it out.
+
     ERROR_JSON("error.json"),
     ERROR_INVENTORY_NOT_VIEWABLE("error.inventoryNotViewable"),
     ERROR_TEAM_FULL("error.teamFull"),
