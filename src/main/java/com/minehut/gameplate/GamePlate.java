@@ -6,7 +6,6 @@ import com.minehut.gameplate.chat.LocalizedChatMessage;
 import com.minehut.gameplate.commands.CycleCommands;
 import com.minehut.gameplate.commands.TeamCommands;
 import com.minehut.gameplate.map.repository.exception.RotationLoadException;
-import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.util.ChatUtil;
 import com.minehut.gameplate.util.Config;
 import com.sk89q.bukkit.util.CommandsManagerRegistration;
