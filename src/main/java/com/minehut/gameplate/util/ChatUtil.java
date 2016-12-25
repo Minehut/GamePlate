@@ -1,12 +1,15 @@
 package com.minehut.gameplate.util;
 
 import com.minehut.gameplate.chat.ChatConstant;
+import com.minehut.gameplate.chat.ChatMessage;
 import com.minehut.gameplate.chat.LocalizedChatMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Locale;
+import java.util.logging.Level;
 
 /**
  * Created by luke on 12/19/16.
@@ -32,5 +35,19 @@ public class ChatUtil {
 
     public static String getLocale(CommandSender sender) {
         return sender instanceof Player ? ((Player) sender).spigot().getLocale() : Locale.getDefault().toString();
+    }
+
+    public static void broadcastMessage(ChatMessage chatMessage) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.sendMessage(chatMessage.getMessage(player.spigot().getLocale()));
+        }
+        Bukkit.getLogger().log(Level.ALL, chatMessage.getMessage(Locale.getDefault().toString()));
+    }
+
+    public static void broadcastMessage(ChatConstant chatConstant, String... messages) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            sendMessage(player, chatConstant, messages);
+        }
+        Bukkit.getLogger().log(Level.ALL, new LocalizedChatMessage(chatConstant, messages).getMessage(Locale.getDefault().toString()));
     }
 }

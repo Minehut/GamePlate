@@ -21,7 +21,7 @@ import java.util.logging.Level;
 public class TeamManager extends Module {
     public enum TeamType {
         SOLO,
-        TRADITIONAL
+        STATIC
     }
     public TeamType teamType;
 
@@ -69,6 +69,15 @@ public class TeamManager extends Module {
         Bukkit.getPluginManager().callEvent(event);
 
         return true;
+    }
+
+    public static TeamModule getTeamByName(String name) {
+        for (TeamModule teamModule : TeamManager.getTeamModules()) {
+            if (teamModule.getName().replaceAll(" ", "").toLowerCase().startsWith(name.replaceAll(" ", "").toLowerCase())) {
+                return teamModule;
+            }
+        }
+        return null;
     }
 
     public static TeamModule getTeamByPlayer(Player player) {

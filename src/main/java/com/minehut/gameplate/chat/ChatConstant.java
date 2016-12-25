@@ -13,6 +13,9 @@ public enum ChatConstant {
     UI_NO_POTION_EFFECTS("ui.noPotionEffects"),
     UI_HUNGER_LEVEL("ui.hungerLevel"),
     UI_HEALTH_LEVEL("ui.healthLevel"),
+    UI_CYCLING_TIMER("ui.cycleTimer"),
+    UI_SECOND("ui.second"),
+    UI_SECONDS("ui.second"),
 
     ERROR_JSON("error.json"),
     ERROR_INVENTORY_NOT_VIEWABLE("error.inventoryNotViewable"),
@@ -24,7 +27,8 @@ public enum ChatConstant {
     ERROR_NO_PERMISSION("error.noPermission"),
     ERROR_NUMBER_STRING("error.numberString"),
     ERROR_UNKNOWN_ERROR("error.unknownError"),
-    ERROR_COMMAND_PLAYERS_ONLY("error.commandPlayerOnly");
+    ERROR_COMMAND_PLAYERS_ONLY("error.commandPlayerOnly"),
+    ERROR_NO_TEAM_FOUND("error.noTeamFound");
 
     private final String path;
 

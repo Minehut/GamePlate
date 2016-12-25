@@ -6,16 +6,14 @@ import com.minehut.gameplate.module.modules.matchTimer.MatchTimerModule;
 
 public class TimeLimitModule extends Module {
 
-	private int limit = 0;
+	private int limit = 0; //seconds
 	
-	public TimeLimitModule(int time){
+	public TimeLimitModule(int time) {
 		this.limit = time;
 	}
 	
-	public int getTimeLeft(){
-		if(GameHandler.getGameHandler().getMatch().getModules().contains(MatchTimerModule.class))
-			return limit - GameHandler.getGameHandler().getMatch().getModules().getModule(MatchTimerModule.class).getTimeElapsed();
-		return Integer.MAX_VALUE;
+	public int getTimeLeft() {
+		return (int) (limit - MatchTimerModule.getTimeInSeconds());
 	}
 	
 	public int getTimeLimit(){

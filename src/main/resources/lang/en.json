@@ -9,7 +9,10 @@
         { "id": "noPotionEffects", "message": "No Potion Effects"},
         { "id": "hungerLevel", "message": "Hunger Level"},
         { "id": "healthLevel", "message": "Health Level"},
-        { "id": "kitMenuTitle", "message": "Kit Selector"}
+        { "id": "kitMenuTitle", "message": "Kit Selector"},
+        { "id": "second", "message": "{0} second"},
+        { "id": "seconds", "message": "{0} seconds"},
+        { "id": "cycleTimer", "message": "Cycling to {0} in {1}"}
       ]
     },
 
@@ -25,7 +28,8 @@
         { "id": "unknownError", "message": "An unknown error has occurred. Please refer to the server console."},
         { "id": "noPermission", "message": "You do not have permission."},
         { "id": "numberString", "message": "Number expected, string received instead."},
-        { "id": "commandPlayerOnly", "message": "This command cannot be executed from the console."}
+        { "id": "commandPlayerOnly", "message": "This command cannot be executed from the console."},
+        { "id": "noTeamFound", "message": "No team found."}
       ]
     }
   ] 
