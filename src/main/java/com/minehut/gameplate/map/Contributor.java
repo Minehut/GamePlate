@@ -8,12 +8,11 @@ import java.util.UUID;
  * Created by luke on 12/19/16.
  */
 public class Contributor {
-    private String name;
+    private String name = "";
     private UUID uuid;
     private String contribution;
 
-    public Contributor(String name, UUID uuid, String contribution) {
-        this.name = name;
+    public Contributor(UUID uuid, String contribution) {
         this.uuid = uuid; //nullable
         this.contribution = contribution;
     }
@@ -36,5 +35,9 @@ public class Contributor {
 
     public String getContribution() {
         return contribution;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

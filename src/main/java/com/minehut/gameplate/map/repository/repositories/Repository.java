@@ -11,6 +11,9 @@ import com.minehut.gameplate.util.Config;
 import com.minehut.gameplate.util.JsonUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.input.SAXBuilder;
 
 import java.io.File;
 import java.io.IOException;
@@ -106,37 +109,39 @@ public abstract class Repository {
     }
 
     private LoadedMap loadMap(File map) throws Exception {
-        JsonObject json = JsonUtil.convertFileToJSON(new File(map.getPath() + "/map.json"));
+        SAXBuilder saxBuilder = new SAXBuilder();
+        Document document = saxBuilder.build(new File(map, "map.xml"));
 
-        String name = json.get("name").getAsString();
-
-        String version = json.get("version").getAsString();
+        String name = document.getRootElement().getChild("name").getTextNormalize();
+        String version = document.getRootElement().getChild("version").getTextNormalize();
 
         String objective = "";
-        if (json.has("objective")) {
-            objective = json.get("objective").getAsString();
+        if (document.getRootElement().getChild("objective") != null) {
+            objective = document.getRootElement().getChild("objective").getTextNormalize();
         }
 
         List<Contributor> authors = new ArrayList<>();
-        for (JsonElement e : json.getAsJsonArray("authors")) {
-            authors.add(parseContributor(e.getAsJsonObject()));
+        for (Element authorsElement : document.getRootElement().getChildren("authors")) {
+            for (Element author : authorsElement.getChildren()) {
+                authors.add(parseContributor(author));
+            }
         }
 
         List<Contributor> contributors = new ArrayList<>();
-        if (json.has("contributors")) {
-            for (JsonElement e : json.getAsJsonArray("contributors")) {
-                contributors.add(parseContributor(e.getAsJsonObject()));
+        for (Element contributorsElement : document.getRootElement().getChildren("contributors")) {
+            for (Element contributor : contributorsElement.getChildren()) {
+                contributors.add(parseContributor(contributor));
             }
         }
 
         List<String> rules = new ArrayList<>();
-        if (json.has("rules")) {
-            for (JsonElement e : json.getAsJsonArray("rules")) {
-                rules.add(e.getAsString());
+        for (Element rulesElement : document.getRootElement().getChildren("rules")) {
+            for (Element rule : rulesElement.getChildren()) {
+                rules.add(rule.getTextNormalize());
             }
         }
 
-        return new LoadedMap(name, version, objective, authors, contributors, rules, map, json);
+        return new LoadedMap(name, version, objective, authors, contributors, rules, map, document);
     }
 
     /**
@@ -146,17 +151,8 @@ public abstract class Repository {
         return loaded;
     }
 
-    private static Contributor parseContributor(JsonObject jsonObject) {
-        UUID uuid = null;
-        if (jsonObject.has("uuid")) {
-            try {
-                uuid = UUID.fromString(jsonObject.get("uuid").getAsString());
-            } catch (Exception e) {
-                Bukkit.getLogger().log(Level.SEVERE, "Invalid uuid: " + jsonObject.get("uuid").getAsString());
-            }
-        }
-
-        return new Contributor(jsonObject.get("name").getAsString(), uuid, jsonObject.get("contribution").getAsString());
+    private static Contributor parseContributor(Element element) {
+        return new Contributor(UUID.fromString(element.getAttributeValue("uuid")), element.getAttributeValue("contribution"));
     }
 
     @Override

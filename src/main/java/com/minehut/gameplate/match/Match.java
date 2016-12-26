@@ -10,6 +10,7 @@ import com.minehut.gameplate.module.ModuleCollection;
 import com.minehut.gameplate.module.ModuleLoadTime;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import org.bukkit.Bukkit;
+import org.jdom2.Document;
 
 import java.util.UUID;
 
@@ -86,8 +87,8 @@ public class Match {
         return this.matchState == state;
     }
 
-    public JsonObject getJson() {
-        return this.currentMap.getMap().getJsonObject();
+    public Document getDocument() {
+        return this.currentMap.getMap().getDocument();
     }
 
     public MatchState getMatchState() {

@@ -2,6 +2,7 @@ package com.minehut.gameplate.map;
 
 
 import com.google.gson.JsonObject;
+import org.jdom2.Document;
 
 import java.io.File;
 import java.util.List;
@@ -15,9 +16,9 @@ public class LoadedMap {
     private List<String> rules;
 
     private File folder;
-    private JsonObject jsonObject;
+    private Document document;
 
-    public LoadedMap(String name, String objective, String version, List<Contributor> authors, List<Contributor> contributors, List<String> rules, File folder, JsonObject jsonObject) {
+    public LoadedMap(String name, String objective, String version, List<Contributor> authors, List<Contributor> contributors, List<String> rules, File folder, Document document) {
         this.name = name;
         this.objective = objective;
         this.version = version;
@@ -25,7 +26,7 @@ public class LoadedMap {
         this.contributors = contributors;
         this.rules = rules;
         this.folder = folder;
-        this.jsonObject = jsonObject;
+        this.document = document;
     }
 
     public String getName() {
@@ -56,7 +57,7 @@ public class LoadedMap {
         return folder;
     }
 
-    public JsonObject getJsonObject() {
-        return jsonObject;
+    public Document getDocument() {
+        return document;
     }
 }
