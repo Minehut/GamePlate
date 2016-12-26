@@ -9,10 +9,13 @@ import com.minehut.gameplate.module.ModuleCollection;
 import com.minehut.gameplate.util.Items;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.jdom2.Element;
 
 public class ChestModuleBuilder extends ModuleBuilder {
 
@@ -20,50 +23,55 @@ public class ChestModuleBuilder extends ModuleBuilder {
     public ModuleCollection<? extends Module> load(Match match) {
 
     	ArrayList<GameChest> gameChests = new ArrayList<GameChest>();
-    	
-        if (!match.getJson().has("chests"))
-        	return null;
-        
-        JsonArray array = match.getJson().get("chests").getAsJsonArray();
-        ArrayList<JsonObject> chests = new ArrayList<>();
-        array.forEach(o -> chests.add(array.getAsJsonObject()));
-        
-       	chests: for(JsonObject o : chests){
-        	if(!o.has("items"))
-        		continue chests;
-        	int chance = 100;
-        	if(o.has("chance"))
-        		chance = o.get("chance").getAsInt();
-        	JsonArray itemArray = o.get("items").getAsJsonArray();
-            ArrayList<JsonObject> itemObject = new ArrayList<>();
-            itemArray.forEach(i -> itemObject.add(i.getAsJsonObject()));
-            
-            ArrayList<ItemStack> items = new ArrayList<>();
-            for(JsonObject i : itemObject){
-            	if(!i.has("material"))
-            		continue;
-            	byte data = 0;
-            	int amount = 0;
-            	String name = "";
-            	if(i.has("amount"))
-            		amount = i.get("amount").getAsInt();
-            	if(i.has("data"))
-            		data = i.get("data").getAsByte();
-            	if(i.has("name"))
-            		name = i.get("name").getAsString();
-            	if("".equals(name))
-            		items.add(new ItemStack(this.getMaterial(i.get("material").getAsString()), amount, data));
-            	else
-            		items.add(Items.createItem(this.getMaterial(i.get("material").getAsString()), amount, data, ChatColor.translateAlternateColorCodes('&', name)));
-            }
-            
-            gameChests.add(new GameChest(items, chance));
-        }
 
-        return new ModuleCollection<>(new ChestModule(gameChests));
+        for (Element chests : match.getDocument().getRootElement().getChildren("chests")) {
+			for (Element chest : chests.getChildren("chest")) {
+				int chance = 100;
+				for (Element c : chest.getChildren("chance")) {
+					chance = Integer.parseInt(c.toString());
+				}
+				List<ItemStack> itemList = new ArrayList<>();
+				for (Element items : chest.getChildren("items")) {
+					for (Element item : items.getChildren("item")) {
+						Material material = getMaterial(item.getChild("material").toString());
+						if (material == null) continue;
+						int amount = 1;
+						if (item.getChild("amount") != null) {
+							try {
+								amount = Integer.parseInt(item.getChild("amount").toString());
+							} catch (NumberFormatException ex) {
+								continue;
+							}
+						}
+						byte data = getData(item.getChild("material").toString());
+						if (data == -1) {
+							if (item.getChild("data") != null) {
+								data = Byte.parseByte(item.getChild("data").toString());
+							}
+							if (data == -1) {
+								data = 0;
+							}
+						}
+						ItemStack itemStack = new ItemStack(material, amount, (short)0, data);
+						ItemMeta itemMeta = itemStack.getItemMeta();
+						if (item.getChild("displayName") != null) {
+							itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', item.getChild("displayName").toString()));
+						}
+						itemStack.setItemMeta(itemMeta);
+						itemList.add(itemStack);
+					}
+				}
+				gameChests.add(new GameChest(itemList, chance));
+			}
+			return new ModuleCollection<>(new ChestModule(gameChests));
+		}
+		return null;
     }
     
     private Material getMaterial(String s){
+    	if (s.contains(":")) {
+    		s = s.split(":")[0];
+		}
     	s = s.replaceAll(" ", "_");
     	s = s.toUpperCase();
     	try{
@@ -73,5 +81,14 @@ public class ChestModuleBuilder extends ModuleBuilder {
     	}
     	return Material.AIR;
     }
+
+    private byte getData(String s) {
+    	if (!s.contains(":")) return -1;
+    	try {
+			return Byte.parseByte(s.split(":")[1]);
+		} catch (NumberFormatException ex) {
+			return -1;
+		}
+	}
 
 }

@@ -1,16 +1,16 @@
 package com.minehut.gameplate.module.modules.chest;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class GameChest {
 
-	private ArrayList<ItemStack> items;
+	private List<ItemStack> items;
 	private int chance;
 	
-	public GameChest(ArrayList<ItemStack> items, int chance){
+	public GameChest(List<ItemStack> items, int chance){
 		this.items = items;
 		this.chance = chance;
 	}
@@ -19,7 +19,7 @@ public class GameChest {
 		inv.setContents((ItemStack[]) items.toArray());
 	}
 	
-	public ArrayList<ItemStack> getItems(){
+	public List<ItemStack> getItems(){
 		return this.items;
 	}
 	
