@@ -1,0 +1,57 @@
+<map>
+    <name>Example Capture the Wool map</name>
+    <version>1.0.0</version>
+    <objective>Capture the wools located guarded by the enemy team.</objective>
+
+    <authors>
+        <!-- Luuke -->
+        <author uuid="2dc9b2a1-6063-499b-9685-aa97b978707a"/>
+    </authors>
+
+    <teams>
+        <team color="blue" max="32">Blue Team</team>
+        <team color="red" max="32">Red Team</team>
+    </teams>
+
+    <spawns>
+        <spawn team="blue" kit="blue-spawn" yaw="90">
+            <cylinder base="140, 23, 49" radius="3" height="0"/>
+        </spawn>
+        <spawn team="red" kit="red-spawn" yaw="90">
+            <cylinder base="120, 23, 42" radius="3" height="0"/>
+        </spawn>
+    </spawns>
+
+    <capturables>
+        <!-- for a wool, simply use the "wool" property. -->
+        <capturable id="blue-wool" wool="blue">
+            <block>6, 34, 349</block>
+        </capturable>
+
+        <!-- for another block, you can specify the material. -->
+        <capturable id="gold-block" material="gold block">
+            <cuboid min="34, 54, 34" max="39, 39, 82"/>
+        </capturable>
+    </capturables>
+
+    <objectives>
+        <!-- Assigns the blue-wool capturable objective we created earlier to the blue team. -->
+        <objective team="blue" id="blue-wool"/>
+    </objectives>
+
+    <filters>
+        <!-- Initialize a global region that can be referenced in multiple spots -->
+        <cuboid id="blue-wool-room" min="24, 59, 34" max="94, 23, 85"/>
+
+        <filter enter="deny-blue" message="You may not enter your own wool room.">
+            <!-- Reference the global region we created above -->
+            <region id="blue-wool-room"/>
+        </filter>
+
+        <filter block="deny-all" message="You cannot place blocks in your spawn.">
+            <!-- Example of a local region. -->
+            <cuboid min="93, 92, 34" max="49, 32, 39"/>
+        </filter>
+    </filters>
+
+</map>
