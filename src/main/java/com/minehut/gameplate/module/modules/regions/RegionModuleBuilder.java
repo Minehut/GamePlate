@@ -2,6 +2,7 @@ package com.minehut.gameplate.module.modules.regions;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.*;
 import com.minehut.gameplate.module.modules.regions.types.BlockRegion;
@@ -10,6 +11,8 @@ import com.minehut.gameplate.module.modules.regions.types.CylinderRegion;
 import com.minehut.gameplate.util.Numbers;
 import org.bukkit.Bukkit;
 import org.bukkit.util.Vector;
+import org.jdom2.Document;
+import org.jdom2.Element;
 
 import java.util.logging.Level;
 
@@ -23,85 +26,82 @@ public class RegionModuleBuilder extends ModuleBuilder {
     public ModuleCollection<? extends Module> load(Match match) {
         ModuleCollection results = new ModuleCollection();
 
-        if (match.getJson().has("regions")) {
-            for (JsonElement e : match.getJson().getAsJsonArray("regions")) {
-                JsonObject jsonObject = e.getAsJsonObject();
-                RegionModule regionModule = parseRegion(jsonObject);
-                if (regionModule != null) {
-                    results.add(regionModule);
-                }
+        for (Element filtersElement : match.getDocument().getRootElement().getChildren("filters")) {
+            for (Element element : filtersElement.getChildren()) {
+                parseRegion(element);
             }
         }
 
         return results;
     }
 
-    /*
-     * Parse a region from outside of the "regions" section of the map file.
-     */
-    public static RegionModule parseRegion(JsonObject containerObject, String key) {
-        if (!containerObject.has(key)) {
-            Bukkit.getLogger().log(Level.SEVERE, "Error parsing region: key not found '" + key + "'");
-            return null;
+    public static RegionModule parseRegion(Element element) {
+        RegionModule regionModule = null;
+
+        switch (element.getName().toLowerCase()) {
+            case "block":
+                regionModule = parseBlockRegion(element);
+                break;
+            case "cuboid":
+                regionModule = parseCuboidRegion(element);
+                break;
+            case "cylinder":
+                regionModule = parseCylinderRegion(element);
+                break;
+            case "region":
+                regionModule = getGlobalRegion(element.getAttributeValue("id"));
+                break;
+
         }
 
-        if (containerObject.get(key).isJsonPrimitive()) { //referencing a global region
-            return RegionModule.getRegionById(containerObject.get("key").getAsString());
-        } else {
-            return parseRegion(containerObject.get(key).getAsJsonObject());
+        if (regionModule != null && regionModule.getId() != null && !element.getName().toLowerCase().equals("region")) {
+            GameHandler.getGameHandler().getMatch().getModules().add(regionModule);
+            Bukkit.getLogger().log(Level.SEVERE, "Added global region '" + regionModule.getId() + "'");
         }
+
+        return regionModule;
     }
 
-    public static RegionModule parseRegion(JsonObject jsonObject) {
-        if (jsonObject.has("type")) {
-            String type = jsonObject.get("type").getAsString();
-
-            if (type.equalsIgnoreCase("cuboid")) {
-                return parseCuboidRegion(jsonObject);
-            } else if (type.equalsIgnoreCase("cylinder")) {
-                return parseCylinderRegion(jsonObject);
-            } else if (type.equalsIgnoreCase("block")) {
-                return parseBlockRegion(jsonObject);
+    public static RegionModule getGlobalRegion(String id) {
+        for (RegionModule regionModule : GameHandler.getGameHandler().getMatch().getModules().getModules(RegionModule.class)) {
+            if (regionModule.getId() != null && regionModule.getId().equalsIgnoreCase(id)) {
+                return regionModule;
             }
-
-        } else {
-            return parseCuboidRegion(jsonObject);
         }
-
         return null;
     }
 
-    private static RegionModule parseCuboidRegion(JsonObject jsonObject) {
-        Vector pos1 = Numbers.parseVector(jsonObject.get("pos1").getAsString());
-        Vector pos2 = Numbers.parseVector(jsonObject.get("pos2").getAsString());
+    private static RegionModule parseCuboidRegion(Element element) {
+        Vector pos1 = Numbers.parseVector(element.getAttributeValue("min"));
+        Vector pos2 = Numbers.parseVector(element.getAttributeValue("max"));
 
         String id = null;
-        if (jsonObject.has("id")) {
-            id = jsonObject.get("id").getAsString();
+        if (element.getAttributeValue("id") != null) {
+            id = element.getAttributeValue("id");
         }
 
         return new CuboidRegion(id, pos1, pos2);
     }
 
-    private static RegionModule parseCylinderRegion(JsonObject jsonObject) {
-        Vector base = Numbers.parseVector(jsonObject.get("base").getAsString());
-        double radius = jsonObject.get("radius").getAsDouble();
-        double height = jsonObject.get("height").getAsDouble();
+    private static RegionModule parseCylinderRegion(Element element) {
+        Vector base = Numbers.parseVector(element.getAttributeValue("base"));
+        double radius = Numbers.parseDouble(element.getAttributeValue("radius"));
+        double height = Numbers.parseDouble(element.getAttributeValue("height"));
 
         String id = null;
-        if (jsonObject.has("id")) {
-            id = jsonObject.get("id").getAsString();
+        if (element.getAttributeValue("id") != null) {
+            id = element.getAttributeValue("id");
         }
 
         return new CylinderRegion(id, base, radius, height);
     }
 
-    private static RegionModule parseBlockRegion(JsonObject jsonObject) {
-        Vector location = Numbers.parseVector(jsonObject.get("location").getAsString());
+    private static RegionModule parseBlockRegion(Element element) {
+        Vector location = Numbers.parseVector(element.getAttributeValue("location"));
 
         String id = null;
-        if (jsonObject.has("id")) {
-            id = jsonObject.get("id").getAsString();
+        if (element.getAttributeValue("id") != null) {
+            id = element.getAttributeValue("id");
         }
 
         return new BlockRegion(id, location);
