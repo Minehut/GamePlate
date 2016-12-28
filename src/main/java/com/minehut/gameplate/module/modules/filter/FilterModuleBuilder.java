@@ -10,6 +10,8 @@ import com.minehut.gameplate.module.modules.filter.filterComparator.comparators.
 import com.minehut.gameplate.module.modules.filter.filterComparator.comparators.logic.AllowComparator;
 import com.minehut.gameplate.module.modules.filter.filterComparator.comparators.logic.DenyComparator;
 import com.minehut.gameplate.module.modules.filter.filterComparator.comparators.logic.OnlyComparator;
+import com.minehut.gameplate.module.modules.filter.filterExecutor.executors.BlockBreakFilterExecutor;
+import com.minehut.gameplate.module.modules.filter.filterExecutor.executors.BlockPlaceFilterExecutor;
 import com.minehut.gameplate.module.modules.filter.filterExecutor.executors.EnterFilterExecutor;
 import com.minehut.gameplate.module.modules.regions.RegionModuleBuilder;
 import com.minehut.gameplate.module.modules.team.TeamModule;
@@ -33,6 +35,13 @@ public class FilterModuleBuilder extends ModuleBuilder {
 
                     if (filter.getAttributeValue("enter") != null) {
                         results.add(new EnterFilterExecutor(RegionModuleBuilder.parseChildRegions(filter), getComparator(filter.getAttributeValue("enter")), filter.getAttributeValue("message")));
+                    } else if (filter.getAttributeValue("modify") != null) {
+                        results.add(new BlockBreakFilterExecutor(RegionModuleBuilder.parseChildRegions(filter), getComparator(filter.getAttributeValue("modify")), filter.getAttributeValue("message")));
+                        results.add(new BlockPlaceFilterExecutor(RegionModuleBuilder.parseChildRegions(filter), getComparator(filter.getAttributeValue("modify")), filter.getAttributeValue("message")));
+                    } else if (filter.getAttributeValue("break") != null) {
+                        results.add(new BlockBreakFilterExecutor(RegionModuleBuilder.parseChildRegions(filter), getComparator(filter.getAttributeValue("modify")), filter.getAttributeValue("message")));
+                    } else if (filter.getAttributeValue("place") != null) {
+                        results.add(new BlockPlaceFilterExecutor(RegionModuleBuilder.parseChildRegions(filter), getComparator(filter.getAttributeValue("modify")), filter.getAttributeValue("message")));
                     }
 
                 }
