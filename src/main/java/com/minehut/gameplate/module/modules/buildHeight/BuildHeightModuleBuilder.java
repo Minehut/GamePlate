@@ -17,7 +17,7 @@ public class BuildHeightModuleBuilder extends ModuleBuilder {
         for (Element element : match.getDocument().getRootElement().getChildren()) {
             int height;
             try {
-                height = Integer.parseInt(element.toString());
+                height = Integer.parseInt(element.getValue());
             } catch (NumberFormatException ex) {
                 break;
             }

@@ -16,7 +16,7 @@ public class ArrowRemoveModuleBuilder extends ModuleBuilder {
     public ModuleCollection<? extends Module> load(Match match) {
 
         for (Element element : match.getDocument().getRootElement().getChildren("removeArrows")) {
-            boolean removeArrows = element.toString().equals("true");
+            boolean removeArrows = element.getValue().equals("true");
             if (removeArrows)
                 return new ModuleCollection<>(new ArrowRemoveModule());
         }

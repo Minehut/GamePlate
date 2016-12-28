@@ -15,6 +15,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jdom2.DataConversionException;
 import org.jdom2.Element;
 
 public class ChestModuleBuilder extends ModuleBuilder {
@@ -33,20 +34,24 @@ public class ChestModuleBuilder extends ModuleBuilder {
 				List<ItemStack> itemList = new ArrayList<>();
 				for (Element items : chest.getChildren("items")) {
 					for (Element item : items.getChildren("item")) {
-						Material material = getMaterial(item.getChild("material").toString());
+						Material material = getMaterial(item.getAttributeValue("material"));
 						if (material == null) continue;
 						int amount = 1;
-						if (item.getChild("amount") != null) {
+						if (item.getAttribute("amount") != null) {
 							try {
-								amount = Integer.parseInt(item.getChild("amount").toString());
-							} catch (NumberFormatException ex) {
+								amount = item.getAttribute("amount").getIntValue();
+							} catch (DataConversionException ex) {
 								continue;
 							}
 						}
-						byte data = getData(item.getChild("material").toString());
+						byte data = getData(item.getAttributeValue("material"));
 						if (data == -1) {
-							if (item.getChild("data") != null) {
-								data = Byte.parseByte(item.getChild("data").toString());
+							if (item.getAttribute("data") != null) {
+								try {
+									data = (byte)item.getAttribute("data").getIntValue();
+								} catch (DataConversionException ex) {
+									continue;
+								}
 							}
 							if (data == -1) {
 								data = 0;
@@ -55,7 +60,7 @@ public class ChestModuleBuilder extends ModuleBuilder {
 						ItemStack itemStack = new ItemStack(material, amount, (short)0, data);
 						ItemMeta itemMeta = itemStack.getItemMeta();
 						if (item.getChild("displayName") != null) {
-							itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', item.getChild("displayName").toString()));
+							itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', item.getAttributeValue("displayName")));
 						}
 						itemStack.setItemMeta(itemMeta);
 						itemList.add(itemStack);
