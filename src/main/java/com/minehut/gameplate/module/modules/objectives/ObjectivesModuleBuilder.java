@@ -1,7 +1,5 @@
 package com.minehut.gameplate.module.modules.objectives;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.*;
@@ -29,7 +27,7 @@ public class ObjectivesModuleBuilder extends ModuleBuilder {
                     TeamManager.getTeamById(element.getAttributeValue("team"));
                 }
 
-                for (GameObjectiveModule objectiveModule : GameHandler.getGameHandler().getMatch().getModules().getModules(GameObjectiveModule.class)) {
+                for (ObjectiveModule objectiveModule : GameHandler.getGameHandler().getMatch().getModules().getModules(ObjectiveModule.class)) {
                     if (objectiveModule.getId().equals(objectivesElement.getAttributeValue("objective"))) {
                         if (all) {
                             for (TeamModule allTeam : TeamManager.getTeamModules()) {

@@ -1,6 +1,9 @@
-package com.minehut.gameplate.module;
+package com.minehut.gameplate.module.modules.objectives;
 
+import com.minehut.gameplate.event.objective.ObjectiveCompleteEvent;
+import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.modules.team.TeamModule;
+import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,13 +11,13 @@ import java.util.List;
 /**
  * Created by luke on 12/20/16.
  */
-public class GameObjectiveModule extends Module {
+public class ObjectiveModule extends Module {
     private String id;
     private String name;
     private Boolean showOnScoreboard;
     private List<TeamModule> completedBy = new ArrayList<>();
 
-    public GameObjectiveModule(String id, String name, Boolean showOnScoreboard) {
+    public ObjectiveModule(String id, String name, Boolean showOnScoreboard) {
         this.id = id;
         this.name = name;
         this.showOnScoreboard = showOnScoreboard;
@@ -46,6 +49,9 @@ public class GameObjectiveModule extends Module {
 
     public void addCompletedBy(TeamModule teamModule) {
         this.completedBy.add(teamModule);
+
+        ObjectiveCompleteEvent objectiveCompleteEvent = new ObjectiveCompleteEvent(this, teamModule);
+        Bukkit.getPluginManager().callEvent(objectiveCompleteEvent);
     }
 
     public boolean isCompletedBy(TeamModule teamModule) {

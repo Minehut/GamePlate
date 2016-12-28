@@ -2,9 +2,8 @@ package com.minehut.gameplate.module.modules.team;
 
 import com.minehut.gameplate.chat.ChatConstant;
 import com.minehut.gameplate.event.PlayerChangeTeamEvent;
-import com.minehut.gameplate.module.GameObjectiveModule;
+import com.minehut.gameplate.module.modules.objectives.ObjectiveModule;
 import com.minehut.gameplate.module.Module;
-import com.minehut.gameplate.module.modules.spawn.SpawnModule;
 import com.minehut.gameplate.module.modules.spawn.SpawnNode;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
 import com.minehut.gameplate.util.CachedPlayer;
@@ -28,7 +27,7 @@ public class TeamModule extends Module {
     private int maxPlayers;
     private int maxOverflow;
     private JoinAllowance joinAllowance;
-    private List<GameObjectiveModule> objectives;
+    private List<ObjectiveModule> objectives;
     private boolean observer;
 
     private List<SpawnNode> spawns = new ArrayList<>();
@@ -132,7 +131,7 @@ public class TeamModule extends Module {
         return members;
     }
 
-    public List<GameObjectiveModule> getObjectives() {
+    public List<ObjectiveModule> getObjectives() {
         return objectives;
     }
 
@@ -140,7 +139,7 @@ public class TeamModule extends Module {
         return observer;
     }
 
-    public void addObjective(GameObjectiveModule objectiveModule) {
+    public void addObjective(ObjectiveModule objectiveModule) {
         this.objectives.add(objectiveModule);
     }
 }

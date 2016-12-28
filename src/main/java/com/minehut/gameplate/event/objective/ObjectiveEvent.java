@@ -1,18 +1,17 @@
 package com.minehut.gameplate.event.objective;
 
-import com.minehut.gameplate.module.GameObjectiveModule;
+import com.minehut.gameplate.module.modules.objectives.ObjectiveModule;
 import com.minehut.gameplate.module.modules.team.TeamModule;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 public abstract class ObjectiveEvent extends Event {
 
     private static final HandlerList handlers = new HandlerList();
-    protected GameObjectiveModule objective;
+    protected ObjectiveModule objective;
     protected TeamModule teamModule;
 
-    public ObjectiveEvent(GameObjectiveModule objective, TeamModule teamModule) {
+    public ObjectiveEvent(ObjectiveModule objective, TeamModule teamModule) {
         this.objective = objective;
         this.teamModule = teamModule;
     }
@@ -29,7 +28,7 @@ public abstract class ObjectiveEvent extends Event {
         return teamModule;
     }
 
-    public GameObjectiveModule getObjective() {
+    public ObjectiveModule getObjective() {
         return objective;
     }
 }

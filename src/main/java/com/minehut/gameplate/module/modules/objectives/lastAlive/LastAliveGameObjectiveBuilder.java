@@ -1,7 +1,5 @@
 package com.minehut.gameplate.module.modules.objectives.lastAlive;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.*;
 import org.jdom2.Element;
@@ -18,7 +16,7 @@ public class LastAliveGameObjectiveBuilder extends ModuleBuilder {
         for (Element objectivesElement : match.getDocument().getRootElement().getChildren("objectives")) {
             for (Element element : objectivesElement.getChildren()) {
                 if (element.getName().toLowerCase().equals("lastAlive")) {
-                    return new ModuleCollection<>(new LastAliveGameObjectiveModule());
+                    return new ModuleCollection<>(new LastAliveObjectiveModule());
                 }
             }
         }

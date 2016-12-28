@@ -3,7 +3,7 @@ package com.minehut.gameplate.module.modules.objectives.lastAlive;
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.event.GameDeathEvent;
 import com.minehut.gameplate.event.objective.ObjectiveCompleteEvent;
-import com.minehut.gameplate.module.GameObjectiveModule;
+import com.minehut.gameplate.module.modules.objectives.ObjectiveModule;
 import com.minehut.gameplate.module.modules.lives.LivesModule;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
@@ -16,9 +16,9 @@ import java.util.ArrayList;
 /**
  * Created by luke on 12/21/16.
  */
-public class LastAliveGameObjectiveModule extends GameObjectiveModule {
+public class LastAliveObjectiveModule extends ObjectiveModule {
 
-    public LastAliveGameObjectiveModule() {
+    public LastAliveObjectiveModule() {
         super("last-alive", "Last Alive", false);
     }
 
@@ -37,8 +37,7 @@ public class LastAliveGameObjectiveModule extends GameObjectiveModule {
             }
 
             if (alive.size() == 1) {
-                ObjectiveCompleteEvent objectiveCompleteEvent = new ObjectiveCompleteEvent(this, alive.get(0));
-                Bukkit.getPluginManager().callEvent(objectiveCompleteEvent);
+                super.addCompletedBy(alive.get(0));
             }
         }
     }
