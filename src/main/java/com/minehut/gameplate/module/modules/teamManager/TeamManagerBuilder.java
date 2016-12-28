@@ -5,8 +5,10 @@ import com.google.gson.JsonObject;
 import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.*;
 import com.minehut.gameplate.module.modules.team.TeamModule;
+import com.minehut.gameplate.util.Numbers;
 import com.minehut.gameplate.util.Parser;
 import org.bukkit.ChatColor;
+import org.jdom2.Element;
 
 /**
  * Created by luke on 12/19/16.
@@ -21,31 +23,27 @@ public class TeamManagerBuilder extends ModuleBuilder {
 
         TeamManager.TeamType teamType = TeamManager.TeamType.STATIC;
 
-        if (match.getJson().get("teams").isJsonPrimitive()) {
-            teamType = TeamManager.TeamType.valueOf(match.getJson().get("teams").getAsString().toUpperCase().replace(" ", "_"));
-        } else {
-            for (JsonElement e : match.getJson().getAsJsonArray("teams")) {
-                JsonObject jsonObject = e.getAsJsonObject();
+        for (Element teamsElement : match.getDocument().getRootElement().getChildren("teams")) {
+            if (teamsElement.getAttributeValue("mode") != null) {
+                teamType = TeamManager.TeamType.valueOf(teamsElement.getAttributeValue("mode").toUpperCase().replace(" ", "_"));
+            }
+            results.add(new TeamManager(teamType));
+            results.add(new TeamModule("observers", "Observers", true, ChatColor.AQUA, Integer.MAX_VALUE, Integer.MAX_VALUE, TeamModule.JoinAllowance.ALL));
 
-                String id = jsonObject.get("id").getAsString();
-                String name = jsonObject.get("name").getAsString();
-                ChatColor color = Parser.parseColor(jsonObject.get("color").getAsString());
-                int maxPlayers = jsonObject.get("max").getAsInt();
+            for (Element element : teamsElement.getChildren()) {
+                String id = element.getAttributeValue("id");
+                String name = element.getTextNormalize();
+                ChatColor color = Parser.parseColor(element.getAttributeValue("color"));
 
-                int maxOverfill;
-                if (jsonObject.has("maxOverfill")) {
-                    maxOverfill = jsonObject.get("maxOverfill").getAsInt();
-                } else {
-                    maxOverfill = maxPlayers + 10;
+                int maxPlayers = Numbers.parseInt(element.getAttributeValue("max"));
+                int maxOverfill = maxPlayers;
+                if (element.getAttributeValue("maxOverfill") != null) {
+                    maxOverfill = Numbers.parseInt(element.getAttributeValue("maxOverfill"));
                 }
-
                 TeamModule teamModule = new TeamModule(id, name, false, color, maxPlayers, maxOverfill, TeamModule.JoinAllowance.ALL);
                 results.add(teamModule);
             }
         }
-
-        results.add(new TeamManager(teamType));
-        results.add(new TeamModule("observers", "Observers", true, ChatColor.AQUA, Integer.MAX_VALUE, Integer.MAX_VALUE, TeamModule.JoinAllowance.ALL));
 
         return results;
     }
