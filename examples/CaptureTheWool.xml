@@ -1,7 +1,8 @@
 <map>
     <name>Example Capture the Wool map</name>
     <version>1.0.0</version>
-    <objective>Capture the wools located guarded by the enemy team.</objective>
+    <objective>Capture the wools guarded by the enemy team.</objective>
+    <timeLimit>15m</timeLimit>
 
     <authors>
         <!-- Luuke -->
