@@ -22,6 +22,10 @@
         </spawn>
     </spawns>
 
+    <respawns>
+        <respawn team="blue" lives="5"/>
+    </respawns>
+
     <capturables>
         <!-- for a wool, simply use the "wool" property. -->
         <capturable id="blue-wool" wool="blue">
