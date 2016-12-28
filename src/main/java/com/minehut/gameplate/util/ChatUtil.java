@@ -28,6 +28,10 @@ public class ChatUtil {
         player.sendMessage(ChatColor.YELLOW + " \u26A0 " + ChatColor.GRAY + new LocalizedChatMessage(chatConstant, messages).getMessage(player.spigot().getLocale()));
     }
 
+    public static void sendWarningMessage(Player player, String message) {
+        player.sendMessage(ChatColor.YELLOW + " \u26A0 " + ChatColor.GRAY + message);
+    }
+
     public static String getWarningMessage(String msg) {
         if (msg == null) return null;
         else return ChatColor.YELLOW + " \u26A0 " + ChatColor.RED + msg;

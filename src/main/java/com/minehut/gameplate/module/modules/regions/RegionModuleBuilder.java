@@ -14,6 +14,8 @@ import org.bukkit.util.Vector;
 import org.jdom2.Document;
 import org.jdom2.Element;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 /**
@@ -26,13 +28,25 @@ public class RegionModuleBuilder extends ModuleBuilder {
     public ModuleCollection<? extends Module> load(Match match) {
         ModuleCollection results = new ModuleCollection();
 
-        for (Element filtersElement : match.getDocument().getRootElement().getChildren("filters")) {
+        for (Element filtersElement : match.getDocument().getRootElement().getChildren("regions")) {
             for (Element element : filtersElement.getChildren()) {
                 parseRegion(element);
             }
         }
 
         return results;
+    }
+
+    public static List<RegionModule> parseChildRegions(Element element) {
+        List<RegionModule> regions = new ArrayList<>();
+
+        for (Element child : element.getChildren()) {
+            RegionModule regionModule = parseRegion(child);
+            if (regionModule != null) {
+                regions.add(regionModule);
+            }
+        }
+        return regions;
     }
 
     public static RegionModule parseRegion(Element element) {

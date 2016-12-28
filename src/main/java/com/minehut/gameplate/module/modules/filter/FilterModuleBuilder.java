@@ -1,71 +1,75 @@
 package com.minehut.gameplate.module.modules.filter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.ModuleBuilder;
 import com.minehut.gameplate.module.ModuleCollection;
+import com.minehut.gameplate.module.modules.filter.filterComparator.FilterComparator;
+import com.minehut.gameplate.module.modules.filter.filterComparator.comparators.TeamComparator;
+import com.minehut.gameplate.module.modules.filter.filterComparator.comparators.constant.TrueComparator;
+import com.minehut.gameplate.module.modules.filter.filterComparator.comparators.logic.AllowComparator;
+import com.minehut.gameplate.module.modules.filter.filterComparator.comparators.logic.DenyComparator;
+import com.minehut.gameplate.module.modules.filter.filterComparator.comparators.logic.OnlyComparator;
+import com.minehut.gameplate.module.modules.filter.filterExecutor.executors.EnterFilterExecutor;
+import com.minehut.gameplate.module.modules.regions.RegionModuleBuilder;
+import com.minehut.gameplate.module.modules.team.TeamModule;
+import com.minehut.gameplate.module.modules.teamManager.TeamManager;
+import org.jdom2.Element;
 
+import java.util.Arrays;
+
+/**
+ * Created by luke on 12/27/16.
+ */
 public class FilterModuleBuilder extends ModuleBuilder {
 
     @Override
     public ModuleCollection<? extends Module> load(Match match) {
+        ModuleCollection results = new ModuleCollection();
 
-    	ArrayList<FilterObject> filterList = new ArrayList<>();
-    	
-        if (match.getJson().has("filters")) {
-            JsonArray array = match.getJson().get("filters").getAsJsonArray();
-            List<JsonObject> filters = new ArrayList<>();
-            array.forEach(s -> filters.add(s.getAsJsonObject()));
-            for(JsonObject f : filters){
-            	String teamId = "";
-            	String access = "";
-        		ArrayList<String> regions = new ArrayList<>();
-        		ArrayList<FilterType> types = new ArrayList<>();
-            	if(f.has("team")){
-            		teamId = f.get("team").getAsString();
-            	}
-            	if(f.has("access")){
-            		access = f.get("access").getAsString();
-            	}else{
-            		continue;
-            	}
-            	if(f.has("regions")){
-            		JsonArray regionsJson = f.get("regions").getAsJsonArray();
-            		regionsJson.forEach(rj -> regions.add(rj.getAsString()));
-            	}else{
-            		continue;
-            	}
-            	if(f.has("types")){
-            		JsonArray typesJson = f.get("types").getAsJsonArray();
-            		typesJson.forEach(rj -> {
-            			if(!this.getValue(rj.getAsString()).equals("")){
-            				types.add(FilterType.valueOf(this.getValue(rj.getAsString())));
-            			}
-            		});
-            	}else{
-            		continue;
-            	}
-            	filterList.add(new FilterObject(teamId, regions, access, types));
+        for (Element filtersElement : match.getDocument().getRootElement().getChildren("filters")) {
+            for (Element filter : filtersElement.getChildren()) {
+                if (filter.getName().toLowerCase().equals("filter")) {
+
+                    if (filter.getAttributeValue("enter") != null) {
+                        results.add(new EnterFilterExecutor(RegionModuleBuilder.parseChildRegions(filter), getComparator(filter.getAttributeValue("enter")), filter.getAttributeValue("message")));
+                    }
+
+                }
             }
-            return new ModuleCollection<>(new FilterModule(filterList));
         }
 
         return null;
     }
-    
-    private String getValue(String s){
-    	s = s.replaceAll(" ", "_");
-    	for(FilterType ft : FilterType.values()){
-    		if(ft.toString().equalsIgnoreCase(s)){
-    			return ft.toString();
-    		}
-    	}
-    	return "";
+
+    private static FilterComparator getComparator(String value) {
+        String split[] = value.toLowerCase().split("-");
+
+        FilterComparator filterComparator = null;
+
+        if (split.length >= 2) {
+            if (split[1].equals("all")) {
+                filterComparator = new TrueComparator();
+            } else {
+                for (TeamModule teamModule : TeamManager.getTeamModules()) {
+                    if (split[1].equals(teamModule.getId())) {
+                        filterComparator = new TeamComparator(teamModule);
+                    }
+                }
+            }
+
+        }
+
+        FilterComparator parentComparator = null;
+
+        if (split[0].equals("only")) {
+            parentComparator = new OnlyComparator(Arrays.asList(filterComparator));
+        } else if (split[0].equals("deny")) {
+            parentComparator = new DenyComparator(filterComparator);
+        } else if (split[0].equals("allow")) {
+            parentComparator = new AllowComparator(filterComparator);
+        }
+
+        return parentComparator;
     }
-	
 }

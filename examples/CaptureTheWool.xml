@@ -39,7 +39,7 @@
         <objective team="blue" id="blue-wool"/>
     </objectives>
 
-    <filters>
+    <regions>
         <!-- Initialize a global region that can be referenced in multiple spots -->
         <cuboid id="blue-wool-room" min="24, 59, 34" max="94, 23, 85"/>
 
@@ -52,6 +52,6 @@
             <!-- Example of a local region. -->
             <cuboid min="93, 92, 34" max="49, 32, 39"/>
         </filter>
-    </filters>
+    </regions>
 
 </map>
