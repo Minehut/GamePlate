@@ -7,10 +7,9 @@ import org.bukkit.event.HandlerList;
 public class MatchStartEvent extends Event {
 
     private static final HandlerList handlers = new HandlerList();
-    private final Match match;
 
-    public MatchStartEvent(Match match) {
-        this.match = match;
+    public MatchStartEvent() {
+
     }
 
     public static HandlerList getHandlerList() {
@@ -21,7 +20,4 @@ public class MatchStartEvent extends Event {
         return handlers;
     }
 
-    public Match getMatch() {
-        return match;
-    }
 }

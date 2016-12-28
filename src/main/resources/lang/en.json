@@ -12,7 +12,9 @@
         { "id": "kitMenuTitle", "message": "Kit Selector"},
         { "id": "second", "message": "{0} second"},
         { "id": "seconds", "message": "{0} seconds"},
-        { "id": "cycleTimer", "message": "Cycling to {0} in {1}"}
+        { "id": "cycleTimer", "message": "Cycling to {0} in {1}"},
+        { "id": "cycledTo", "message": "Cycled to {0}"},
+        { "id": "cycleTimer", "message": "Starting in {0}"}
       ]
     },
 

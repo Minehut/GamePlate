@@ -1,14 +1,14 @@
 package com.minehut.gameplate.module.modules.timers;
 
-import in.twizmwaz.cardinal.match.Match;
-import in.twizmwaz.cardinal.module.ModuleBuilder;
-import in.twizmwaz.cardinal.module.ModuleCollection;
+import com.minehut.gameplate.match.Match;
+import com.minehut.gameplate.module.ModuleBuilder;
+import com.minehut.gameplate.module.ModuleCollection;
 
-public class TimersBuilder implements ModuleBuilder {
+public class TimersBuilder extends ModuleBuilder {
 
     @Override
     public ModuleCollection<Countdown> load(Match match) {
-        return new ModuleCollection<>(new StartTimer(match), new CycleTimer(match));
+        return new ModuleCollection<>(new StartTimer(), new CycleTimer());
     }
 
 }

@@ -18,6 +18,7 @@ import com.minehut.gameplate.module.modules.respawn.RespawnModuleBuilder;
 import com.minehut.gameplate.module.modules.spawn.SpawnModuleBuilder;
 import com.minehut.gameplate.module.modules.teamManager.TeamManagerBuilder;
 import com.minehut.gameplate.module.modules.timeLimit.TimeLimitModuleBuilder;
+import com.minehut.gameplate.module.modules.timers.TimersBuilder;
 import com.minehut.gameplate.module.modules.tracker.TrackerBuilder;
 import com.minehut.gameplate.module.modules.visibility.VisibilityModuleBuilder;
 import org.bukkit.Bukkit;
@@ -50,7 +51,8 @@ public class ModuleFactory {
                 RegionModuleBuilder.class,
                 ConnectionModuleBuilder.class,
                 SpawnModuleBuilder.class,
-                FilterModuleBuilder.class
+                FilterModuleBuilder.class,
+                TimersBuilder.class
         ));
     }
 

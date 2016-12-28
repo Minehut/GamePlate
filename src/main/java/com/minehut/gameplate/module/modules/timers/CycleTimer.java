@@ -38,31 +38,35 @@ public class CycleTimer extends Countdown {
     }
 
     @Override
-    public String getBossbarMessage(Player player) {
+    public ChatMessage getBossbarMessage(Player player) {
         return new UnlocalizedChatMessage(ChatColor.DARK_AQUA + "{0}", new LocalizedChatMessage(ChatConstant.UI_CYCLING_TIMER,
-                new UnlocalizedChatMessage(ChatColor.AQUA + GameHandler.getGameHandler().getCycle().getMap().getName() + ChatColor.DARK_AQUA),
+                new UnlocalizedChatMessage(ChatColor.AQUA + GameHandler.getGameHandler().getRepositoryManager().getRotation().getNext().getName() + ChatColor.DARK_AQUA),
                 new LocalizedChatMessage(getTime() == 1 ? ChatConstant.UI_SECOND : ChatConstant.UI_SECONDS, ChatColor.DARK_RED + "" + getTime() + ChatColor.DARK_AQUA)));
     }
 
     @Override
-    public String getBossbarEndMessage(Player player) {
-        return new UnlocalizedChatMessage(ChatColor.DARK_AQUA + "{0}", new LocalizedChatMessage(ChatConstant.UI_CYCLED_TO, ChatColor.AQUA + GameHandler.getGameHandler().getCycle().getMap().getName()));
+    public ChatMessage getBossbarEndMessage(Player player) {
+        return new UnlocalizedChatMessage(ChatColor.DARK_AQUA + "{0}", new LocalizedChatMessage(ChatConstant.UI_CYCLED_TO, ChatColor.AQUA + GameHandler.getGameHandler().getRepositoryManager().getRotation().getNext().getName()));
     }
 
     @Override
     public void onCountdownStart() {
-        if(getTime() >= 1) ChatUtil.broadcastMessage(getBossbarEndMessage());
+        if(getTime() >= 1) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                player.sendMessage(getBossbarEndMessage(player).getMessage(player.spigot().getLocale()));
+            }
+        };
         GameHandler.getGameHandler().getMatch().setMatchState(MatchState.CYCLING);
     }
 
     @Override
     public boolean canStart() {
-        return !match.isRunning();
+        return !GameHandler.getGameHandler().getMatch().isRunning();
     }
 
     @Override
     public void onCountdownCancel() {
-        match.setState(hasPlayed ? MatchState.ENDED : MatchState.WAITING);
+        GameHandler.getGameHandler().getMatch().setMatchState(hasPlayed ? MatchState.ENDED : MatchState.WAITING);
     }
 
     @Override

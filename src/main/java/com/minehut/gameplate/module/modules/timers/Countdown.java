@@ -1,6 +1,8 @@
 package com.minehut.gameplate.module.modules.timers;
 
 import com.minehut.gameplate.GameHandler;
+import com.minehut.gameplate.chat.ChatMessage;
+import com.minehut.gameplate.chat.LocalizedChatMessage;
 import com.minehut.gameplate.module.Module;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
@@ -19,7 +21,7 @@ public abstract class Countdown extends Module implements Cancellable, Runnable 
     private boolean cancelled = true, canRun = true, destroyOnEnd;
     private int time, originalTime;
 
-    private List<BossBar> bossBars = new ArrayList<>();
+    protected List<BossBar> bossBars = new ArrayList<>();
 
     public Countdown() {
 
@@ -73,12 +75,12 @@ public abstract class Countdown extends Module implements Cancellable, Runnable 
                 if (time != 0) {
 
                     for (BossBar bossBar : this.bossBars) {
-                        bossBar.setTitle(getBossbarMessage(bossBar.getPlayers().get(0)));
+                        bossBar.setTitle(getBossbarMessage(bossBar.getPlayers().get(0)).getMessage(bossBar.getPlayers().get(0).spigot().getLocale()));
                     }
                     onRun();
                 } else {
                     for (BossBar bossBar : this.bossBars) {
-                        bossBar.setTitle(getBossbarEndMessage(bossBar.getPlayers().get(0)));
+                        bossBar.setTitle(getBossbarEndMessage(bossBar.getPlayers().get(0)).getMessage(bossBar.getPlayers().get(0).spigot().getLocale()));
                     }
 
                     setCancelled(true);
@@ -130,8 +132,8 @@ public abstract class Countdown extends Module implements Cancellable, Runnable 
     }
 
     // Bossbar messages
-    public abstract String getBossbarMessage(Player player);
-    public abstract String getBossbarEndMessage(Player player);
+    public abstract ChatMessage getBossbarMessage(Player player);
+    public abstract ChatMessage getBossbarEndMessage(Player player);
 
     // Actions
     public abstract void onCountdownStart();

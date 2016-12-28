@@ -14,8 +14,10 @@ public enum ChatConstant {
     UI_HUNGER_LEVEL("ui.hungerLevel"),
     UI_HEALTH_LEVEL("ui.healthLevel"),
     UI_CYCLING_TIMER("ui.cycleTimer"),
+    UI_CYCLED_TO("ui.cycledTo"),
     UI_SECOND("ui.second"),
     UI_SECONDS("ui.second"),
+    UI_STARTING_TIMER("ui.startingTimer"),
 
     ERROR_JSON("error.json"),
     ERROR_INVENTORY_NOT_VIEWABLE("error.inventoryNotViewable"),

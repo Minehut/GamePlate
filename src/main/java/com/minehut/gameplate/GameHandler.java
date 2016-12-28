@@ -31,13 +31,13 @@ public class GameHandler {
         repositoryManager = new RepositoryManager();
         repositoryManager.setupRotation();
 
-        final World oldWorld = currentMap != null ? currentMap.getWorld() : null;
+
 
         currentMap = new CurrentMap(repositoryManager.getRotation().getNext(), UUID.randomUUID());
         Bukkit.getScheduler().scheduleSyncDelayedTask(GamePlate.getInstance(), new Runnable() {
             @Override
             public void run() {
-                cycleAndMakeMatch(oldWorld);
+                cycleAndMakeMatch();
             }
         });
     }
@@ -46,7 +46,9 @@ public class GameHandler {
         return handler;
     }
 
-    public void cycleAndMakeMatch(World oldWorld) {
+    public void cycleAndMakeMatch() {
+        final World oldWorld = currentMap != null ? currentMap.getWorld() : null;
+
         if (repositoryManager.getRotation().getNext().equals(currentMap.getMap())) {
             repositoryManager.getRotation().move();
         }

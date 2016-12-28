@@ -7,6 +7,7 @@ import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.*;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
+import org.jdom2.Element;
 
 /**
  * Created by luke on 12/21/16.
@@ -16,37 +17,36 @@ public class ObjectivesModuleBuilder extends ModuleBuilder {
 
     @Override
     public ModuleCollection<? extends Module> load(Match match) {
-        if (match.getJson().has("objectives")) {
-            for (JsonElement e : match.getJson().getAsJsonArray("objectives")) {
-                JsonObject objectiveJson = e.getAsJsonObject();
 
-                TeamModule teamModule;
-                if (!objectiveJson.has("team")) {
-                    continue;
-                }
-                String teamId = objectiveJson.get("team").getAsString();
-                if (teamId.equalsIgnoreCase("all")) {
-                    teamModule = null;
+        for (Element objectivesElement : match.getDocument().getRootElement().getChildren("objectives")) {
+            for (Element element : objectivesElement.getChildren()) {
+                boolean all = false;
+                TeamModule teamModule = null;
+
+                if (element.getAttributeValue("team").equals("all")) {
+                    all = true;
                 } else {
-                    teamModule = TeamManager.getTeamById(teamId);
+                    TeamManager.getTeamById(element.getAttributeValue("team"));
                 }
 
-                for (GameObjectiveModule objective : GameHandler.getGameHandler().getMatch().getModules().getModules(GameObjectiveModule.class)) {
-                    if (objective.getId().equals(objectiveJson.get("objective").getAsString())) {
-                        if (teamModule != null) {
-                            teamModule.addObjective(objective);
-                        } else { //team = all
-                            for (TeamModule team : TeamManager.getTeamModules()) {
-                                if(team.isObserver()) continue;
-
-                                team.addObjective(objective);
+                for (GameObjectiveModule objectiveModule : GameHandler.getGameHandler().getMatch().getModules().getModules(GameObjectiveModule.class)) {
+                    if (objectiveModule.getId().equals(objectivesElement.getAttributeValue("objective"))) {
+                        if (all) {
+                            for (TeamModule allTeam : TeamManager.getTeamModules()) {
+                                if (allTeam.isObserver()) {
+                                    continue;
+                                }
+                                teamModule.addObjective(objectiveModule);
                             }
+                        } else {
+                            teamModule.addObjective(objectiveModule);
                         }
                     }
                 }
+
+
             }
         }
-
 
         return null;
     }
