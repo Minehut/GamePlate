@@ -103,6 +103,17 @@ public class TeamModule extends Module {
         return false;
     }
 
+    public List<Player> getPlayers() {
+        List<Player> players = new ArrayList<>();
+        for (CachedPlayer cachedPlayer : this.members) {
+            Player player = Bukkit.getPlayer(cachedPlayer.getUuid());
+            if (player != null) {
+                players.add(player);
+            }
+        }
+        return players;
+    }
+
     public String getId() {
         return id;
     }

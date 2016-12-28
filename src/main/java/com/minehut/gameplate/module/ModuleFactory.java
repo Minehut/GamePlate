@@ -3,6 +3,7 @@ package com.minehut.gameplate.module;
 import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.modules.arrowRemove.ArrowRemoveModuleBuilder;
 import com.minehut.gameplate.module.modules.buildHeight.BuildHeightModuleBuilder;
+import com.minehut.gameplate.module.modules.chat.ChatModuleBuilder;
 import com.minehut.gameplate.module.modules.connection.ConnectionModuleBuilder;
 import com.minehut.gameplate.module.modules.filter.FilterModuleBuilder;
 import com.minehut.gameplate.module.modules.gameComplete.GameCompleteModuleBuilder;
@@ -51,7 +52,8 @@ public class ModuleFactory {
                 SpawnModuleBuilder.class,
                 FilterModuleBuilder.class,
                 TimersBuilder.class,
-                ScoreObjectiveModuleBuilder.class
+                ScoreObjectiveModuleBuilder.class,
+                ChatModuleBuilder.class
         ));
     }
 
