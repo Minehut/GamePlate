@@ -22,7 +22,7 @@ import java.util.logging.Level;
 
 public abstract class Repository {
 
-    private static final List<String> requirements = Arrays.asList("map.json", "region", "level.dat");
+    private static final List<String> requirements = Arrays.asList("map.xml", "region", "level.dat");
 
     private List<LoadedMap> loaded = Lists.newArrayList();
     private Map<String, File> includes = new HashMap<>();

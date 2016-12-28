@@ -4,7 +4,6 @@ import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.modules.arrowRemove.ArrowRemoveModuleBuilder;
 import com.minehut.gameplate.module.modules.buildHeight.BuildHeightModuleBuilder;
 import com.minehut.gameplate.module.modules.connection.ConnectionModuleBuilder;
-import com.minehut.gameplate.module.modules.craft.CraftModuleBuilder;
 import com.minehut.gameplate.module.modules.filter.FilterModuleBuilder;
 import com.minehut.gameplate.module.modules.gameComplete.GameCompleteModuleBuilder;
 import com.minehut.gameplate.module.modules.inventoryView.InventoryViewModuleBuilder;
@@ -17,7 +16,6 @@ import com.minehut.gameplate.module.modules.regions.RegionModuleBuilder;
 import com.minehut.gameplate.module.modules.respawn.RespawnModuleBuilder;
 import com.minehut.gameplate.module.modules.spawn.SpawnModuleBuilder;
 import com.minehut.gameplate.module.modules.teamManager.TeamManagerBuilder;
-import com.minehut.gameplate.module.modules.timeLimit.TimeLimitModuleBuilder;
 import com.minehut.gameplate.module.modules.timers.TimersBuilder;
 import com.minehut.gameplate.module.modules.tracker.TrackerBuilder;
 import com.minehut.gameplate.module.modules.visibility.VisibilityModuleBuilder;
@@ -37,7 +35,6 @@ public class ModuleFactory {
                 BuildHeightModuleBuilder.class,
                 TeamManagerBuilder.class,
                 ArrowRemoveModuleBuilder.class,
-                CraftModuleBuilder.class,
                 GameCompleteModuleBuilder.class,
                 LivesModuleBuilder.class,
                 RespawnModuleBuilder.class,

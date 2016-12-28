@@ -48,7 +48,7 @@ public class Match {
     public void setMatchState(MatchState matchState) {
         this.matchState = matchState;
         if(matchState.equals(MatchState.PLAYING))
-        	Bukkit.getPluginManager().callEvent(new MatchStartEvent(this));
+        	Bukkit.getPluginManager().callEvent(new MatchStartEvent());
     }
 
     public void unregisterModules() {

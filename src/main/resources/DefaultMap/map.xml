@@ -1,0 +1,28 @@
+<map>
+    <name>Default Map</name>
+    <version>1.0.0</version>
+
+    <authors>
+        <!-- Luuke -->
+        <author uuid="2dc9b2a1-6063-499b-9685-aa97b978707a"/>
+    </authors>
+
+    <teams>
+        <team id="blue" color="blue" max="10">Blue Team</team>
+        <team id="red" color="red" max="10">Red Team</team>
+    </teams>
+
+    <spawns>
+        <spawn team="observers" yaw="0">
+            <block location="0, 3, 0"/>
+        </spawn>
+
+        <spawn team="blue" yaw="0">
+            <block location="2, 3, 2"/>
+        </spawn>
+
+        <spawn team="red" yaw="0">
+            <block location="-2, 3, -0"/>
+        </spawn>
+    </spawns>
+</map>
