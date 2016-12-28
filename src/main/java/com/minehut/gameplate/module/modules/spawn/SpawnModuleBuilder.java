@@ -33,7 +33,7 @@ public class SpawnModuleBuilder extends ModuleBuilder {
 
                 TeamModule teamModule = null;
                 if (element.getAttributeValue("team") != null) {
-                    TeamManager.getTeamById(element.getAttributeValue("team"));
+                    teamModule = TeamManager.getTeamById(element.getAttributeValue("team"));
                 }
 
                 float yaw = 0;
