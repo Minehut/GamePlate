@@ -20,11 +20,12 @@
         <spawn team="red" kit="red-spawn" yaw="90">
             <cylinder base="120, 23, 42" radius="3" height="0"/>
         </spawn>
-    </spawns>
 
-    <respawns>
-        <respawn team="blue" lives="5"/>
-    </respawns>
+        <!-- Observers -->
+        <spawn team="observers" yaw="0">
+            <block location="120, 23, 43"/>
+        </spawn>
+    </spawns>
 
     <capturables>
         <!-- for a wool, simply use the "wool" property. -->
