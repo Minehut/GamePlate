@@ -41,7 +41,7 @@ public class CycleTimer extends Countdown {
 
     @Override
     public ChatMessage getBossbarMessage(Player player) {
-        return new UnlocalizedChatMessage(ChatColor.YELLOW + "{0}", new LocalizedChatMessage(ChatConstant.UI_CYCLING_TIMER, new LocalizedChatMessage(ChatConstant.UI_SECONDS, ChatColor.RED.toString() + getTime() + ChatColor.YELLOW)));
+        return new UnlocalizedChatMessage(ChatColor.YELLOW + "{0}", new LocalizedChatMessage(ChatConstant.UI_CYCLING_TIMER, new UnlocalizedChatMessage(ChatColor.GOLD + GameHandler.getGameHandler().getRepositoryManager().getRotation().getNext().getName() + ChatColor.YELLOW), new LocalizedChatMessage(ChatConstant.UI_SECONDS, ChatColor.RED.toString() + getTime() + ChatColor.YELLOW)));
     }
 
     @Override

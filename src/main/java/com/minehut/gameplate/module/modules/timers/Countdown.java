@@ -83,7 +83,7 @@ public abstract class Countdown extends TaskedModule implements Cancellable {
         if (!isCancelled()) {
 
             for (BossBar bossBar : this.bossBars) {
-                bossBar.setProgress(time / originalTime);
+                bossBar.setProgress((double) time / originalTime);
             }
 
             if (time % 20 == 0) {
@@ -111,6 +111,9 @@ public abstract class Countdown extends TaskedModule implements Cancellable {
         if (canStart() && time >= 0 ) {
             this.time = time * 20;
             this.originalTime = this.time;
+            if (originalTime == 0) {
+                originalTime = 1;
+            }
             this.setCancelled(false);
 
             return true;
@@ -195,4 +198,11 @@ public abstract class Countdown extends TaskedModule implements Cancellable {
         return null;
     }
 
+    public void setTime(int time) {
+        this.time = time * 20;
+        this.originalTime = this.time;
+        if (originalTime == 0) {
+            originalTime = 1;
+        }
+    }
 }

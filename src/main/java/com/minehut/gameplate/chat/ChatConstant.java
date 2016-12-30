@@ -30,7 +30,9 @@ public enum ChatConstant {
     ERROR_NUMBER_STRING("error.numberString"),
     ERROR_UNKNOWN_ERROR("error.unknownError"),
     ERROR_COMMAND_PLAYERS_ONLY("error.commandPlayerOnly"),
-    ERROR_NO_TEAM_FOUND("error.noTeamFound");
+    ERROR_NO_TEAM_FOUND("error.noTeamFound"),
+    ERROR_UNABLE_TO_CYCLE_MID_MATCH("error.unableToCycleMidMatch"),
+    ERROR_MATCH_ALREADY_STARTED("error.matchAlreadyStarted");
 
     private final String path;
 
