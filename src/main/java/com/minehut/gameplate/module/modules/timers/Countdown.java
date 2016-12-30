@@ -8,6 +8,7 @@ import com.minehut.gameplate.event.CycleCompleteEvent;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.TaskedModule;
 import org.bukkit.Bukkit;
+import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -33,38 +34,32 @@ public abstract class Countdown extends TaskedModule implements Cancellable {
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onCycleComplete(CycleCompleteEvent event) {
-        Bukkit.getScheduler().runTaskLater(GamePlate.getInstance(), new Runnable() {
-            @Override
-            public void run() {
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    if (getBossBar(player) == null) {
-                        player.sendMessage("Creating bossbar...");
-                        BossBar bossBar = createBossBar(player);
-                        bossBar.addPlayer(player);
-                        bossBars.add(bossBar);
-                    }
-                }
+    public void onCountdownCycleComplete(CycleCompleteEvent event) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (getBossBar(player) == null) {
+                BossBar bossBar = createBossBar(player);
+                bossBar.addPlayer(player);
+                bossBars.add(bossBar);
             }
-        }, 1);
+        }
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
+    public void onCountdownJoin(PlayerJoinEvent event) {
         BossBar bossBar = createBossBar(event.getPlayer());
         this.bossBars.add(bossBar);
         bossBar.addPlayer(event.getPlayer());
     }
 
     @EventHandler
-    public void onQuit(PlayerQuitEvent event) {
+    public void onCountdownQuit(PlayerQuitEvent event) {
         BossBar bossBar = getBossBar(event.getPlayer());
         bossBar.removeAll();
         this.bossBars.remove(bossBar);
     }
 
     @EventHandler
-    public void onQuit(PlayerKickEvent event) {
+    public void onCountdownQuit(PlayerKickEvent event) {
         BossBar bossBar = getBossBar(event.getPlayer());
         bossBar.removeAll();
         this.bossBars.remove(bossBar);
@@ -101,7 +96,6 @@ public abstract class Countdown extends TaskedModule implements Cancellable {
                 } else {
                     for (BossBar bossBar : this.bossBars) {
                         if(bossBar.getPlayers().isEmpty()) continue;
-                        bossBar.getPlayers().get(0).sendMessage("Sending bossbar update...");
                         bossBar.setTitle(getBossbarMessage(bossBar.getPlayers().get(0)).getMessage(bossBar.getPlayers().get(0).spigot().getLocale()));
                     }
                     onRun();

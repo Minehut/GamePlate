@@ -17,6 +17,7 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 
 public class StartTimer extends Countdown {
 
@@ -26,10 +27,9 @@ public class StartTimer extends Countdown {
         return Bukkit.createBossBar(getBossbarEndMessage(player).getMessage(player.spigot().getLocale()), BarColor.GREEN, BarStyle.SOLID);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onCycleComplete(CycleCompleteEvent event) {
-        Bukkit.broadcastMessage("Starting timer...");
-        super.startCountdown(10);
+        super.startCountdown(Config.startDefault);
     }
 
     @EventHandler
@@ -41,8 +41,7 @@ public class StartTimer extends Countdown {
 
     @Override
     public ChatMessage getBossbarMessage(Player player) {
-        player.sendMessage("getBossbarMessage()");
-        return new LocalizedChatMessage(ChatConstant.UI_STARTING_TIMER, new LocalizedChatMessage(ChatConstant.UI_SECONDS, Integer.toString(getTime())));
+        return new UnlocalizedChatMessage(ChatColor.YELLOW + "{0}", new LocalizedChatMessage(ChatConstant.UI_STARTING_TIMER, new LocalizedChatMessage(ChatConstant.UI_SECONDS, ChatColor.RED.toString() + getTime() + ChatColor.YELLOW)));
     }
 
     @Override
@@ -52,7 +51,6 @@ public class StartTimer extends Countdown {
 
     @Override
     public void onCountdownStart() {
-        Bukkit.broadcastMessage("Countdown started!");
         if(getTime() >= 1) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 player.sendMessage(getBossbarEndMessage(player).getMessage(player.spigot().getLocale()));

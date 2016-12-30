@@ -25,7 +25,7 @@ public class CycleTimer extends Countdown {
     @Override
     public BossBar createBossBar(Player player) {
         BossBar bossBar = Bukkit.createBossBar("", BarColor.BLUE, BarStyle.SOLID);
-//        bossBar.setVisible(false);
+        bossBar.setVisible(false);
         return bossBar;
     }
 
@@ -41,14 +41,12 @@ public class CycleTimer extends Countdown {
 
     @Override
     public ChatMessage getBossbarMessage(Player player) {
-        return new UnlocalizedChatMessage(ChatColor.DARK_AQUA + "{0}", new LocalizedChatMessage(ChatConstant.UI_CYCLING_TIMER,
-                new UnlocalizedChatMessage(ChatColor.AQUA + GameHandler.getGameHandler().getRepositoryManager().getRotation().getNext().getName() + ChatColor.DARK_AQUA),
-                new LocalizedChatMessage(getTime() == 1 ? ChatConstant.UI_SECOND : ChatConstant.UI_SECONDS, ChatColor.DARK_RED + "" + getTime() + ChatColor.DARK_AQUA)));
+        return new UnlocalizedChatMessage(ChatColor.YELLOW + "{0}", new LocalizedChatMessage(ChatConstant.UI_CYCLING_TIMER, new LocalizedChatMessage(ChatConstant.UI_SECONDS, ChatColor.RED.toString() + getTime() + ChatColor.YELLOW)));
     }
 
     @Override
     public ChatMessage getBossbarEndMessage(Player player) {
-        return new UnlocalizedChatMessage(ChatColor.DARK_AQUA + "{0}", new LocalizedChatMessage(ChatConstant.UI_CYCLED_TO, ChatColor.AQUA + GameHandler.getGameHandler().getRepositoryManager().getRotation().getNext().getName()));
+        return getBossbarMessage(player);
     }
 
     @Override
