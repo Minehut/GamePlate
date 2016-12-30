@@ -50,21 +50,16 @@ public abstract class Countdown extends TaskedModule implements Cancellable {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
-        for (BossBar bossBar : this.bossBars) {
-            if (bossBar.getPlayers().contains(event.getPlayer())) {
-                bossBar.removeAll();
-            }
-        }
+        BossBar bossBar = getBossBar(event.getPlayer());
+        bossBar.removeAll();
+        this.bossBars.remove(bossBar);
     }
 
     @EventHandler
     public void onQuit(PlayerKickEvent event) {
-        for (BossBar bossBar : this.bossBars) {
-            if (bossBar.getPlayers().contains(event.getPlayer())) {
-                bossBar.removeAll();
-                this.bossBars.remove(bossBar);
-            }
-        }
+        BossBar bossBar = getBossBar(event.getPlayer());
+        bossBar.removeAll();
+        this.bossBars.remove(bossBar);
     }
 
     public abstract BossBar createBossBar(Player player);
@@ -81,6 +76,7 @@ public abstract class Countdown extends TaskedModule implements Cancellable {
     @Override
     public final void run() {
         if (time < 0 || !canRun) cancelled = true;
+
         if (!isCancelled()) {
 
             for (BossBar bossBar : this.bossBars) {
@@ -102,6 +98,12 @@ public abstract class Countdown extends TaskedModule implements Cancellable {
                     }
                     onRun();
                 }
+
+                for (BossBar bossBar : this.bossBars) {
+                    if(bossBar.getPlayers().isEmpty()) continue;
+                    bossBar.getPlayers().get(0).sendMessage("Sending bossbar update...");
+                    bossBar.setTitle(getBossbarMessage(bossBar.getPlayers().get(0)).getMessage(bossBar.getPlayers().get(0).spigot().getLocale()));
+                }
             }
             time--;
         }
@@ -110,7 +112,6 @@ public abstract class Countdown extends TaskedModule implements Cancellable {
     public void onRun() {}
 
     public boolean startCountdown(int time) {
-
         if (canStart() && time >= 0 ) {
             this.time = time * 20;
             this.originalTime = this.time;
