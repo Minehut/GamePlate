@@ -38,7 +38,8 @@ public class RepositoryManager {
      * @throws RotationLoadException
      */
     public void refreshRepos() throws RotationLoadException, IOException {
-        List<Repository> newRepos = Lists.newArrayList(new DefaultRepository());
+//        List<Repository> newRepos = Lists.newArrayList(new DefaultRepository());
+        List<Repository> newRepos = new ArrayList<>();
         for (String repo : Config.repos) {
             newRepos.add(new FileRepository(repo));
         }
