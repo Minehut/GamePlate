@@ -3,7 +3,10 @@ package com.minehut.gameplate.module.modules.timers;
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.chat.ChatMessage;
 import com.minehut.gameplate.chat.LocalizedChatMessage;
+import com.minehut.gameplate.event.CycleCompleteEvent;
 import com.minehut.gameplate.module.Module;
+import com.minehut.gameplate.module.TaskedModule;
+import org.bukkit.Bukkit;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -16,7 +19,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Countdown extends Module implements Cancellable, Runnable {
+public abstract class Countdown extends TaskedModule implements Cancellable {
 
     private boolean cancelled = true, canRun = true, destroyOnEnd;
     private int time, originalTime;
@@ -28,9 +31,21 @@ public abstract class Countdown extends Module implements Cancellable, Runnable 
     }
 
     @EventHandler
+    public void onCycleComplete(CycleCompleteEvent event) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (getBossBar(player) == null) {
+                BossBar bossBar = createBossBar(player);
+                this.bossBars.add(bossBar);
+                bossBar.addPlayer(player);
+            }
+        }
+    }
+
+    @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         BossBar bossBar = createBossBar(event.getPlayer());
         this.bossBars.add(bossBar);
+        bossBar.addPlayer(event.getPlayer());
     }
 
     @EventHandler
@@ -47,6 +62,7 @@ public abstract class Countdown extends Module implements Cancellable, Runnable 
         for (BossBar bossBar : this.bossBars) {
             if (bossBar.getPlayers().contains(event.getPlayer())) {
                 bossBar.removeAll();
+                this.bossBars.remove(bossBar);
             }
         }
     }
@@ -72,18 +88,19 @@ public abstract class Countdown extends Module implements Cancellable, Runnable 
             }
 
             if (time % 20 == 0) {
-                if (time != 0) {
-
+                if (time == 0) {
                     for (BossBar bossBar : this.bossBars) {
+                        if(bossBar.getPlayers().isEmpty()) continue;
+                        bossBar.setTitle(getBossbarEndMessage(bossBar.getPlayers().get(0)).getMessage(bossBar.getPlayers().get(0).spigot().getLocale()));
+                    }
+                    setCancelled(true);
+                } else {
+                    for (BossBar bossBar : this.bossBars) {
+                        if(bossBar.getPlayers().isEmpty()) continue;
+                        bossBar.getPlayers().get(0).sendMessage("Sending bossbar update...");
                         bossBar.setTitle(getBossbarMessage(bossBar.getPlayers().get(0)).getMessage(bossBar.getPlayers().get(0).spigot().getLocale()));
                     }
                     onRun();
-                } else {
-                    for (BossBar bossBar : this.bossBars) {
-                        bossBar.setTitle(getBossbarEndMessage(bossBar.getPlayers().get(0)).getMessage(bossBar.getPlayers().get(0).spigot().getLocale()));
-                    }
-
-                    setCancelled(true);
                 }
             }
             time--;
@@ -115,7 +132,7 @@ public abstract class Countdown extends Module implements Cancellable, Runnable 
             if (destroyOnEnd) {
                 canRun = false;
                 for (BossBar bossBar : this.bossBars) {
-                    bossBar.removeAll();
+                    bossBar.setVisible(false);
                 }
             }
             onCountdownEnd();
@@ -136,9 +153,9 @@ public abstract class Countdown extends Module implements Cancellable, Runnable 
     public abstract ChatMessage getBossbarEndMessage(Player player);
 
     // Actions
-    public abstract void onCountdownStart();
-    public abstract void onCountdownCancel();
-    public abstract void onCountdownEnd();
+    public void onCountdownStart() {};
+    public void onCountdownCancel() {};
+    public void onCountdownEnd() {};
 
     @Override
     public final boolean isCancelled() {
@@ -171,6 +188,15 @@ public abstract class Countdown extends Module implements Cancellable, Runnable 
         for (Countdown countdown : GameHandler.getGameHandler().getMatch().getModules().getModules(Countdown.class)) {
             countdown.setCancelled(true);
         }
+    }
+
+    public BossBar getBossBar(Player player) {
+        for (BossBar bossBar : this.bossBars) {
+            if (bossBar.getPlayers().contains(player)) {
+                return bossBar;
+            }
+        }
+        return null;
     }
 
 }

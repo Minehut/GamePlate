@@ -5,6 +5,7 @@ import com.minehut.gameplate.chat.ChatConstant;
 import com.minehut.gameplate.chat.ChatMessage;
 import com.minehut.gameplate.chat.LocalizedChatMessage;
 import com.minehut.gameplate.chat.UnlocalizedChatMessage;
+import com.minehut.gameplate.event.CycleCompleteEvent;
 import com.minehut.gameplate.event.MatchEndEvent;
 import com.minehut.gameplate.event.MatchStartEvent;
 import com.minehut.gameplate.match.MatchState;
@@ -26,15 +27,22 @@ public class StartTimer extends Countdown {
     }
 
     @EventHandler
+    public void onCycleComplete(CycleCompleteEvent event) {
+        Bukkit.broadcastMessage("Starting timer...");
+        super.startCountdown(10);
+    }
+
+    @EventHandler
     public void onMatchStart(MatchStartEvent event) {
         for (BossBar bossBar : super.bossBars) {
-            bossBar.removeAll();
+            bossBar.setVisible(false);
         }
     }
 
     @Override
     public ChatMessage getBossbarMessage(Player player) {
-        return new UnlocalizedChatMessage(ChatColor.GREEN.toString(), new LocalizedChatMessage(ChatConstant.UI_STARTING_TIMER, new UnlocalizedChatMessage(ChatColor.AQUA.toString()), new LocalizedChatMessage(ChatConstant.UI_SECONDS, Integer.toString(getTime()))));
+        player.sendMessage("getBossbarMessage()");
+        return new LocalizedChatMessage(ChatConstant.UI_STARTING_TIMER, new LocalizedChatMessage(ChatConstant.UI_SECONDS, Integer.toString(getTime())));
     }
 
     @Override
@@ -44,12 +52,13 @@ public class StartTimer extends Countdown {
 
     @Override
     public void onCountdownStart() {
+        Bukkit.broadcastMessage("Countdown started!");
         if(getTime() >= 1) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 player.sendMessage(getBossbarEndMessage(player).getMessage(player.spigot().getLocale()));
             }
         };
-        GameHandler.getGameHandler().getMatch().setMatchState(MatchState.CYCLING);
+        GameHandler.getGameHandler().getMatch().setMatchState(MatchState.STARTING);
     }
 
     @Override
@@ -58,13 +67,8 @@ public class StartTimer extends Countdown {
     }
 
     @Override
-    public void onCountdownCancel() {
-
-    }
-
-    @Override
     public void onCountdownEnd() {
-        Bukkit.getPluginManager().callEvent(new MatchStartEvent());
+        GameHandler.getGameHandler().getMatch().start();
     }
 
 }

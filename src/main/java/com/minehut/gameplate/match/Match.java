@@ -45,10 +45,13 @@ public class Match {
         Bukkit.getPluginManager().callEvent(event);
     }
 
+    public void start() {
+        this.setMatchState(MatchState.PLAYING);
+        Bukkit.getPluginManager().callEvent(new MatchStartEvent());
+    }
+
     public void setMatchState(MatchState matchState) {
         this.matchState = matchState;
-        if(matchState.equals(MatchState.PLAYING))
-        	Bukkit.getPluginManager().callEvent(new MatchStartEvent());
     }
 
     public void unregisterModules() {
