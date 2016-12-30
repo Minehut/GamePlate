@@ -146,11 +146,11 @@ public class RespawnModule extends Module {
     private void respawnPlayer(Player player) {
         this.deadPlayers.remove(player.getUniqueId());
 
-        Location location = GameHandler.getGameHandler().getMatch().getCurrentMap().getWorld().getSpawnLocation(); //todo: respawn locations
-        GameSpawnEvent event = new GameSpawnEvent(player, TeamManager.getTeamByPlayer(player), location);
+        TeamModule teamModule = TeamManager.getTeamByPlayer(player);
+        GameSpawnEvent event = new GameSpawnEvent(player, teamModule, teamModule.getRandomSpawn());
         Bukkit.getPluginManager().callEvent(event);
 
-        player.teleport(event.getSpawn());
+        player.teleport(event.getSpawn().toLocation());
 
     }
 

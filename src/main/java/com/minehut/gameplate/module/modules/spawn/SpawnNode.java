@@ -1,5 +1,6 @@
 package com.minehut.gameplate.module.modules.spawn;
 
+import com.minehut.gameplate.module.modules.kit.KitModule;
 import com.minehut.gameplate.module.modules.regions.RegionModule;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import org.bukkit.Location;
@@ -10,11 +11,14 @@ import org.bukkit.Location;
 public class SpawnNode {
     private RegionModule region;
     private TeamModule teamModule;
+    private KitModule kit;
+
     private float yaw, pitch;
 
-    public SpawnNode(RegionModule region, TeamModule teamModule, float yaw, float pitch) {
+    public SpawnNode(RegionModule region, TeamModule teamModule, KitModule kit, float yaw, float pitch) {
         this.region = region;
         this.teamModule = teamModule;
+        this.kit = kit;
         this.yaw = yaw;
         this.pitch = pitch;
     }
@@ -44,5 +48,9 @@ public class SpawnNode {
 
     public float getPitch() {
         return pitch;
+    }
+
+    public KitModule getKit() {
+        return kit;
     }
 }

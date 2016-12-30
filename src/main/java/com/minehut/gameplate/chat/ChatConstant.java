@@ -18,6 +18,7 @@ public enum ChatConstant {
     UI_SECOND("ui.second"),
     UI_SECONDS("ui.seconds"),
     UI_STARTING_TIMER("ui.startingTimer"),
+    UI_REFRESHED("ui.refreshed"),
 
     ERROR_JSON("error.json"),
     ERROR_INVENTORY_NOT_VIEWABLE("error.inventoryNotViewable"),

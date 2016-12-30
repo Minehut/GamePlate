@@ -1,6 +1,7 @@
 package com.minehut.gameplate.event;
 
-import com.minehut.gameplate.module.modules.kit.Kit;
+import com.minehut.gameplate.module.modules.kit.KitModule;
+import com.minehut.gameplate.module.modules.spawn.SpawnNode;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -13,11 +14,10 @@ public class GameSpawnEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private final Player player;
     private TeamModule team;
-    private Kit kit;
-    private Location spawn;
+    private SpawnNode spawn;
     private boolean cancelled;
 
-    public GameSpawnEvent(final Player player, TeamModule team, Location spawn) {
+    public GameSpawnEvent(final Player player, TeamModule team, SpawnNode spawn) {
         this.player = player;
         this.team = team;
         this.spawn = spawn;
@@ -39,19 +39,13 @@ public class GameSpawnEvent extends Event implements Cancellable {
         this.team = team;
     }
 
-    public Kit getKit() { return kit; }
-
-    public void setKit(Kit kit) { this.kit = kit; }
-
-    public Location getSpawn() {
+    public SpawnNode getSpawn() {
         return spawn;
     }
 
-    public void setSpawn(Location spawn) {
+    public void setSpawn(SpawnNode spawn) {
         this.spawn = spawn;
     }
-
-
 
     public boolean isCancelled() {
         return cancelled;

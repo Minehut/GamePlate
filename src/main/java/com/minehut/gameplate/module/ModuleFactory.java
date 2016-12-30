@@ -8,6 +8,7 @@ import com.minehut.gameplate.module.modules.connection.ConnectionModuleBuilder;
 import com.minehut.gameplate.module.modules.filter.FilterModuleBuilder;
 import com.minehut.gameplate.module.modules.gameComplete.GameCompleteModuleBuilder;
 import com.minehut.gameplate.module.modules.inventoryView.InventoryViewModuleBuilder;
+import com.minehut.gameplate.module.modules.kit.KitModuleBuilder;
 import com.minehut.gameplate.module.modules.lives.LivesModuleBuilder;
 import com.minehut.gameplate.module.modules.matchStart.MatchStartModuleBuilder;
 import com.minehut.gameplate.module.modules.matchTimer.MatchTimerModuleBuilder;
@@ -57,7 +58,8 @@ public class ModuleFactory {
                 ScoreObjectiveModuleBuilder.class,
                 ChatModuleBuilder.class,
                 MatchStartModuleBuilder.class,
-                TaskerModuleBuilder.class
+                TaskerModuleBuilder.class,
+                KitModuleBuilder.class
         ));
     }
 

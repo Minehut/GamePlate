@@ -1,14 +1,10 @@
 package com.minehut.gameplate.module.modules.kit;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.minehut.gameplate.match.Match;
-import com.minehut.gameplate.module.Module;
-import com.minehut.gameplate.module.ModuleBuilder;
-import com.minehut.gameplate.module.ModuleCollection;
+import com.minehut.gameplate.module.*;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
+import com.minehut.gameplate.util.Numbers;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -25,57 +21,46 @@ import java.util.Map;
 /**
  * Created by Lucas on 12/21/2016.
  */
+@BuilderData(load = ModuleLoadTime.EARLIER)
 public class KitModuleBuilder extends ModuleBuilder {
 
     @Override
     public ModuleCollection<? extends Module> load(Match match) {
+        ModuleCollection<KitModule> results = new ModuleCollection();
 
         for (Element kitsElement : match.getDocument().getRootElement().getChildren("kits")) {
-            Map<Kit, List<String>> parents = new HashMap<>();
-            Map<TeamModule, Kit> kits = new HashMap<>();
-            for (Element kitElement : kitsElement.getChildren("kit")) {
-                Kit kit = parseKit(kitElement);
-                if (kitElement.getChild("parent") != null) {
-                    List<String> p = new ArrayList<>();
-                    for (Element parentElement : kitElement.getChildren("parent")) {
-                        p.add(parentElement.getValue());
-                    }
-                    parents.put(kit, p);
-                }
-                TeamModule team = null;
-                if (kitElement.getAttribute("team") != null) {
-                    String t = kitElement.getAttributeValue("team");
-                    team = TeamManager.getTeamById(t);
-                    if (team == null) {
-                        team = TeamManager.getTeamByName(t);
+            for (Element kitElement : kitsElement.getChildren()) {
+
+                KitModule kit = parseKit(kitElement);
+
+                if (kitElement.getAttributeValue("parents") != null) {
+                    String split[] = kitElement.getAttributeValue("parents").replace(" ", "").split(",");
+                    for (String parent : split) {
+                        for (KitModule parentKit : results) {
+                            if (parentKit.getId().equals(parent)) {
+                                kit.addParentKit(parentKit);
+                            }
+                        }
                     }
                 }
-                if (team == null) continue;
-                kits.put(team, kit);
+
+                results.add(kit);
             }
-            KitModule module = new KitModule(kits);
-            parents.forEach((kit, ps) -> ps.forEach(p -> {
-                Kit parent = module.getKit(p);
-                if (parent != null) {
-                    kit.addParentKit(parent);
-                }
-            }));
-            return new ModuleCollection<>(module);
         }
 
-        return null;
+        return results;
     }
 
-    public static Kit parseKit(Element element) {
-        String name = element.getAttributeValue("name");
+    public static KitModule parseKit(Element element) {
+        String id = element.getAttributeValue("id");
+
         List<KitItem> kitItems = new ArrayList<>();
-        for (Element itemElement : element.getChildren("item")) {
-            String type = itemElement.getAttributeValue("type");
-            if (type == null)
-                type = "item";
+        for (Element itemElement : element.getChildren()) {
+            String type = itemElement.getName();
+
             String mat = itemElement.getAttributeValue("material");
-            Material material = Material.getMaterial(mat);
-            if (material == null) continue;
+            Material material = Material.getMaterial(mat.toUpperCase().replace(" ", "_"));
+
             int amount = 1;
             if (itemElement.getAttribute("amount") != null) {
                 try {
@@ -85,29 +70,34 @@ public class KitModuleBuilder extends ModuleBuilder {
                 }
             }
             int slot = 0;
-            switch (type.toLowerCase()) {
-                case "item":
-                    try {
-                        slot = itemElement.getAttribute("slot").getIntValue();
-                    } catch (DataConversionException | NullPointerException ex) {
+            if (itemElement.getAttributeValue("slot") != null) {
+                slot = Numbers.parseInt(itemElement.getAttributeValue("slot"));
+            } else {
+                switch (type.toLowerCase()) {
+                    case "item":
+                        try {
+                            slot = itemElement.getAttribute("slot").getIntValue();
+                        } catch (DataConversionException | NullPointerException ex) {
+                            continue;
+                        }
+                        break;
+                    case "armor":
+                        if (material.name().contains("_BOOTS")) {
+                            slot = 100;
+                        } else if (material.name().contains("_LEGGINGS")) {
+                            slot = 101;
+                        } else if (material.name().contains("_CHESTPLATE")) {
+                            slot = 102;
+                        } else if (material.name().contains("_HELMET")) {
+                            slot = 103;
+                        }
+                        break;
+                    case "offHand":
+                        slot = -106;
+                        break;
+                    default:
                         continue;
-                    }
-                    break;
-                case "armor":
-                    if (material.name().contains("_BOOTS")) {
-                        slot = 100;
-                    } else if (material.name().contains("_LEGGINGS")) {
-                        slot = 101;
-                    } else if (material.name().contains("_CHESTPLATE")) {
-                        slot = 102;
-                    } else if (material.name().contains("_HELMET")) {
-                        slot = 103;
-                    }
-                    break;
-                case "offHand":
-                    slot = -106;
-                    break;
-                default: continue;
+                }
             }
             ItemStack item = new ItemStack(material, amount);
             ItemMeta meta = item.getItemMeta();
@@ -140,7 +130,7 @@ public class KitModuleBuilder extends ModuleBuilder {
             }
             kitItems.add(new KitItem(slot, item));
         }
-        return new Kit(name, kitItems);
+        return new KitModule(id, kitItems);
     }
 
 }

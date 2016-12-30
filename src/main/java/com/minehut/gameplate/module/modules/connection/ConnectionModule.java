@@ -19,26 +19,20 @@ import org.bukkit.event.player.PlayerQuitEvent;
  */
 public class ConnectionModule extends Module {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onCycleComplete(CycleCompleteEvent event) {
         TeamModule observers = TeamManager.getObservers();
         for (Player player : Bukkit.getOnlinePlayers()) {
             observers.addPlayer(player, true);
-
-            GameSpawnEvent spawnEvent = new GameSpawnEvent(player, TeamManager.getObservers(), GameHandler.getGameHandler().getCurrentMap().getWorld().getSpawnLocation());
-            Bukkit.getPluginManager().callEvent(spawnEvent);
         }
     }
 
-    @EventHandler(priority = EventPriority.LOW)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onJoin(PlayerJoinEvent event) {
         GameHandler.getGameHandler().getMatch().getModules().getModule(TeamManager.class).attemptJoinTeam(event.getPlayer(), TeamManager.getObservers());
-
-        GameSpawnEvent spawnEvent = new GameSpawnEvent(event.getPlayer(), TeamManager.getObservers(), GameHandler.getGameHandler().getCurrentMap().getWorld().getSpawnLocation());
-        Bukkit.getPluginManager().callEvent(spawnEvent);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onQuit(PlayerQuitEvent event) {
         TeamModule teamModule = TeamManager.getTeamByPlayer(event.getPlayer());
         if (teamModule != null) {
@@ -46,7 +40,7 @@ public class ConnectionModule extends Module {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onKick(PlayerKickEvent event) {
         TeamModule teamModule = TeamManager.getTeamByPlayer(event.getPlayer());
         if (teamModule != null) {

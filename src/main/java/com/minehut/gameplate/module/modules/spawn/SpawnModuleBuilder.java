@@ -2,10 +2,12 @@ package com.minehut.gameplate.module.modules.spawn;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.ModuleBuilder;
 import com.minehut.gameplate.module.ModuleCollection;
+import com.minehut.gameplate.module.modules.kit.KitModule;
 import com.minehut.gameplate.module.modules.regions.RegionModule;
 import com.minehut.gameplate.module.modules.regions.RegionModuleBuilder;
 import com.minehut.gameplate.module.modules.team.TeamModule;
@@ -48,7 +50,16 @@ public class SpawnModuleBuilder extends ModuleBuilder {
 
                 RegionModule regionModule = RegionModuleBuilder.parseChildRegions(element).get(0);
 
-                SpawnNode spawnNode = new SpawnNode(regionModule, teamModule, yaw, pitch);
+                KitModule kitModule = null;
+                if (element.getAttributeValue("kit") != null) {
+                    for (KitModule search : GameHandler.getGameHandler().getMatch().getModules().getModules(KitModule.class)) {
+                        if (search.getId().equals(element.getAttributeValue("kit"))) {
+                            kitModule = search;
+                        }
+                    }
+                }
+
+                SpawnNode spawnNode = new SpawnNode(regionModule, teamModule, kitModule, yaw, pitch);
 
                 if (teamModule != null) {
                     teamModule.addSpawn(spawnNode);

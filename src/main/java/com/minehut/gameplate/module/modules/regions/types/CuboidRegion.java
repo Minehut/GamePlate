@@ -21,9 +21,9 @@ public class CuboidRegion extends RegionModule {
         this.max = Vector.getMaximum(pos1, pos2);
 
         List<Block> results = new ArrayList<>();
-        for (int x = (int) getXMin(); x < getXMax(); x++) {
-            for (int z = (int) getZMin(); z < getZMax(); z++) {
-                for (int y = (int) getYMin(); y < getYMax(); y++) {
+        for (int x = (int) getXMin(); x <= getXMax(); x++) {
+            for (int z = (int) getZMin(); z <= getZMax(); z++) {
+                for (int y = (int) getYMin(); y <= getYMax(); y++) {
                     results.add((new Location(GameHandler.getGameHandler().getCurrentMap().getWorld(), x, y, z).getBlock()));
                 }
             }

@@ -16,6 +16,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.io.IOException;
+
 /**
  * Created by luke on 12/23/16.
  */
@@ -87,5 +89,12 @@ public class CycleCommands {
     @Command(aliases = {"cancel"}, desc = "Cancel countdowns.")
     public static void cancel(final CommandContext cmd, CommandSender sender) throws CommandException {
         Countdown.stopCountdowns();
+    }
+
+    @Command(aliases = {"refresh"}, desc = "Refresh the map repositories and rotation file.")
+    public static void refresh(final CommandContext cmd, CommandSender sender) throws CommandException, IOException, RotationLoadException {
+        GameHandler.getGameHandler().getRepositoryManager().refreshRepos();
+        GameHandler.getGameHandler().getRepositoryManager().refreshRotation();
+        sender.sendMessage(ChatColor.GREEN + new LocalizedChatMessage(ChatConstant.UI_REFRESHED).getMessage(ChatUtil.getLocale(sender)));
     }
 }
