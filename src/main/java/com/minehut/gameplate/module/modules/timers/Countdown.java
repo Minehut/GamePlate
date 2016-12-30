@@ -1,6 +1,7 @@
 package com.minehut.gameplate.module.modules.timers;
 
 import com.minehut.gameplate.GameHandler;
+import com.minehut.gameplate.GamePlate;
 import com.minehut.gameplate.chat.ChatMessage;
 import com.minehut.gameplate.chat.LocalizedChatMessage;
 import com.minehut.gameplate.event.CycleCompleteEvent;
@@ -11,6 +12,7 @@ import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
@@ -30,15 +32,21 @@ public abstract class Countdown extends TaskedModule implements Cancellable {
 
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onCycleComplete(CycleCompleteEvent event) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (getBossBar(player) == null) {
-                BossBar bossBar = createBossBar(player);
-                this.bossBars.add(bossBar);
-                bossBar.addPlayer(player);
+        Bukkit.getScheduler().runTaskLater(GamePlate.getInstance(), new Runnable() {
+            @Override
+            public void run() {
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    if (getBossBar(player) == null) {
+                        player.sendMessage("Creating bossbar...");
+                        BossBar bossBar = createBossBar(player);
+                        bossBar.addPlayer(player);
+                        bossBars.add(bossBar);
+                    }
+                }
             }
-        }
+        }, 1);
     }
 
     @EventHandler
@@ -98,12 +106,6 @@ public abstract class Countdown extends TaskedModule implements Cancellable {
                     }
                     onRun();
                 }
-
-                for (BossBar bossBar : this.bossBars) {
-                    if(bossBar.getPlayers().isEmpty()) continue;
-                    bossBar.getPlayers().get(0).sendMessage("Sending bossbar update...");
-                    bossBar.setTitle(getBossbarMessage(bossBar.getPlayers().get(0)).getMessage(bossBar.getPlayers().get(0).spigot().getLocale()));
-                }
             }
             time--;
         }
@@ -121,7 +123,6 @@ public abstract class Countdown extends TaskedModule implements Cancellable {
         } else {
             return false;
         }
-
     }
 
     public boolean canStart() {

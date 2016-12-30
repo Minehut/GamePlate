@@ -25,7 +25,7 @@ public class CycleTimer extends Countdown {
     @Override
     public BossBar createBossBar(Player player) {
         BossBar bossBar = Bukkit.createBossBar("", BarColor.BLUE, BarStyle.SOLID);
-        bossBar.setVisible(false);
+//        bossBar.setVisible(false);
         return bossBar;
     }
 

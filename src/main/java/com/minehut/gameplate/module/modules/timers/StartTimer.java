@@ -23,7 +23,7 @@ public class StartTimer extends Countdown {
 
     @Override
     public BossBar createBossBar(Player player) {
-        return Bukkit.createBossBar("", BarColor.GREEN, BarStyle.SOLID);
+        return Bukkit.createBossBar(getBossbarEndMessage(player).getMessage(player.spigot().getLocale()), BarColor.GREEN, BarStyle.SOLID);
     }
 
     @EventHandler

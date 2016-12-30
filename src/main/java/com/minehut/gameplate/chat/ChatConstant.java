@@ -16,7 +16,7 @@ public enum ChatConstant {
     UI_CYCLING_TIMER("ui.cycleTimer"),
     UI_CYCLED_TO("ui.cycledTo"),
     UI_SECOND("ui.second"),
-    UI_SECONDS("ui.second"),
+    UI_SECONDS("ui.seconds"),
     UI_STARTING_TIMER("ui.startingTimer"),
 
     ERROR_JSON("error.json"),
