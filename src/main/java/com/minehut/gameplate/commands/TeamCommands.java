@@ -2,8 +2,8 @@ package com.minehut.gameplate.commands;
 
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.chat.ChatConstant;
-import com.minehut.gameplate.chat.ChatMessage;
 import com.minehut.gameplate.chat.LocalizedChatMessage;
+import com.minehut.gameplate.event.api.GamePlateAllowedChatEvent;
 import com.minehut.gameplate.module.modules.chat.ChatModule;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
@@ -12,6 +12,7 @@ import com.sk89q.minecraft.util.commands.ChatColor;
 import com.sk89q.minecraft.util.commands.Command;
 import com.sk89q.minecraft.util.commands.CommandContext;
 import com.sk89q.minecraft.util.commands.CommandException;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -80,7 +81,13 @@ public class TeamCommands {
             player.sendMessage(ChatUtil.getWarningMessage(new LocalizedChatMessage(ChatConstant.ERROR_NO_MESSAGE).getMessage(ChatUtil.getLocale(sender))));
             return;
         }
-        ChatModule.sendToTeam(team, new LocalizedChatMessage(ChatConstant.UI_TEAM_CHAT, team.getColor().toString(), player.getDisplayName(), cmd.getJoinedStrings(0)).getMessage(ChatUtil.getLocale(sender)));
+
+        GamePlateAllowedChatEvent canChatEvent = new GamePlateAllowedChatEvent(player);
+        Bukkit.getPluginManager().callEvent(canChatEvent);
+
+        if (canChatEvent.isAllowedChat()) {
+            ChatModule.sendToTeam(team, new LocalizedChatMessage(ChatConstant.UI_TEAM_CHAT, team.getColor().toString(), player.getDisplayName(), cmd.getJoinedStrings(0)).getMessage(ChatUtil.getLocale(sender)));
+        }
     }
 
 }

@@ -1,10 +1,9 @@
 package com.minehut.gameplate.module.modules.chat;
 
-import com.minehut.gameplate.event.GamePlatePrefixEvent;
+import com.minehut.gameplate.event.api.GamePlatePrefixEvent;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
-import com.minehut.gameplate.util.CachedPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

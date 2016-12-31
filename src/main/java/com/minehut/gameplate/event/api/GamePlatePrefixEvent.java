@@ -1,4 +1,4 @@
-package com.minehut.gameplate.event;
+package com.minehut.gameplate.event.api;
 
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import org.bukkit.entity.Player;
