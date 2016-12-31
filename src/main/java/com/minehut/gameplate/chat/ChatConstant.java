@@ -9,6 +9,7 @@ public enum ChatConstant {
 
     UI_WELCOME("ui.welcome"),
     UI_TEAM_JOIN("ui.teamJoin"),
+    UI_TEAM_CHAT("ui.teamChat"),
     UI_POTION_EFFECTS("ui.potionEffects"),
     UI_NO_POTION_EFFECTS("ui.noPotionEffects"),
     UI_HUNGER_LEVEL("ui.hungerLevel"),
@@ -18,6 +19,7 @@ public enum ChatConstant {
     UI_SECOND("ui.second"),
     UI_SECONDS("ui.seconds"),
     UI_STARTING_TIMER("ui.startingTimer"),
+    UI_ROTATION_HEAD("ui.rotationHead"),
     UI_REFRESHED("ui.refreshed"),
     UI_OBJECTIVE_PREFIX("ui.objectivePrefix"),
 
@@ -35,7 +37,8 @@ public enum ChatConstant {
     ERROR_COMMAND_PLAYERS_ONLY("error.commandPlayerOnly"),
     ERROR_NO_TEAM_FOUND("error.noTeamFound"),
     ERROR_UNABLE_TO_CYCLE_MID_MATCH("error.unableToCycleMidMatch"),
-    ERROR_MATCH_ALREADY_STARTED("error.matchAlreadyStarted");
+    ERROR_MATCH_ALREADY_STARTED("error.matchAlreadyStarted"),
+    ERROR_NO_MESSAGE("error.noMessage");
 
     private final String path;
 

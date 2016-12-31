@@ -4,6 +4,7 @@ import com.minehut.gameplate.chat.ChatConstant;
 import com.minehut.gameplate.chat.LocaleHandler;
 import com.minehut.gameplate.chat.LocalizedChatMessage;
 import com.minehut.gameplate.commands.CycleCommands;
+import com.minehut.gameplate.commands.RotationCommands;
 import com.minehut.gameplate.commands.TeamCommands;
 import com.minehut.gameplate.map.repository.exception.RotationLoadException;
 import com.minehut.gameplate.util.ChatUtil;
@@ -68,6 +69,7 @@ public class GamePlate extends JavaPlugin {
 
         cmdRegister.register(TeamCommands.class);
         cmdRegister.register(CycleCommands.class);
+        cmdRegister.register(RotationCommands.class);
     }
 
     @Override

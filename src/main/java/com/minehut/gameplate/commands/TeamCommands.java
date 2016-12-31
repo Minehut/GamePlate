@@ -2,7 +2,9 @@ package com.minehut.gameplate.commands;
 
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.chat.ChatConstant;
+import com.minehut.gameplate.chat.ChatMessage;
 import com.minehut.gameplate.chat.LocalizedChatMessage;
+import com.minehut.gameplate.module.modules.chat.ChatModule;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
 import com.minehut.gameplate.util.ChatUtil;
@@ -47,7 +49,7 @@ public class TeamCommands {
         }
     }
 
-    @Command(aliases = {"team"}, desc = "View your team.")
+    @Command(aliases = {"myteam"}, desc = "View your team.")
     public static void team(final CommandContext cmd, CommandSender sender) throws CommandException {
         if (!(sender instanceof Player)) {
             sender.sendMessage(ChatUtil.getWarningMessage(new LocalizedChatMessage(ChatConstant.ERROR_COMMAND_PLAYERS_ONLY).getMessage(ChatUtil.getLocale(sender))));
@@ -63,4 +65,22 @@ public class TeamCommands {
         player.sendMessage(ChatColor.DARK_PURPLE + "# " + ChatColor.DARK_AQUA + "There are " + ChatColor.AQUA + teamModule.getPlayers().size() + ChatColor.DARK_AQUA + " players on your team.");
         player.sendMessage(ChatColor.DARK_PURPLE + ChatUtil.divider);
     }
+
+    @Command(aliases = {"team", "t"}, desc = "Send a message to your team")
+    public static void teamChat(final CommandContext cmd, CommandSender sender) {
+        if (!(sender instanceof Player)) {
+            return;
+        }
+        Player player = (Player) sender;
+        TeamModule team = TeamManager.getTeamByPlayer(player);
+        if (team == null || team.equals(TeamManager.getObservers())) {
+            return;
+        }
+        if (cmd.argsLength() == 0) {
+            player.sendMessage(ChatUtil.getWarningMessage(new LocalizedChatMessage(ChatConstant.ERROR_NO_MESSAGE).getMessage(ChatUtil.getLocale(sender))));
+            return;
+        }
+        ChatModule.sendToTeam(team, new LocalizedChatMessage(ChatConstant.UI_TEAM_CHAT, team.getColor().toString(), player.getDisplayName(), cmd.getJoinedStrings(0)).getMessage(ChatUtil.getLocale(sender)));
+    }
+
 }

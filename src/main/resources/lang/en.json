@@ -16,7 +16,12 @@
         { "id": "cycledTo", "message": "Cycled to {0}"},
         { "id": "startingTimer", "message": "Starting in {0}"},
         { "id": "refreshed", "message": "Refreshed all repositories and the rotation file."},
+<<<<<<< HEAD
         { "id": "objectivePrefix", "message": "Objective"}
+=======
+        { "id": "rotationHead", "message": "[ROTATION]"},
+        { "id": "teamChat", "message": "{0}[TEAM CHAT] {1}: {2}"}
+>>>>>>> origin/master
       ]
     },
 
@@ -36,7 +41,11 @@
         { "id": "noTeamFound", "message": "No team found."},
         { "id": "unableToCycleMidMatch", "message": "Unable to cycle while the match is running."},
         { "id": "matchAlreadyStarted", "message": "The match has already started."},
+<<<<<<< HEAD
         { "id": "joinSameTeam", "message": "You are already on that team."}
+=======
+        { "id": "noMessage", "message": "Please include a message!"}
+>>>>>>> origin/master
       ]
     }
   ] 
