@@ -15,7 +15,8 @@
         { "id": "cycleTimer", "message": "Cycling to {0} in {1}"},
         { "id": "cycledTo", "message": "Cycled to {0}"},
         { "id": "startingTimer", "message": "Starting in {0}"},
-        { "id": "refreshed", "message": "Refreshed all repositories and the rotation file."}
+        { "id": "refreshed", "message": "Refreshed all repositories and the rotation file."},
+        { "id": "objectivePrefix", "message": "Objective"}
       ]
     },
 

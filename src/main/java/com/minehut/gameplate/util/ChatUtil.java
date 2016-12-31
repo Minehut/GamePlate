@@ -16,6 +16,8 @@ import java.util.logging.Level;
  */
 public class ChatUtil {
 
+    public static String divider = "######################################";
+
     public static void sendMessage(Player player, ChatConstant chatConstant, String... messages) {
         sendMessage(player, ChatColor.DARK_PURPLE,  chatConstant, messages);
     }

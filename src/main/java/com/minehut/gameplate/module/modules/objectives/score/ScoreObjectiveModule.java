@@ -4,6 +4,7 @@ import com.minehut.gameplate.event.MatchEndEvent;
 import com.minehut.gameplate.module.modules.objectives.ObjectiveModule;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 
 import java.util.HashMap;
@@ -35,6 +36,8 @@ public class ScoreObjectiveModule extends ObjectiveModule {
         if (score >= limitScore) {
             super.addCompletedBy(teamModule);
         }
+
+        Bukkit.broadcastMessage(teamModule.getColor() + teamModule.getName() + ": " + scores.get(teamModule));
     }
 
     public int getScore(TeamModule teamModule) {

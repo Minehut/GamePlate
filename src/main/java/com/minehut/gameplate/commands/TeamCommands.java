@@ -41,4 +41,21 @@ public class TeamCommands {
             teamManager.attemptJoinTeam(player, found);
         }
     }
+
+    @Command(aliases = {"team"}, desc = "View your team.")
+    public static void team(final CommandContext cmd, CommandSender sender) throws CommandException {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(ChatUtil.getWarningMessage(new LocalizedChatMessage(ChatConstant.ERROR_COMMAND_PLAYERS_ONLY).getMessage(ChatUtil.getLocale(sender))));
+            return;
+        }
+
+        Player player = (Player) sender;
+        TeamModule teamModule = TeamManager.getTeamByPlayer(player);
+
+        player.sendMessage(ChatColor.DARK_PURPLE + ChatUtil.divider);
+        player.sendMessage(ChatColor.DARK_PURPLE + "# " + ChatColor.DARK_AQUA + "You are on the " + teamModule.getColor() + teamModule.getName() + ChatColor.DARK_AQUA + ".");
+        player.sendMessage(ChatColor.DARK_PURPLE + "# ");
+        player.sendMessage(ChatColor.DARK_PURPLE + "# " + ChatColor.DARK_AQUA + "There are " + ChatColor.AQUA + teamModule.getPlayers().size() + ChatColor.DARK_AQUA + " players on your team.");
+        player.sendMessage(ChatColor.DARK_PURPLE + ChatUtil.divider);
+    }
 }

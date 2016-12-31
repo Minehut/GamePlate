@@ -35,19 +35,26 @@ public class SpawnModule extends Module {
     @EventHandler
     public void onCycleComplete(CycleCompleteEvent event) {
         TeamModule observers = TeamManager.getObservers();
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            observers.addPlayer(player, true);
-
-            GameSpawnEvent spawnEvent = new GameSpawnEvent(player, TeamManager.getObservers(), getObserversSpawn());
-            Bukkit.getPluginManager().callEvent(spawnEvent);
+        for (TeamModule teamModule : TeamManager.getTeamModules()) {
+            for (Player player : teamModule.getPlayers()) {
+                GameSpawnEvent spawnEvent = new GameSpawnEvent(player, teamModule, getObserversSpawn());
+                Bukkit.getPluginManager().callEvent(spawnEvent);
+            }
         }
     }
 
-    @EventHandler(priority = EventPriority.LOW)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onJoin(PlayerJoinEvent event) {
-        GameHandler.getGameHandler().getMatch().getModules().getModule(TeamManager.class).attemptJoinTeam(event.getPlayer(), TeamManager.getObservers());
+        TeamModule teamModule = TeamManager.getTeamByPlayer(event.getPlayer());
 
-        GameSpawnEvent spawnEvent = new GameSpawnEvent(event.getPlayer(), TeamManager.getObservers(), getObserversSpawn());
+        SpawnNode spawnNode;
+        if (GameHandler.getGameHandler().getMatch().isRunning()) {
+            spawnNode = teamModule.getRandomSpawn();
+        } else {
+            spawnNode = getObserversSpawn();
+        }
+
+        GameSpawnEvent spawnEvent = new GameSpawnEvent(event.getPlayer(), teamModule, spawnNode);
         Bukkit.getPluginManager().callEvent(spawnEvent);
     }
 

@@ -141,7 +141,7 @@ public abstract class Repository {
             }
         }
 
-        return new LoadedMap(name, version, objective, authors, contributors, rules, map, document);
+        return new LoadedMap(name, objective, version, authors, contributors, rules, map, document);
     }
 
     /**

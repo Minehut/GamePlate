@@ -12,11 +12,12 @@ public class GameCompleteModule extends Module {
 
     @EventHandler
     public void onObjectiveComplete(ObjectiveCompleteEvent event) {
-        event.getObjective().addCompletedBy(event.getTeamModule());
-
-        for (TeamModule team : TeamManager.getTeamModules()) {
-            if (testWin(team)) {
-                GameHandler.getGameHandler().getMatch().end(team);
+        if (GameHandler.getGameHandler().getMatch().isRunning()) {
+            for (TeamModule team : TeamManager.getTeamModules()) {
+                if (testWin(team)) {
+                    GameHandler.getGameHandler().getMatch().end(team);
+                    return;
+                }
             }
         }
     }
