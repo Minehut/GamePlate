@@ -3,6 +3,7 @@ package com.minehut.gameplate.module.modules.spawn;
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.event.CycleCompleteEvent;
 import com.minehut.gameplate.event.GameSpawnEvent;
+import com.minehut.gameplate.event.MatchStartEvent;
 import com.minehut.gameplate.event.PlayerChangeTeamEvent;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.modules.team.TeamModule;
@@ -67,9 +68,23 @@ public class SpawnModule extends Module {
 
     @EventHandler
     public void onTeamChange(PlayerChangeTeamEvent event) {
-        TeamModule teamModule = TeamManager.getTeamByPlayer(event.getPlayer());
-        GameSpawnEvent gameSpawnEvent = new GameSpawnEvent(event.getPlayer(), teamModule, teamModule.getRandomSpawn());
-        Bukkit.getPluginManager().callEvent(gameSpawnEvent);
+        if (GameHandler.getGameHandler().getMatch().isRunning()) {
+            TeamModule teamModule = TeamManager.getTeamByPlayer(event.getPlayer());
+            GameSpawnEvent gameSpawnEvent = new GameSpawnEvent(event.getPlayer(), teamModule, teamModule.getRandomSpawn());
+            Bukkit.getPluginManager().callEvent(gameSpawnEvent);
+        }
+    }
+
+    @EventHandler
+    public void onMatchStart(MatchStartEvent event) {
+        for (TeamModule teamModule : TeamManager.getTeamModules()) {
+            if (!teamModule.isObserver()) {
+                for (Player player : teamModule.getPlayers()) {
+                    GameSpawnEvent gameSpawnEvent = new GameSpawnEvent(player, teamModule, teamModule.getRandomSpawn());
+                    Bukkit.getPluginManager().callEvent(gameSpawnEvent);
+                }
+            }
+        }
     }
 
     /*
