@@ -35,7 +35,8 @@
         { "id": "commandPlayerOnly", "message": "This command cannot be executed from the console."},
         { "id": "noTeamFound", "message": "No team found."},
         { "id": "unableToCycleMidMatch", "message": "Unable to cycle while the match is running."},
-        { "id": "matchAlreadyStarted", "message": "The match has already started."}
+        { "id": "matchAlreadyStarted", "message": "The match has already started."},
+        { "id": "joinSameTeam", "message": "You are already on that team."}
       ]
     }
   ] 

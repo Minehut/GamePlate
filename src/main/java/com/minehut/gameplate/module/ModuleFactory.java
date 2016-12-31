@@ -5,6 +5,8 @@ import com.minehut.gameplate.module.modules.arrowRemove.ArrowRemoveModuleBuilder
 import com.minehut.gameplate.module.modules.buildHeight.BuildHeightModuleBuilder;
 import com.minehut.gameplate.module.modules.chat.ChatModuleBuilder;
 import com.minehut.gameplate.module.modules.connection.ConnectionModuleBuilder;
+import com.minehut.gameplate.module.modules.deathDrop.DeathDropModule;
+import com.minehut.gameplate.module.modules.deathDrop.DeathDropModuleBuilder;
 import com.minehut.gameplate.module.modules.filter.FilterModuleBuilder;
 import com.minehut.gameplate.module.modules.gameComplete.GameCompleteModuleBuilder;
 import com.minehut.gameplate.module.modules.inventoryView.InventoryViewModuleBuilder;
@@ -59,7 +61,8 @@ public class ModuleFactory {
                 ChatModuleBuilder.class,
                 MatchAlertsModuleBuilder.class,
                 TaskerModuleBuilder.class,
-                KitModuleBuilder.class
+                KitModuleBuilder.class,
+                DeathDropModuleBuilder.class
         ));
     }
 

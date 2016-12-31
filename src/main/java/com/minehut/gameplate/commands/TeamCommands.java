@@ -38,6 +38,11 @@ public class TeamCommands {
                 return;
             }
 
+            if (found == existingTeam) {
+                ChatUtil.sendWarningMessage(player, ChatConstant.ERROR_JOIN_SAME_TEAM);
+                return;
+            }
+
             teamManager.attemptJoinTeam(player, found);
         }
     }

@@ -25,6 +25,7 @@ public enum ChatConstant {
     ERROR_INVENTORY_NOT_VIEWABLE("error.inventoryNotViewable"),
     ERROR_TEAM_FULL("error.teamFull"),
     ERROR_TEAM_OVERFLOWED("error.teamOverflowed"),
+    ERROR_JOIN_SAME_TEAM("error.joinSameTeam"),
     ERROR_BUILD_HEIGHT("error.buildHeight"),
     ERROR_BLOCKED_CRAFT("error.blockedCraft"),
     ERROR_BLOCKED_PLACE("error.blockedPlace"),
