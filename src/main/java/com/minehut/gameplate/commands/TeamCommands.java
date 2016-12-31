@@ -50,7 +50,7 @@ public class TeamCommands {
     }
 
     @Command(aliases = {"myteam"}, desc = "View your team.")
-    public static void team(final CommandContext cmd, CommandSender sender) throws CommandException {
+    public static void myteam(final CommandContext cmd, CommandSender sender) throws CommandException {
         if (!(sender instanceof Player)) {
             sender.sendMessage(ChatUtil.getWarningMessage(new LocalizedChatMessage(ChatConstant.ERROR_COMMAND_PLAYERS_ONLY).getMessage(ChatUtil.getLocale(sender))));
             return;
