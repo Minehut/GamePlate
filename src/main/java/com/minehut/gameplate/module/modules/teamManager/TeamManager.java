@@ -65,9 +65,6 @@ public class TeamManager extends Module {
             oldTeam.removePlayer(player);
         }
 
-        PlayerChangeTeamEvent event = new PlayerChangeTeamEvent(player, teamModule, oldTeam);
-        Bukkit.getPluginManager().callEvent(event);
-
         return true;
     }
 

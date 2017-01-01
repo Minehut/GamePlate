@@ -58,12 +58,6 @@ public class ScoreboardModule extends Module {
     @EventHandler
     public void onTeamChange(PlayerChangeTeamEvent event) {
         Team team = this.simpleScoreboard.getScoreboard().getTeam(event.getNewTeam().getId());
-        if (team != null) {
-            Bukkit.broadcastMessage("adding player " + event.getPlayer().getName());
-           team.addPlayer(event.getPlayer());
-        } else {
-            Bukkit.broadcastMessage("team is null!");
-        }
 
         if (event.getOldTeam() != null) {
             Team oldTeam = this.simpleScoreboard.getScoreboard().getTeam(event.getOldTeam().getId());
@@ -72,7 +66,11 @@ public class ScoreboardModule extends Module {
             }
         }
 
-        if (event.getNewTeam() == this.teamModule) {
+        if (team != null) {
+           team.addPlayer(event.getPlayer());
+        }
+
+        if (event.getNewTeam().getId().equals(this.teamModule.getId())) {
             simpleScoreboard.send(event.getPlayer());
         }
     }

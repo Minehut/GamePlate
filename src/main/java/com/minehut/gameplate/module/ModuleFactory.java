@@ -31,6 +31,7 @@ import com.minehut.gameplate.module.modules.tracker.TrackerBuilder;
 import com.minehut.gameplate.module.modules.visibility.VisibilityModuleBuilder;
 import org.bukkit.Bukkit;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.logging.Level;
@@ -97,18 +98,18 @@ public class ModuleFactory {
                     try {
                         ModuleCollection moduleCollection = builder.load(match);
                         if (moduleCollection != null) {
-                            results.addAll(builder.load(match));
+                            results.addAll(moduleCollection);
                         }
                     } catch (Throwable t) {
                         t.printStackTrace();
                     }
                 }
-            } catch (NullPointerException e) {
+            } catch (NullPointerException e) { //builder did not specify a load time.
                 if (time != ModuleLoadTime.NORMAL) ;
                 else try {
                     ModuleCollection moduleCollection = builder.load(match);
                     if (moduleCollection != null) {
-                        results.addAll(builder.load(match));
+                        results.addAll(moduleCollection);
                     }
                 } catch (Throwable t) {
                     t.printStackTrace();

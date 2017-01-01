@@ -26,7 +26,7 @@ public class TimeNotificationsModule extends TaskedModule {
             int limit = TimeLimitModule.getTimeLimit();
             if (limit > 0) {
                 int timeRemaining = (int) (TimeLimitModule.getTimeLimit() - MatchTimerModule.getTimeInSeconds());
-                if (timeRemaining != lastSecond && (timeRemaining % 60 == 0 || timeRemaining == 10 || timeRemaining == 5 || timeRemaining <= 3)) {
+                if (timeRemaining != lastSecond && (timeRemaining % 60 == 0 || timeRemaining == 10 || timeRemaining <= 5)) {
                     lastSecond = timeRemaining;
                     String formated = Strings.formatTime(timeRemaining);
 

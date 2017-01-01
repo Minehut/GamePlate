@@ -23,7 +23,9 @@ public class ScoreboardModuleCreator extends Module {
 
         //we have to call it here because the team modules will
         //be initialized before this module is initialized.
+        int i = 1;
         for (TeamModule teamModule : TeamManager.getTeamModules()) {
+            i++;
             createTeam(teamModule);
         }
     }

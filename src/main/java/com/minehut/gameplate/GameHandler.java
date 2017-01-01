@@ -31,8 +31,6 @@ public class GameHandler {
         repositoryManager = new RepositoryManager();
         repositoryManager.setupRotation();
 
-
-
         currentMap = new CurrentMap(repositoryManager.getRotation().getNext(), UUID.randomUUID());
         Bukkit.getScheduler().scheduleSyncDelayedTask(GamePlate.getInstance(), new Runnable() {
             @Override
