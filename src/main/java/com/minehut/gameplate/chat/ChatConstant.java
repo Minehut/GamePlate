@@ -23,6 +23,7 @@ public enum ChatConstant {
     UI_REFRESHED("ui.refreshed"),
     UI_OBJECTIVE_PREFIX("ui.objectivePrefix"),
     UI_TIME_REMAINING("ui.timeRemaining"),
+    UI_NEXT_MAP_SET("ui.nextMapSet"),
 
     ERROR_JSON("error.json"),
     ERROR_INVENTORY_NOT_VIEWABLE("error.inventoryNotViewable"),
@@ -39,6 +40,7 @@ public enum ChatConstant {
     ERROR_NO_TEAM_FOUND("error.noTeamFound"),
     ERROR_UNABLE_TO_CYCLE_MID_MATCH("error.unableToCycleMidMatch"),
     ERROR_MATCH_ALREADY_STARTED("error.matchAlreadyStarted"),
+    ERROR_MAP_NOT_FOUND("error.mapNotFound"),
     ERROR_NO_MESSAGE("error.noMessage");
 
     private final String path;

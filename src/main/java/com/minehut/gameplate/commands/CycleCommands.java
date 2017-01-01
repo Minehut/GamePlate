@@ -3,6 +3,8 @@ package com.minehut.gameplate.commands;
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.chat.ChatConstant;
 import com.minehut.gameplate.chat.LocalizedChatMessage;
+import com.minehut.gameplate.chat.UnlocalizedChatMessage;
+import com.minehut.gameplate.map.LoadedMap;
 import com.minehut.gameplate.map.repository.exception.RotationLoadException;
 import com.minehut.gameplate.match.MatchState;
 import com.minehut.gameplate.module.modules.team.TeamModule;
@@ -33,6 +35,33 @@ public class CycleCommands {
             e.printStackTrace();
         }
         sender.sendMessage("cycled!");
+    }
+
+    @Command(aliases = {"setnext", "sn"}, desc = "Set the next map.", usage = "[map]", min = 1)
+    public static void setNext(final CommandContext cmd, CommandSender sender) throws CommandException {
+        LoadedMap found = null;
+
+        for (LoadedMap loadedMap : GameHandler.getGameHandler().getRepositoryManager().getRotation()) {
+            if (loadedMap.getName().equalsIgnoreCase(cmd.getJoinedStrings(0))) {
+                found = loadedMap;
+            }
+        }
+
+        if (found == null) {
+            for (LoadedMap loadedMap : GameHandler.getGameHandler().getRepositoryManager().getRotation()) {
+                if (loadedMap.getName().toLowerCase().startsWith(cmd.getJoinedStrings(0).toLowerCase())) {
+                    found = loadedMap;
+                }
+            }
+        }
+
+        if (found == null) {
+            sender.sendMessage(ChatUtil.getWarningMessage(new LocalizedChatMessage(ChatConstant.ERROR_MAP_NOT_FOUND).getMessage(ChatUtil.getLocale(sender))));
+            return;
+        }
+
+        GameHandler.getGameHandler().getRepositoryManager().getRotation().setForcedNextMap(found);
+        sender.sendMessage(ChatColor.DARK_PURPLE + new LocalizedChatMessage(ChatConstant.UI_NEXT_MAP_SET, new UnlocalizedChatMessage(ChatColor.AQUA + "{0}", found.getName())).getMessage(ChatUtil.getLocale(sender)));
     }
 
     @Command(aliases = {"end"}, desc = "End the match.")

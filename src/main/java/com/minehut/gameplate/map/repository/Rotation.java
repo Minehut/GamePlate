@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 public class Rotation extends ArrayList<LoadedMap> {
 
     private int position = 0;
+    private LoadedMap forcedNextMap = null;
 
     /**
      * Refreshes the plugin's default rotation
@@ -49,6 +50,10 @@ public class Rotation extends ArrayList<LoadedMap> {
         return position;
     }
 
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
     /**
      * @return Returns the next map in the rotation
      */
@@ -63,4 +68,11 @@ public class Rotation extends ArrayList<LoadedMap> {
         return position;
     }
 
+    public LoadedMap getForcedNextMap() {
+        return forcedNextMap;
+    }
+
+    public void setForcedNextMap(LoadedMap forcedNextMap) {
+        this.forcedNextMap = forcedNextMap;
+    }
 }

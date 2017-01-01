@@ -53,7 +53,13 @@ public class GameHandler {
 
         if (match != null) match.unregisterModules();
 
-        currentMap = new CurrentMap(repositoryManager.getRotation().getNext(), UUID.randomUUID());
+        if (repositoryManager.getRotation().getForcedNextMap() != null) {
+            currentMap = new CurrentMap(repositoryManager.getRotation().getForcedNextMap(), UUID.randomUUID());
+            repositoryManager.getRotation().setForcedNextMap(null);
+        } else {
+            currentMap = new CurrentMap(repositoryManager.getRotation().getNext(), UUID.randomUUID());
+        }
+
         currentMap.run();
 
         this.match = new Match(currentMap.getUuid(), currentMap);

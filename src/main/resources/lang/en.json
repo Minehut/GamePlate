@@ -19,7 +19,8 @@
         { "id": "objectivePrefix", "message": "Objective"},
         { "id": "rotationHead", "message": "[ROTATION]"},
         { "id": "teamChat", "message": "{0}[TEAM CHAT] {1}: {2}"},
-        { "id": "timeRemaining", "message": "Time remaining {0}"}
+        { "id": "timeRemaining", "message": "Time remaining {0}"},
+        { "id": "nextMapSet", "message": "Set the next map to {0}"}
       ]
     },
 
@@ -40,7 +41,8 @@
         { "id": "unableToCycleMidMatch", "message": "Unable to cycle while the match is running."},
         { "id": "matchAlreadyStarted", "message": "The match has already started."},
         { "id": "joinSameTeam", "message": "You are already on that team."},
-        { "id": "noMessage", "message": "Please include a message!"}
+        { "id": "noMessage", "message": "Please include a message!"},
+        { "id": "mapNotFound", "message": "Map not found."}
       ]
     }
   ] 
