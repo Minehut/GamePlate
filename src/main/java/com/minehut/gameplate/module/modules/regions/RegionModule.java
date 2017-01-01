@@ -14,17 +14,9 @@ import java.util.List;
  */
 public abstract class RegionModule extends Module {
     private String id;
-    private List<Block> blocks;
 
     public RegionModule(String id) {
         this.id = id;
-    }
-
-    /*
-     * Should be called in region constructor.
-     */
-    public void setBlocks(List<Block> blocks) {
-        this.blocks = blocks;
     }
 
     /*
@@ -45,11 +37,6 @@ public abstract class RegionModule extends Module {
         return id;
     }
 
-    public List<Block> getBlocks() {
-        return blocks;
-    }
 
-    public Location getRandomLocation() {
-        return this.blocks.get(0).getLocation(); //todo: randomize
-    }
+    public abstract Location getRandomLocation();
 }

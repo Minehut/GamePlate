@@ -2,6 +2,7 @@ package com.minehut.gameplate.module.modules.regions.types;
 
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.module.modules.regions.RegionModule;
+import com.minehut.gameplate.util.Numbers;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
@@ -19,21 +20,19 @@ public class CuboidRegion extends RegionModule {
         super(id);
         this.min = Vector.getMinimum(pos1, pos2);
         this.max = Vector.getMaximum(pos1, pos2);
-
-        List<Block> results = new ArrayList<>();
-        for (int x = (int) getXMin(); x <= getXMax(); x++) {
-            for (int z = (int) getZMin(); z <= getZMax(); z++) {
-                for (int y = (int) getYMin(); y <= getYMax(); y++) {
-                    results.add((new Location(GameHandler.getGameHandler().getCurrentMap().getWorld(), x, y, z).getBlock()));
-                }
-            }
-        }
-        super.setBlocks(results);
     }
 
     @Override
     public boolean contains(Vector vector) {
         return vector.isInAABB(this.min, this.max);
+    }
+
+    @Override
+    public Location getRandomLocation() {
+        double x = Numbers.getRandom(min.getX(), max.getX());
+        double y = Numbers.getRandom(min.getY(), max.getY());
+        double z = Numbers.getRandom(min.getZ(), max.getZ());
+        return new Location(GameHandler.getGameHandler().getCurrentMap().getWorld(), x, y, z);
     }
 
     public double getXMin() {

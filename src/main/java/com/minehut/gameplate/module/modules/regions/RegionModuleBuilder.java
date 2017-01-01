@@ -28,9 +28,21 @@ public class RegionModuleBuilder extends ModuleBuilder {
     public ModuleCollection<? extends Module> load(Match match) {
         ModuleCollection results = new ModuleCollection();
 
-        for (Element filtersElement : match.getDocument().getRootElement().getChildren("regions")) {
-            for (Element element : filtersElement.getChildren()) {
-                parseRegion(element);
+        RegionModule globalRegion = new CuboidRegion("global",
+                new Vector(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE),
+                new Vector(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE));
+        results.add(globalRegion);
+
+        for (Element element1 : match.getDocument().getRootElement().getChildren()) {
+            parseRegion(element1);
+            for (Element element2 : element1.getChildren()) {
+                parseRegion(element2);
+                for (Element element3 : element2.getChildren()) {
+                    parseRegion(element3);
+                    for (Element element4 : element3.getChildren()) {
+                        parseRegion(element4);
+                    }
+                }
             }
         }
 
@@ -51,6 +63,7 @@ public class RegionModuleBuilder extends ModuleBuilder {
 
     public static RegionModule parseRegion(Element element) {
         RegionModule regionModule = null;
+        boolean reference = false;
 
         switch (element.getName().toLowerCase()) {
             case "block":
@@ -64,13 +77,16 @@ public class RegionModuleBuilder extends ModuleBuilder {
                 break;
             case "region":
                 regionModule = getGlobalRegion(element.getAttributeValue("id"));
+                reference = true;
                 break;
 
         }
 
-        if (regionModule != null && regionModule.getId() != null && !element.getName().toLowerCase().equals("region")) {
-            GameHandler.getGameHandler().getMatch().getModules().add(regionModule);
-            Bukkit.getLogger().log(Level.SEVERE, "Added global region '" + regionModule.getId() + "'");
+        if (regionModule != null && regionModule.getId() != null && !reference) {
+            if (getGlobalRegion(regionModule.getId()) == null) {
+                GameHandler.getGameHandler().getMatch().getModules().add(regionModule);
+                Bukkit.getLogger().log(Level.INFO, "Added global region '" + regionModule.getId() + "'");
+            }
         }
 
         return regionModule;

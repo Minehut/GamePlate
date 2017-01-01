@@ -1,5 +1,6 @@
 package com.minehut.gameplate.module.modules.regions.types;
 
+import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.module.modules.regions.RegionModule;
 import com.minehut.gameplate.util.Numbers;
 import org.bukkit.Location;
@@ -21,20 +22,20 @@ public class CylinderRegion extends RegionModule {
         this.base = base;
         this.radius = radius;
         this.height = height;
-
-        List<Block> results = new ArrayList<>();
-        CuboidRegion bound = new CuboidRegion(null, getMin(), getMax());
-        for (Block block : bound.getBlocks()) {
-            if (contains(new Vector(block.getX(), block.getY(), block.getZ()))) {
-                results.add(block);
-            }
-        }
-        super.setBlocks(results);
     }
 
     @Override
     public boolean contains(Vector vector) {
         return (Math.hypot(Math.abs(vector.getX() - getBaseX()), Math.abs(vector.getZ() - getBaseZ())) <= getRadius()) && Numbers.checkInterval(vector.getY(), getBaseY(), getBaseY() + getHeight());
+    }
+
+    @Override
+    public Location getRandomLocation() {
+        double a = Numbers.getRandom(0, radius);
+        double b = Numbers.getRandom(0, 360);
+        double c = Numbers.getRandom(0, height);
+
+        return new Location(GameHandler.getGameHandler().getCurrentMap().getWorld(), getBaseX() + a * Math.cos(b), getBaseY() + c, getBaseZ() + a * Math.sin(b));
     }
 
     public double getBaseX() {

@@ -12,7 +12,6 @@ import org.bukkit.Bukkit;
 public class MatchAlertsModuleBuilder extends ModuleBuilder {
     @Override
     public ModuleCollection<? extends Module> load(Match match) {
-        Bukkit.broadcastMessage("MatchAlertsModuleBuilder load()");
         return new ModuleCollection<>(new MatchAlertsModule());
     }
 }

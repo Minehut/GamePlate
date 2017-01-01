@@ -29,9 +29,7 @@ public class SpawnModule extends Module {
     public SpawnModule(List<SpawnNode> spawns) {
         this.spawns = spawns;
     }
-
-
-
+    
     @EventHandler
     public void onCycleComplete(CycleCompleteEvent event) {
         TeamModule observers = TeamManager.getObservers();

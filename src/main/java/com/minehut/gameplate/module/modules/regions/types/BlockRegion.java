@@ -16,8 +16,6 @@ public class BlockRegion extends RegionModule {
     public BlockRegion(String id, Vector vector) {
         super(id);
         this.vector = vector;
-
-        super.setBlocks(Arrays.asList(new Location(GameHandler.getGameHandler().getCurrentMap().getWorld(), vector.getBlockX(), vector.getBlockY(), vector.getBlockZ()).getBlock()));
     }
 
     @Override
@@ -25,6 +23,11 @@ public class BlockRegion extends RegionModule {
         return vector.getBlockX() == getVector().getBlockX() &&
                 vector.getBlockY() == getVector().getBlockY() &&
                 vector.getBlockZ() == getVector().getBlockZ();
+    }
+
+    @Override
+    public Location getRandomLocation() {
+        return new Location(GameHandler.getGameHandler().getCurrentMap().getWorld(), vector.getX(), vector.getY(), vector.getZ());
     }
 
     public Vector getVector() {

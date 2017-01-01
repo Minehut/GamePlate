@@ -13,12 +13,15 @@ import com.minehut.gameplate.module.modules.filter.filterComparator.comparators.
 import com.minehut.gameplate.module.modules.filter.filterExecutor.executors.BlockBreakFilterExecutor;
 import com.minehut.gameplate.module.modules.filter.filterExecutor.executors.BlockPlaceFilterExecutor;
 import com.minehut.gameplate.module.modules.filter.filterExecutor.executors.EnterFilterExecutor;
+import com.minehut.gameplate.module.modules.regions.RegionModule;
 import com.minehut.gameplate.module.modules.regions.RegionModuleBuilder;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
+import org.bukkit.Bukkit;
 import org.jdom2.Element;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by luke on 12/27/16.
@@ -32,7 +35,6 @@ public class FilterModuleBuilder extends ModuleBuilder {
         for (Element filtersElement : match.getDocument().getRootElement().getChildren("filters")) {
             for (Element filter : filtersElement.getChildren()) {
                 if (filter.getName().toLowerCase().equals("filter")) {
-
                     if (filter.getAttributeValue("enter") != null) {
                         results.add(new EnterFilterExecutor(RegionModuleBuilder.parseChildRegions(filter), getComparator(filter.getAttributeValue("enter")), filter.getAttributeValue("message")));
                     } else if (filter.getAttributeValue("modify") != null) {
@@ -48,7 +50,7 @@ public class FilterModuleBuilder extends ModuleBuilder {
             }
         }
 
-        return null;
+        return results;
     }
 
     private static FilterComparator getComparator(String value) {

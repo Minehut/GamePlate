@@ -5,6 +5,7 @@ import com.minehut.gameplate.module.modules.filter.filterComparator.FilterRespon
 import com.minehut.gameplate.module.modules.filter.filterExecutor.FilterExecutor;
 import com.minehut.gameplate.module.modules.regions.RegionModule;
 import com.minehut.gameplate.util.ChatUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 
@@ -27,7 +28,9 @@ public class EnterFilterExecutor extends FilterExecutor {
             if (regionModule.contains(event.getTo().toVector())) {
                 if (comparator.evaluate(event.getPlayer()) == FilterResponse.DENY) {
                     event.setCancelled(true);
-                    ChatUtil.sendWarningMessage(event.getPlayer(), message);
+                    if (message != null) {
+                        ChatUtil.sendWarningMessage(event.getPlayer(), message);
+                    }
                 }
             }
         }

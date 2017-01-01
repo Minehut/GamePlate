@@ -28,7 +28,9 @@ public class BlockPlaceFilterExecutor extends FilterExecutor {
             if (regionModule.contains(event.getBlock().getLocation().toVector())) {
                 if (comparator.evaluate(event.getPlayer()) == FilterResponse.DENY) {
                     event.setCancelled(true);
-                    ChatUtil.sendWarningMessage(event.getPlayer(), message);
+                    if (message != null) {
+                        ChatUtil.sendWarningMessage(event.getPlayer(), message);
+                    }
                 }
             }
         }
