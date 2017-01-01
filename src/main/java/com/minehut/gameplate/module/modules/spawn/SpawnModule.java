@@ -8,6 +8,7 @@ import com.minehut.gameplate.event.PlayerChangeTeamEvent;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
+import com.minehut.gameplate.util.Players;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -69,6 +70,9 @@ public class SpawnModule extends Module {
         }
 
         event.getPlayer().updateInventory();
+        Players.resetPlayer(event.getPlayer());
+        event.getPlayer().setFlying(false);
+        event.getPlayer().setAllowFlight(false);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
