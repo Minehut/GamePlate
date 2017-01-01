@@ -24,10 +24,7 @@ public class RotationCommands {
         if (!(sender instanceof Player)) return;
         Player player = (Player) sender;
         sender.sendMessage(" ");
-        sender.sendMessage(new LocalizedChatMessage(ChatConstant.UI_ROTATION_HEAD).getMessage(ChatUtil.getLocale(sender)));
-        GamePlate.getInstance().getGameHandler().getRepositoryManager().getRotation().forEach(map -> {
-            sender.sendMessage((map.equals(GamePlate.getInstance().getGameHandler().getMatch().getCurrentMap().getMap()) ? ChatColor.YELLOW : ChatColor.GRAY) + " - " + map.getName());
-        });
+        sender.sendMessage(ChatColor.DARK_PURPLE + new LocalizedChatMessage(ChatConstant.UI_ROTATION_HEAD).getMessage(ChatUtil.getLocale(sender)));
 
         for(int i = 0; i < GamePlate.getInstance().getGameHandler().getRepositoryManager().getRotation().size(); i++) {
             LoadedMap loadedMap = GameHandler.getGameHandler().getRepositoryManager().getRotation().get(i);

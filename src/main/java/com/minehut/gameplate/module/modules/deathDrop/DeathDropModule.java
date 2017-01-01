@@ -58,11 +58,15 @@ public class DeathDropModule extends TaskedModule {
 
     @Override
     public void run() {
+        List<Item> toRemove = new ArrayList<>();
         for (Item item : bones.keySet()) {
             if (bones.get(item) + 2000 < System.currentTimeMillis()) {
-                bones.remove(item);
                 item.remove();
+                toRemove.add(item);
             }
+        }
+        for (Item item : toRemove) {
+            bones.remove(item);
         }
     }
 }

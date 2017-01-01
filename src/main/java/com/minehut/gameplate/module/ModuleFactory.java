@@ -13,6 +13,7 @@ import com.minehut.gameplate.module.modules.inventoryView.InventoryViewModuleBui
 import com.minehut.gameplate.module.modules.kit.KitModuleBuilder;
 import com.minehut.gameplate.module.modules.lives.LivesModuleBuilder;
 import com.minehut.gameplate.module.modules.matchAlerts.MatchAlertsModuleBuilder;
+import com.minehut.gameplate.module.modules.scoreboard.ScoreboardModuleBuilder;
 import com.minehut.gameplate.module.modules.time.MatchTimerModuleBuilder;
 import com.minehut.gameplate.module.modules.objectives.ObjectivesModuleBuilder;
 import com.minehut.gameplate.module.modules.objectives.lastAlive.LastAliveGameObjectiveBuilder;
@@ -67,7 +68,8 @@ public class ModuleFactory {
                 DeathDropModuleBuilder.class,
                 TimeLimitModuleBuilder.class,
                 TimeNotificationsModuleBuilder.class,
-                FriendlyFireModuleBuilder.class
+                FriendlyFireModuleBuilder.class,
+                ScoreboardModuleBuilder.class
         ));
     }
 
