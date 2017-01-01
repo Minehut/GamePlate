@@ -36,6 +36,9 @@ public class Players {
         player.setWalkSpeed(0.2F);
         player.setFlySpeed(0.1F);
 
+        player.setFlying(false);
+        player.setAllowFlight(false);
+
         for (Attribute attribute : Attribute.values()) {
             if (player.getAttribute(attribute) == null) continue;
             for (AttributeModifier modifier : player.getAttribute(attribute).getModifiers()) {

@@ -23,6 +23,7 @@ import org.bukkit.event.player.*;
 import org.bukkit.event.vehicle.VehicleDamageEvent;
 import org.bukkit.event.vehicle.VehicleEnterEvent;
 import org.bukkit.event.vehicle.VehicleExitEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class ObserverModule extends Module {
 
@@ -45,7 +46,12 @@ public class ObserverModule extends Module {
         player.getInventory().clear();
         player.getInventory().setItem(0, Items.createItem(Material.COMPASS, 1, (short) 0, ChatColor.BLUE + "Teleport Tool"));
         player.updateInventory();
-        player.setGameMode(GameMode.CREATIVE);
+
+        player.getInventory().setChestplate(new ItemStack(Material.ELYTRA));
+
+        player.setGameMode(GameMode.SURVIVAL);
+        player.setAllowFlight(true);
+        player.setFlying(true);
     }
 
     @EventHandler
