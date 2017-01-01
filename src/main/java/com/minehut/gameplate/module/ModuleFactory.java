@@ -5,15 +5,15 @@ import com.minehut.gameplate.module.modules.arrowRemove.ArrowRemoveModuleBuilder
 import com.minehut.gameplate.module.modules.buildHeight.BuildHeightModuleBuilder;
 import com.minehut.gameplate.module.modules.chat.ChatModuleBuilder;
 import com.minehut.gameplate.module.modules.connection.ConnectionModuleBuilder;
-import com.minehut.gameplate.module.modules.deathDrop.DeathDropModule;
 import com.minehut.gameplate.module.modules.deathDrop.DeathDropModuleBuilder;
 import com.minehut.gameplate.module.modules.filter.FilterModuleBuilder;
+import com.minehut.gameplate.module.modules.friendlyFire.FriendlyFireModuleBuilder;
 import com.minehut.gameplate.module.modules.gameComplete.GameCompleteModuleBuilder;
 import com.minehut.gameplate.module.modules.inventoryView.InventoryViewModuleBuilder;
 import com.minehut.gameplate.module.modules.kit.KitModuleBuilder;
 import com.minehut.gameplate.module.modules.lives.LivesModuleBuilder;
 import com.minehut.gameplate.module.modules.matchAlerts.MatchAlertsModuleBuilder;
-import com.minehut.gameplate.module.modules.matchTimer.MatchTimerModuleBuilder;
+import com.minehut.gameplate.module.modules.time.MatchTimerModuleBuilder;
 import com.minehut.gameplate.module.modules.objectives.ObjectivesModuleBuilder;
 import com.minehut.gameplate.module.modules.objectives.lastAlive.LastAliveGameObjectiveBuilder;
 import com.minehut.gameplate.module.modules.objectives.score.ScoreObjectiveModuleBuilder;
@@ -23,6 +23,8 @@ import com.minehut.gameplate.module.modules.respawn.RespawnModuleBuilder;
 import com.minehut.gameplate.module.modules.spawn.SpawnModuleBuilder;
 import com.minehut.gameplate.module.modules.tasker.TaskerModuleBuilder;
 import com.minehut.gameplate.module.modules.teamManager.TeamManagerBuilder;
+import com.minehut.gameplate.module.modules.timeLimit.TimeLimitModuleBuilder;
+import com.minehut.gameplate.module.modules.timeNotifications.TimeNotificationsModuleBuilder;
 import com.minehut.gameplate.module.modules.timers.TimersBuilder;
 import com.minehut.gameplate.module.modules.tracker.TrackerBuilder;
 import com.minehut.gameplate.module.modules.visibility.VisibilityModuleBuilder;
@@ -62,7 +64,10 @@ public class ModuleFactory {
                 MatchAlertsModuleBuilder.class,
                 TaskerModuleBuilder.class,
                 KitModuleBuilder.class,
-                DeathDropModuleBuilder.class
+                DeathDropModuleBuilder.class,
+                TimeLimitModuleBuilder.class,
+                TimeNotificationsModuleBuilder.class,
+                FriendlyFireModuleBuilder.class
         ));
     }
 

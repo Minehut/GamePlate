@@ -19,6 +19,7 @@ import org.bukkit.FireworkEffect;
 import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 
 import java.util.UUID;
 
@@ -59,10 +60,11 @@ public class MatchAlertsModule extends Module {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onMatchEnd(MatchEndEvent event) {
         for (TeamModule teamModule : TeamManager.getTeamModules()) {
             for (Player player : teamModule.getPlayers()) {
+
                 player.sendMessage(ChatColor.GREEN + ChatUtil.divider);
                 player.sendMessage(ChatColor.GREEN + "#");
                 if (event.getTeam() != null) {
@@ -74,7 +76,12 @@ public class MatchAlertsModule extends Module {
                 player.sendMessage(ChatColor.GREEN + "#");
                 player.sendMessage(ChatColor.GREEN + ChatUtil.divider);
 
-                Fireworks.spawnFirework(player.getLocation(), FireworkEffect.builder().withColor(ColorUtil.convertChatColorToColor(event.getTeam().getColor())).with(FireworkEffect.Type.BALL).build(), 1);
+                ChatColor color = ChatColor.AQUA;
+                if (event.getTeam() != null) {
+                    color = event.getTeam().getColor();
+                }
+
+                Fireworks.spawnFirework(player.getLocation(), FireworkEffect.builder().withColor(ColorUtil.convertChatColorToColor(color)).with(FireworkEffect.Type.BALL).build(), 1);
             }
         }
     }

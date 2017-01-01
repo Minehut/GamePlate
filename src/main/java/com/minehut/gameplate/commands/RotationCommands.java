@@ -1,8 +1,10 @@
 package com.minehut.gameplate.commands;
 
+import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.GamePlate;
 import com.minehut.gameplate.chat.ChatConstant;
 import com.minehut.gameplate.chat.LocalizedChatMessage;
+import com.minehut.gameplate.map.LoadedMap;
 import com.minehut.gameplate.util.ChatUtil;
 import com.sk89q.minecraft.util.commands.Command;
 import com.sk89q.minecraft.util.commands.CommandContext;
@@ -26,6 +28,18 @@ public class RotationCommands {
         GamePlate.getInstance().getGameHandler().getRepositoryManager().getRotation().forEach(map -> {
             sender.sendMessage((map.equals(GamePlate.getInstance().getGameHandler().getMatch().getCurrentMap().getMap()) ? ChatColor.YELLOW : ChatColor.GRAY) + " - " + map.getName());
         });
+
+        for(int i = 0; i < GamePlate.getInstance().getGameHandler().getRepositoryManager().getRotation().size(); i++) {
+            LoadedMap loadedMap = GameHandler.getGameHandler().getRepositoryManager().getRotation().get(i);
+            ChatColor color;
+            if (GameHandler.getGameHandler().getMatch().getCurrentMap().getMap() == loadedMap) {
+                color = ChatColor.GOLD;
+            } else {
+                color = ChatColor.DARK_AQUA;
+            }
+            sender.sendMessage(color.toString() + (i + 1) + ". " + loadedMap.getName());
+        }
+
         sender.sendMessage(" ");
     }
 

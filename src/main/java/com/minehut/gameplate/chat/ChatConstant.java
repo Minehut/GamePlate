@@ -22,6 +22,7 @@ public enum ChatConstant {
     UI_ROTATION_HEAD("ui.rotationHead"),
     UI_REFRESHED("ui.refreshed"),
     UI_OBJECTIVE_PREFIX("ui.objectivePrefix"),
+    UI_TIME_REMAINING("ui.timeRemaining"),
 
     ERROR_JSON("error.json"),
     ERROR_INVENTORY_NOT_VIEWABLE("error.inventoryNotViewable"),
