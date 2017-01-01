@@ -10,6 +10,8 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.jdom2.DataConversionException;
 import org.jdom2.Element;
 
@@ -54,6 +56,7 @@ public class KitModuleBuilder extends ModuleBuilder {
     public static KitModule parseKit(Element element) {
         String id = element.getAttributeValue("id");
 
+        // Items
         List<KitItem> kitItems = new ArrayList<>();
         for (Element itemElement : element.getChildren()) {
             String type = itemElement.getName();
@@ -130,7 +133,24 @@ public class KitModuleBuilder extends ModuleBuilder {
             }
             kitItems.add(new KitItem(slot, item));
         }
-        return new KitModule(id, kitItems);
+
+        // Potion effects
+        List<PotionEffect> effects = new ArrayList<>();
+        for (Element effectElement : element.getChildren("effect")) {
+            PotionEffectType effectType = PotionEffectType.getByName(effectElement.getAttributeValue("id").toUpperCase().replace(" ", "_"));
+            if (effectType == null) continue;
+            int level = 0;
+            if (effectElement.getAttribute("level") != null) {
+                try {
+                    level = effectElement.getAttribute("level").getIntValue() - 1;
+                } catch (DataConversionException ex) {
+                    continue;
+                }
+            }
+            effects.add(new PotionEffect(effectType, Integer.MAX_VALUE, level));
+        }
+
+        return new KitModule(id, kitItems, effects);
     }
 
 }
