@@ -24,6 +24,15 @@
       ]
     },
 
+    { "type": "game",
+      "messages": [
+        { "id": "notYourObjective", "message": "You can't complete another team's objective!"},
+        { "id": "objectiveAlreadyComplete", "message": "This objective has already been completed!"},
+        { "id": "capturableTouched", "message": "{0} picked up {1} for {2}!"},
+        { "id": "capturableCompleted", "message": "{0} placed {1} for {2}!"}
+      ]
+    },
+
     { "type": "error",
       "messages": [
         { "id": "json", "message": "There was an error loading the map.json: {0}"},

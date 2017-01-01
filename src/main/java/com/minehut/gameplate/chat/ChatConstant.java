@@ -25,6 +25,11 @@ public enum ChatConstant {
     UI_TIME_REMAINING("ui.timeRemaining"),
     UI_NEXT_MAP_SET("ui.nextMapSet"),
 
+    GAME_NOT_YOUR_OBJECTIVE("game.notYourObjective"),
+    GAME_OBJECTIVE_ALREADY_COMPLETE("game.objectiveAlreadyComplete"),
+    GAME_CAPTURABLE_TOUCHED("game.capturableTouched"),
+    GAME_CAPTURABLE_COMPLETED("game.capturableCompleted"),
+
     ERROR_JSON("error.json"),
     ERROR_INVENTORY_NOT_VIEWABLE("error.inventoryNotViewable"),
     ERROR_TEAM_FULL("error.teamFull"),

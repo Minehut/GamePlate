@@ -5,6 +5,10 @@ package com.minehut.gameplate.util;
  */
 public class Strings {
 
+    public static String getTechnicalName(String s) {
+        return s.toUpperCase().replace(" ", "_");
+    }
+
     /**
      * Simplifies a string by making it lowercase and removing spaces.
      *

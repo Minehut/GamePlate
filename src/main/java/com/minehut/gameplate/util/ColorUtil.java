@@ -11,6 +11,13 @@ import java.util.Map;
 
 public class ColorUtil {
 
+    public static DyeColor parseDyeColor(String string) {
+        for (DyeColor color : DyeColor.values()) {
+            if (color.name().equals(Strings.getTechnicalName(string))) return color;
+        }
+        return DyeColor.WHITE;
+    }
+
     public static Color convertChatColorToColor(ChatColor chatColor) {
         if (chatColor.isColor()) {
             switch (chatColor) {
