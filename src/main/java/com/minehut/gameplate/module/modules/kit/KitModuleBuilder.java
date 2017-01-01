@@ -2,9 +2,10 @@ package com.minehut.gameplate.module.modules.kit;
 
 import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.*;
-import com.minehut.gameplate.module.modules.team.TeamModule;
-import com.minehut.gameplate.module.modules.teamManager.TeamManager;
+import com.minehut.gameplate.module.modules.kit.types.KitInventoryItem;
+import com.minehut.gameplate.module.modules.kit.types.KitPotionItem;
 import com.minehut.gameplate.util.Numbers;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -16,9 +17,7 @@ import org.jdom2.DataConversionException;
 import org.jdom2.Element;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Lucas on 12/21/2016.
@@ -32,7 +31,6 @@ public class KitModuleBuilder extends ModuleBuilder {
 
         for (Element kitsElement : match.getDocument().getRootElement().getChildren("kits")) {
             for (Element kitElement : kitsElement.getChildren()) {
-
                 KitModule kit = parseKit(kitElement);
 
                 if (kitElement.getAttributeValue("parents") != null) {
@@ -53,101 +51,111 @@ public class KitModuleBuilder extends ModuleBuilder {
         return results;
     }
 
-    public static KitModule parseKit(Element element) {
-        String id = element.getAttributeValue("id");
+    private static ItemStack parseItemstack(Element element) {
+        Material material = Material.valueOf(element.getAttributeValue("material").toUpperCase().replace(" ", "_"));
 
-        // Items
+        int amount = 1;
+        if (element.getAttributeValue("amount") != null) {
+            amount = Numbers.parseInt(element.getAttributeValue("amount"));
+        }
+
+        ItemStack item = new ItemStack(material, amount);
+        ItemMeta meta = item.getItemMeta();
+
+        if (element.getAttribute("name") != null) {
+            meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', element.getAttributeValue("name")));
+        }
+        if (element.getChild("lore") != null) {
+            List<String> lore = new ArrayList<>();
+            for (Element loreElement : element.getChildren("lore")) {
+                lore.add(ChatColor.translateAlternateColorCodes('&', loreElement.getValue()));
+            }
+            meta.setLore(lore);
+        }
+        item.setItemMeta(meta);
+        List<Element> enchants = new ArrayList<>();
+        enchants.addAll(element.getChildren("enchantment"));
+        for (Element enchantElement : enchants) {
+            Enchantment enchantment = Enchantment.getByName(enchantElement.getAttributeValue("id"));
+            if (enchantment == null) continue;
+            int level = 1;
+            if (enchantElement.getAttributeValue("level") != null) {
+                level = Numbers.parseInt(enchantElement.getAttributeValue("level"));
+            }
+            item.addEnchantment(enchantment, level);
+        }
+
+        return item;
+    }
+
+    public static PotionEffect parsePotionEffect(Element element) {
+        PotionEffectType effectType = PotionEffectType.getByName(element.getAttributeValue("id").toUpperCase().replace(" ", "_"));
+        int level = 0;
+        if (element.getAttribute("level") != null) {
+            level = Numbers.parseInt(element.getAttributeValue("level"));
+        }
+        int amplifier = 0;
+        if (element.getAttributeValue("amplifier") != null) {
+            amplifier = Numbers.parseInt(element.getAttributeValue("amplifier"));
+        }
+        return new PotionEffect(effectType, level, amplifier);
+    }
+
+    public static KitModule parseKit(Element kitElement) {
+        String id = kitElement.getAttributeValue("id");
         List<KitItem> kitItems = new ArrayList<>();
-        for (Element itemElement : element.getChildren()) {
-            String type = itemElement.getName();
 
-            String mat = itemElement.getAttributeValue("material");
-            Material material = Material.getMaterial(mat.toUpperCase().replace(" ", "_"));
+        for (Element element : kitElement.getChildren()) {
+            if (element.getName().equalsIgnoreCase("item")) {
 
-            int amount = 1;
-            if (itemElement.getAttribute("amount") != null) {
-                amount = Numbers.parseInt(itemElement.getAttributeValue("amount"));
-            }
+                ItemStack itemStack = parseItemstack(element);
+                int slot = Numbers.parseInt(element.getAttributeValue("slot"));
 
-            int slot = 0;
-            if (itemElement.getAttributeValue("slot") != null) {
-                slot = Numbers.parseInt(itemElement.getAttributeValue("slot"));
-            } else {
-                switch (type.toLowerCase()) {
-                    case "item":
-                        try {
-                            slot = itemElement.getAttribute("slot").getIntValue();
-                        } catch (DataConversionException | NullPointerException ex) {
-                            continue;
-                        }
-                        break;
-                    case "armor":
-                        if (material.toString().contains("_BOOTS")) {
-                            slot = 100;
-                        } else if (material.toString().contains("_LEGGINGS")) {
-                            slot = 101;
-                        } else if (material.toString().contains("_CHESTPLATE")) {
-                            slot = 102;
-                        } else if (material.toString().contains("_HELMET")) {
-                            slot = 103;
-                        }
-                        break;
-                    case "offhand":
-                        slot = -106;
-                        break;
-                    default:
-                        continue;
+                kitItems.add(new KitInventoryItem(slot, itemStack));
+            }
+            else if (element.getName().equalsIgnoreCase("helmet")) {
+                ItemStack itemStack = parseItemstack(element);
+                int slot = 103;
+                kitItems.add(new KitInventoryItem(slot, itemStack));
+            }
+            else if (element.getName().equalsIgnoreCase("chestplate")) {
+                ItemStack itemStack = parseItemstack(element);
+                int slot = 102;
+                kitItems.add(new KitInventoryItem(slot, itemStack));
+            }
+            else if (element.getName().equalsIgnoreCase("leggings")) {
+                ItemStack itemStack = parseItemstack(element);
+                int slot = 101;
+                kitItems.add(new KitInventoryItem(slot, itemStack));
+            }
+            else if (element.getName().equalsIgnoreCase("boots")) {
+                ItemStack itemStack = parseItemstack(element);
+                int slot = 100;
+                kitItems.add(new KitInventoryItem(slot, itemStack));
+            }
+            else if (element.getName().equalsIgnoreCase("offhand")) {
+                ItemStack itemStack = parseItemstack(element);
+                int slot = -2;
+                kitItems.add(new KitInventoryItem(slot, itemStack));
+            }
+            else if (element.getName().equalsIgnoreCase("potion")) {
+                PotionEffect potionEffect = parsePotionEffect(element);
+
+                int slot = -1;
+                if (element.getAttributeValue("slot") != null) {
+                    slot = Numbers.parseInt(element.getAttributeValue("slot"));
                 }
-            }
-            ItemStack item = new ItemStack(material, amount);
-            ItemMeta meta = item.getItemMeta();
-            if (itemElement.getAttribute("displayName") != null) {
-                meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', itemElement.getAttributeValue("displayName")));
-            }
-            if (itemElement.getChild("lore") != null) {
-                List<String> lore = new ArrayList<>();
-                for (Element loreElement : itemElement.getChildren("lore")) {
-                    lore.add(ChatColor.translateAlternateColorCodes('&', loreElement.getValue()));
+
+                int amount = 1;
+                if (element.getAttributeValue("amount") != null) {
+                    amount = Numbers.parseInt(element.getAttributeValue("amount"));
                 }
-                meta.setLore(lore);
+
+                kitItems.add(new KitPotionItem(potionEffect, slot, amount));
             }
-            item.setItemMeta(meta);
-            List<Element> enchants = new ArrayList<>();
-            enchants.addAll(itemElement.getChildren("enchant"));
-            enchants.addAll(itemElement.getChildren("enchantment"));
-            for (Element enchantElement : enchants) {
-                Enchantment enchantment = Enchantment.getByName(enchantElement.getAttributeValue("id"));
-                if (enchantment == null) continue;
-                int level = 1;
-                if (enchantElement.getAttribute("level") != null) {
-                    try {
-                        level = enchantElement.getAttribute("level").getIntValue();
-                    } catch (DataConversionException ex) {
-                        continue;
-                    }
-                }
-                item.addEnchantment(enchantment, level);
-            }
-            kitItems.add(new KitItem(slot, item));
         }
 
-        // Potion effects
-        List<PotionEffect> effects = new ArrayList<>();
-        for (Element effectElement : element.getChildren("effect")) {
-            PotionEffectType effectType = PotionEffectType.getByName(effectElement.getAttributeValue("id").toUpperCase().replace(" ", "_"));
-            if (effectType == null) continue;
-            int level = 0;
-            if (effectElement.getAttribute("level") != null) {
-                try {
-                    level = effectElement.getAttribute("level").getIntValue() - 1;
-                } catch (DataConversionException ex) {
-                    continue;
-                }
-            }
-            effects.add(new PotionEffect(effectType, Integer.MAX_VALUE, level));
-        }
-
-        return new KitModule(id, kitItems, effects);
+        return new KitModule(id, kitItems);
     }
 
 }

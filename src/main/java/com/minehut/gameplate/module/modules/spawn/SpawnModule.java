@@ -9,6 +9,7 @@ import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -58,12 +59,16 @@ public class SpawnModule extends Module {
 
     @EventHandler
     public void onGameSpawn(GameSpawnEvent event) {
+        event.getPlayer().setGameMode(GameMode.SURVIVAL);
         event.setSpawn(event.getTeam().getRandomSpawn());
 
+        event.getPlayer().getInventory().clear();
+
         if (event.getSpawn().getKit() != null) {
-            event.getPlayer().getInventory().clear();
             event.getSpawn().getKit().apply(event.getPlayer());
         }
+
+        event.getPlayer().updateInventory();
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

@@ -8,6 +8,7 @@ import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
 import com.minehut.gameplate.util.Items;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
@@ -41,7 +42,10 @@ public class ObserverModule extends Module {
     }
 
     private void giveObserversKit(Player player) {
+        player.getInventory().clear();
         player.getInventory().setItem(0, Items.createItem(Material.COMPASS, 1, (short) 0, ChatColor.BLUE + "Teleport Tool"));
+        player.updateInventory();
+        player.setGameMode(GameMode.CREATIVE);
     }
 
     @EventHandler

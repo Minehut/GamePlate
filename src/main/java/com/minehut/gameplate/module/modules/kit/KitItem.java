@@ -1,25 +1,10 @@
 package com.minehut.gameplate.module.modules.kit;
 
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.entity.Player;
 
 /**
- * Created by Lucas on 12/21/2016.
+ * Created by luke on 1/1/17.
  */
-public class KitItem {
-
-    private int slot;
-    private ItemStack item;
-
-    public KitItem(int slot, ItemStack item) {
-        this.slot = slot;
-        this.item = item;
-    }
-
-    public int getSlot() {
-        return slot;
-    }
-
-    public ItemStack getItem() {
-        return item;
-    }
+public abstract class KitItem {
+    public abstract void apply(Player player);
 }

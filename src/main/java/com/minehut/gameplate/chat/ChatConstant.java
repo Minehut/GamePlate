@@ -41,6 +41,7 @@ public enum ChatConstant {
     ERROR_UNABLE_TO_CYCLE_MID_MATCH("error.unableToCycleMidMatch"),
     ERROR_MATCH_ALREADY_STARTED("error.matchAlreadyStarted"),
     ERROR_MAP_NOT_FOUND("error.mapNotFound"),
+    ERROR_ALREADY_ON_TEAM("error.alreadyOnTeam"),
     ERROR_NO_MESSAGE("error.noMessage");
 
     private final String path;

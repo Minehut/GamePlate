@@ -49,7 +49,12 @@ public class TeamCommands {
 
                 teamManager.attemptJoinTeam(player, found);
             } else {
-                teamManager.attemptJoinTeam(player, TeamManager.getTeamWithFewestPlayers());
+
+                if (existingTeam.isObserver()) {
+                    teamManager.attemptJoinTeam(player, TeamManager.getTeamWithFewestPlayers());
+                } else {
+                    player.sendMessage(new LocalizedChatMessage(ChatConstant.ERROR_ALREADY_ON_TEAM).getMessage(player.spigot().getLocale()));
+                }
             }
         }
     }
