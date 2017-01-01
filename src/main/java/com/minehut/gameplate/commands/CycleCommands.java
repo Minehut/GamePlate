@@ -6,6 +6,7 @@ import com.minehut.gameplate.chat.LocalizedChatMessage;
 import com.minehut.gameplate.chat.UnlocalizedChatMessage;
 import com.minehut.gameplate.map.LoadedMap;
 import com.minehut.gameplate.map.repository.exception.RotationLoadException;
+import com.minehut.gameplate.map.repository.repositories.Repository;
 import com.minehut.gameplate.match.MatchState;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
@@ -41,16 +42,20 @@ public class CycleCommands {
     public static void setNext(final CommandContext cmd, CommandSender sender) throws CommandException {
         LoadedMap found = null;
 
-        for (LoadedMap loadedMap : GameHandler.getGameHandler().getRepositoryManager().getRotation()) {
-            if (loadedMap.getName().equalsIgnoreCase(cmd.getJoinedStrings(0))) {
-                found = loadedMap;
+        for (Repository repository : GameHandler.getGameHandler().getRepositoryManager().getRepos()) {
+            for (LoadedMap loadedMap : repository.getLoaded()) {
+                if (loadedMap.getName().equalsIgnoreCase(cmd.getJoinedStrings(0))) {
+                    found = loadedMap;
+                }
             }
         }
 
         if (found == null) {
-            for (LoadedMap loadedMap : GameHandler.getGameHandler().getRepositoryManager().getRotation()) {
-                if (loadedMap.getName().toLowerCase().startsWith(cmd.getJoinedStrings(0).toLowerCase())) {
-                    found = loadedMap;
+            for (Repository repository : GameHandler.getGameHandler().getRepositoryManager().getRepos()) {
+                for (LoadedMap loadedMap : repository.getLoaded()) {
+                    if (loadedMap.getName().toLowerCase().startsWith(cmd.getJoinedStrings(0).toLowerCase())) {
+                        found = loadedMap;
+                    }
                 }
             }
         }
