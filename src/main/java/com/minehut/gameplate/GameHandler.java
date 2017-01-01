@@ -47,18 +47,14 @@ public class GameHandler {
     public void cycleAndMakeMatch() {
         final World oldWorld = currentMap != null ? currentMap.getWorld() : null;
 
-        if (repositoryManager.getRotation().getNext().equals(currentMap.getMap())) {
+        if (repositoryManager.getRotation().getNext().equals(currentMap.getMap()) && repositoryManager.getRotation().getNextSelfAssignedMap() == null) {
             repositoryManager.getRotation().move();
         }
 
         if (match != null) match.unregisterModules();
 
-        if (repositoryManager.getRotation().getForcedNextMap() != null) {
-            currentMap = new CurrentMap(repositoryManager.getRotation().getForcedNextMap(), UUID.randomUUID());
-            repositoryManager.getRotation().setForcedNextMap(null);
-        } else {
-            currentMap = new CurrentMap(repositoryManager.getRotation().getNext(), UUID.randomUUID());
-        }
+        currentMap = new CurrentMap(repositoryManager.getRotation().getNext(), UUID.randomUUID());
+        repositoryManager.getRotation().setNextSelfAssignedMap(null);
 
         currentMap.run();
 
