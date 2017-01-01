@@ -40,6 +40,10 @@ public abstract class Countdown extends TaskedModule implements Cancellable {
                 BossBar bossBar = createBossBar(player);
                 bossBar.addPlayer(player);
                 bossBars.add(bossBar);
+
+                if (time <= 0) {
+                    bossBar.setVisible(false);
+                }
             }
         }
     }
@@ -49,6 +53,10 @@ public abstract class Countdown extends TaskedModule implements Cancellable {
         BossBar bossBar = createBossBar(event.getPlayer());
         this.bossBars.add(bossBar);
         bossBar.addPlayer(event.getPlayer());
+
+        if (time <= 0) {
+            bossBar.setVisible(false);
+        }
     }
 
     @EventHandler
