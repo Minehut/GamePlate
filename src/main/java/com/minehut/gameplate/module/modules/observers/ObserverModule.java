@@ -13,6 +13,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
@@ -54,10 +55,17 @@ public class ObserverModule extends Module {
         player.setFlying(true);
     }
 
-    @EventHandler
-    public void onCardinalSpawn(GameSpawnEvent event) {
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onGameSpawn(GameSpawnEvent event) {
         if (event.getTeam().isObserver()) {
             this.giveObserversKit(event.getPlayer());
+        }
+    }
+
+    @EventHandler
+    public void onHunger(FoodLevelChangeEvent event) {
+        if (isObserver((Player) event.getEntity())) {
+            event.setCancelled(true);
         }
     }
 
