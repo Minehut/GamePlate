@@ -66,12 +66,9 @@ public class KitModuleBuilder extends ModuleBuilder {
 
             int amount = 1;
             if (itemElement.getAttribute("amount") != null) {
-                try {
-                    amount = itemElement.getAttribute("amount").getIntValue();
-                } catch (DataConversionException ex) {
-                    continue;
-                }
+                amount = Numbers.parseInt(itemElement.getAttributeValue("amount"));
             }
+
             int slot = 0;
             if (itemElement.getAttributeValue("slot") != null) {
                 slot = Numbers.parseInt(itemElement.getAttributeValue("slot"));
@@ -85,17 +82,17 @@ public class KitModuleBuilder extends ModuleBuilder {
                         }
                         break;
                     case "armor":
-                        if (material.name().contains("_BOOTS")) {
+                        if (material.toString().contains("_BOOTS")) {
                             slot = 100;
-                        } else if (material.name().contains("_LEGGINGS")) {
+                        } else if (material.toString().contains("_LEGGINGS")) {
                             slot = 101;
-                        } else if (material.name().contains("_CHESTPLATE")) {
+                        } else if (material.toString().contains("_CHESTPLATE")) {
                             slot = 102;
-                        } else if (material.name().contains("_HELMET")) {
+                        } else if (material.toString().contains("_HELMET")) {
                             slot = 103;
                         }
                         break;
-                    case "offHand":
+                    case "offhand":
                         slot = -106;
                         break;
                     default:

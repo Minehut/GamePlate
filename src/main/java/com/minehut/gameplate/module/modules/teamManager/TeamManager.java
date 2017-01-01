@@ -95,6 +95,22 @@ public class TeamManager extends Module {
         return null;
     }
 
+    public static TeamModule getTeamWithFewestPlayers() {
+        TeamModule smallest = null;
+        for (TeamModule teamModule : getTeamModules()) {
+            if(teamModule.isObserver()) continue;
+
+            if(smallest == null) {
+                smallest = teamModule;
+            } else {
+                if ((teamModule.getPlayers().size() / teamModule.getMaxPlayers()) < (smallest.getPlayers().size() / smallest.getMaxPlayers())) {
+                    smallest = teamModule;
+                }
+            }
+        }
+        return smallest;
+    }
+
     public static ModuleCollection<TeamModule> getTeamModules() {
         return GameHandler.getGameHandler().getMatch().getModules().getModules(TeamModule.class);
     }

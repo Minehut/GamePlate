@@ -35,18 +35,22 @@ public class TeamCommands {
         if (teamManager.getTeamType() == TeamManager.TeamType.SOLO) {
             teamManager.createAndJoinTeamForPlayer(player);
         } else {
-            TeamModule found = TeamManager.getTeamByName(cmd.getString(0));
-            if (found == null) {
-                ChatUtil.sendWarningMessage(player, ChatConstant.ERROR_NO_TEAM_FOUND);
-                return;
-            }
+            if (cmd.argsLength() > 0) {
+                TeamModule found = TeamManager.getTeamByName(cmd.getString(0));
+                if (found == null) {
+                    ChatUtil.sendWarningMessage(player, ChatConstant.ERROR_NO_TEAM_FOUND);
+                    return;
+                }
 
-            if (found == existingTeam) {
-                ChatUtil.sendWarningMessage(player, ChatConstant.ERROR_JOIN_SAME_TEAM);
-                return;
-            }
+                if (found == existingTeam) {
+                    ChatUtil.sendWarningMessage(player, ChatConstant.ERROR_JOIN_SAME_TEAM);
+                    return;
+                }
 
-            teamManager.attemptJoinTeam(player, found);
+                teamManager.attemptJoinTeam(player, found);
+            } else {
+                teamManager.attemptJoinTeam(player, TeamManager.getTeamWithFewestPlayers());
+            }
         }
     }
 
