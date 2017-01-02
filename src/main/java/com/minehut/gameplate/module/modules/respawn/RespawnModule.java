@@ -164,7 +164,7 @@ public class RespawnModule extends Module {
 
         new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 0).apply(dead);
         new PotionEffect(PotionEffectType.CONFUSION, 100, 0).apply(dead);
-        new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 6).apply(dead);
+        new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 7).apply(dead);
 
     }
 
