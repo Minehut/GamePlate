@@ -47,7 +47,7 @@ public class GameHandler {
     public void cycleAndMakeMatch() {
         final World oldWorld = currentMap != null ? currentMap.getWorld() : null;
 
-        if (repositoryManager.getRotation().getNext().equals(currentMap.getMap()) && repositoryManager.getRotation().getNextSelfAssignedMap() == null) {
+        if (currentMap != null) {
             repositoryManager.getRotation().move();
         }
 
