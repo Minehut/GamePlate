@@ -1,9 +1,11 @@
 package com.minehut.gameplate.module.modules.objectives.capturable;
 
+import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.chat.ChatConstant;
 import com.minehut.gameplate.chat.LocalizedChatMessage;
 import com.minehut.gameplate.module.modules.objectives.ObjectiveModule;
 import com.minehut.gameplate.module.modules.regions.RegionModule;
+import com.minehut.gameplate.module.modules.scoreboard.ScoreboardModule;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
 import com.minehut.gameplate.util.ChatUtil;
@@ -38,15 +40,62 @@ public class CapturableObjective extends ObjectiveModule {
         this.regions = regions;
     }
 
+    @Override
+    public String getScoreboardDisplay() {
+        if (this.getCompletedBy().size() > 0) {
+            if (this.material == Material.WOOL) {
+                return ColorUtil.convertDyeDataToChatColor(data) + " \u2B1B";
+            } else {
+                return ChatColor.AQUA + " \u2B1B";
+            }
+        } else if (touches.size() > 0) {
+            if (this.material == Material.WOOL) {
+                return ColorUtil.convertDyeDataToChatColor(data) + " \u2592";
+            } else {
+                return ChatColor.AQUA + " \u2592";
+            }
+        } else {
+            if (this.material == Material.WOOL) {
+                return ColorUtil.convertDyeDataToChatColor(data) + " \u2B1C";
+            } else {
+                return ChatColor.AQUA + " \u2B1C";
+            }
+        }
+    }
+
+    @Override
+    public String getScoreboardCompactDisplay() {
+        return getScoreboardDisplay() + " ";
+    }
+
+    public boolean isTouchedBy(TeamModule teamModule) {
+        for (UUID uuid : this.touches) {
+            Player player = Bukkit.getPlayer(uuid);
+            if (player != null) {
+                if (teamModule.containsPlayer(player)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     @EventHandler
     public void onBlockPickup(PlayerPickupItemEvent event) {
         if (event.getItem().getItemStack().getType() == material && event.getItem().getItemStack().getData().getData() == data) {
             if(this.touches.contains(event.getPlayer().getUniqueId())) return;
 
             TeamModule teamModule = TeamManager.getTeamByPlayer(event.getPlayer());
+
             if (teamModule == null) return;
+            if(super.isCompletedBy(teamModule)) return;
+
             if (teamModule.getObjectives().contains(this)) {
                 this.touches.add(event.getPlayer().getUniqueId());
+
+                for (ScoreboardModule scoreboardModule : GameHandler.getGameHandler().getMatch().getModules().getModules(ScoreboardModule.class)) {
+                    scoreboardModule.refresh(this);
+                }
 
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     player.sendMessage(teamModule.getColor() + new LocalizedChatMessage(ChatConstant.GAME_CAPTURABLE_TOUCHED, event.getPlayer().getName() + ChatColor.DARK_AQUA, ChatColor.AQUA + super.getName() + ChatColor.DARK_AQUA, teamModule.getColor() + teamModule.getName() + ChatColor.DARK_AQUA).getMessage(player.spigot().getLocale()));

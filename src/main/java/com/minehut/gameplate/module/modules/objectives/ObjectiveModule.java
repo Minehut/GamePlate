@@ -1,7 +1,9 @@
 package com.minehut.gameplate.module.modules.objectives;
 
+import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.event.objective.ObjectiveCompleteEvent;
 import com.minehut.gameplate.module.Module;
+import com.minehut.gameplate.module.ModuleCollection;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import org.bukkit.Bukkit;
 
@@ -27,8 +29,12 @@ public class ObjectiveModule extends Module {
      * Any objective that is displayed
      * on the scoreboard should override this.
      */
-    public String getScoreboardString() {
+    public String getScoreboardDisplay() {
         return this.name;
+    }
+
+    public String getScoreboardCompactDisplay() {
+        return getScoreboardDisplay();
     }
 
     public String getId() {
@@ -56,5 +62,18 @@ public class ObjectiveModule extends Module {
 
     public boolean isCompletedBy(TeamModule teamModule) {
         return this.completedBy.contains(teamModule);
+    }
+
+    public static ModuleCollection<ObjectiveModule> getObjectives() {
+        return GameHandler.getGameHandler().getMatch().getModules().getModules(ObjectiveModule.class);
+    }
+
+    public static ObjectiveModule getObjective(String id) {
+        for (ObjectiveModule objectiveModule : getObjectives()) {
+            if (objectiveModule.getId().equalsIgnoreCase(id)) {
+                return objectiveModule;
+            }
+        }
+        return null;
     }
 }

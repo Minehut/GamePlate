@@ -94,6 +94,45 @@ public class ColorUtil {
 
         return ChatColor.WHITE;
     }
+
+    public static ChatColor convertDyeDataToChatColor(byte data) {
+        switch (data) {
+            case 0:
+                return ChatColor.WHITE;
+            case 1:
+                return ChatColor.GOLD;
+            case 2:
+                return ChatColor.LIGHT_PURPLE;
+            case 3:
+                return ChatColor.BLUE;
+            case 4:
+                return ChatColor.YELLOW;
+            case 5:
+                return ChatColor.GREEN;
+            case 6:
+                return ChatColor.RED;
+            case 7:
+                return ChatColor.DARK_GRAY;
+            case 8:
+                return ChatColor.GRAY;
+            case 9:
+                return ChatColor.DARK_AQUA;
+            case 10:
+                return ChatColor.DARK_PURPLE;
+            case 11:
+                return ChatColor.DARK_BLUE;
+            case 12:
+                return ChatColor.GOLD;
+            case 13:
+                return ChatColor.DARK_GREEN;
+            case 14:
+                return ChatColor.DARK_RED;
+            case 15:
+                return ChatColor.BLACK;
+        }
+
+        return ChatColor.WHITE;
+    }
     
     public static DyeColor convertChatColorToDyeColor(ChatColor chatColor) {
         switch (chatColor) {

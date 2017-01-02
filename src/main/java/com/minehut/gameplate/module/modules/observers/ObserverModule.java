@@ -7,6 +7,8 @@ import com.minehut.gameplate.chat.LocalizedChatMessage;
 import com.minehut.gameplate.event.CycleCompleteEvent;
 import com.minehut.gameplate.event.GameSpawnEvent;
 import com.minehut.gameplate.module.Module;
+import com.minehut.gameplate.module.ModuleCollection;
+import com.minehut.gameplate.module.modules.objectives.ObjectiveModule;
 import com.minehut.gameplate.module.modules.respawn.RespawnModule;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
