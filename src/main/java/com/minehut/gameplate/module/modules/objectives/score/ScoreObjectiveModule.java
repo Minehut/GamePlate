@@ -1,12 +1,16 @@
 package com.minehut.gameplate.module.modules.objectives.score;
 
+import com.minehut.gameplate.GameHandler;
+import com.minehut.gameplate.event.CycleCompleteEvent;
 import com.minehut.gameplate.event.MatchEndEvent;
 import com.minehut.gameplate.module.modules.objectives.ObjectiveModule;
+import com.minehut.gameplate.module.modules.scoreboard.ScoreboardModule;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
 import com.sk89q.minecraft.util.commands.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 
 import java.util.HashMap;
 
@@ -29,6 +33,14 @@ public class ScoreObjectiveModule extends ObjectiveModule {
         }
     }
 
+    @EventHandler(priority = EventPriority.LOW)
+    public void onCycle(CycleCompleteEvent event) {
+        for (TeamModule teamModule : TeamManager.getTeamModules()) {
+            if(teamModule.isObserver()) continue;
+            this.scores.put(teamModule, 0);
+        }
+    }
+
     public void addPoints(TeamModule teamModule, int amount) {
         int score = getScore(teamModule) + amount;
 
@@ -40,6 +52,10 @@ public class ScoreObjectiveModule extends ObjectiveModule {
 
         Bukkit.broadcastMessage(teamModule.getColor() + teamModule.getName() + ": " + ChatColor.WHITE + scores.get(teamModule) +
             ChatColor.GRAY + "/" + limitScore);
+
+        for (ScoreboardModule scoreboardModule : GameHandler.getGameHandler().getMatch().getModules().getModules(ScoreboardModule.class)) {
+            scoreboardModule.refresh(this);
+        }
     }
 
     public int getScore(TeamModule teamModule) {
@@ -61,5 +77,13 @@ public class ScoreObjectiveModule extends ObjectiveModule {
             }
         }
         return winningTeam;
+    }
+
+    public HashMap<TeamModule, Integer> getScores() {
+        return scores;
+    }
+
+    public int getLimitScore() {
+        return limitScore;
     }
 }
