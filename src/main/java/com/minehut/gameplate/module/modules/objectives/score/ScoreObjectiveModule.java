@@ -50,9 +50,6 @@ public class ScoreObjectiveModule extends ObjectiveModule {
             super.addCompletedBy(teamModule);
         }
 
-        Bukkit.broadcastMessage(teamModule.getColor() + teamModule.getName() + ": " + ChatColor.WHITE + scores.get(teamModule) +
-            ChatColor.GRAY + "/" + limitScore);
-
         for (ScoreboardModule scoreboardModule : GameHandler.getGameHandler().getMatch().getModules().getModules(ScoreboardModule.class)) {
             scoreboardModule.refresh(this);
         }
