@@ -50,7 +50,7 @@ public abstract class Repository {
 
     public String toChatMessage(boolean op) {
         String source = getSource(op);
-        return ChatColor.YELLOW + "#" + getId() + " " + ChatColor.GOLD +
+        return ChatColor.YELLOW + "=" + getId() + " " + ChatColor.GOLD +
                 (source == null ? ChatColor.STRIKETHROUGH + "Hidden" : source);
     }
 

@@ -4,6 +4,7 @@ import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.chat.ChatConstant;
 import com.minehut.gameplate.chat.LocalizedChatMessage;
 import com.minehut.gameplate.event.api.GamePlateAllowedChatEvent;
+import com.minehut.gameplate.event.api.GamePlatePrefixEvent;
 import com.minehut.gameplate.module.modules.chat.ChatModule;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
@@ -69,11 +70,11 @@ public class TeamCommands {
         Player player = (Player) sender;
         TeamModule teamModule = TeamManager.getTeamByPlayer(player);
 
-        player.sendMessage(ChatColor.DARK_PURPLE + ChatUtil.divider);
-        player.sendMessage(ChatColor.DARK_PURPLE + "# " + ChatColor.DARK_AQUA + "You are on the " + teamModule.getColor() + teamModule.getName() + ChatColor.DARK_AQUA + ".");
-        player.sendMessage(ChatColor.DARK_PURPLE + "# ");
-        player.sendMessage(ChatColor.DARK_PURPLE + "# " + ChatColor.DARK_AQUA + "There are " + ChatColor.AQUA + teamModule.getPlayers().size() + ChatColor.DARK_AQUA + " players on your team.");
-        player.sendMessage(ChatColor.DARK_PURPLE + ChatUtil.divider);
+        player.sendMessage(ChatUtil.HEADER + ChatUtil.DIVIDER);
+        player.sendMessage(ChatUtil.HEADER + "= " + ChatUtil.TEXT + "You are on the " + teamModule.getColor() + teamModule.getName() + ChatUtil.TEXT + ".");
+        player.sendMessage(ChatUtil.HEADER + "= ");
+        player.sendMessage(ChatUtil.HEADER + "= " + ChatUtil.TEXT + "There are " + ChatUtil.HIGHLIGHT + teamModule.getPlayers().size() + ChatUtil.TEXT + " players on your team.");
+        player.sendMessage(ChatUtil.HEADER + ChatUtil.DIVIDER);
     }
 
     @Command(aliases = {"team", "t"}, desc = "Send a message to your team")
@@ -83,19 +84,26 @@ public class TeamCommands {
         }
         Player player = (Player) sender;
         TeamModule team = TeamManager.getTeamByPlayer(player);
-        if (team == null || team.equals(TeamManager.getObservers())) {
+        if (team == null) {
             return;
         }
         if (cmd.argsLength() == 0) {
-            player.sendMessage(ChatUtil.getWarningMessage(new LocalizedChatMessage(ChatConstant.ERROR_NO_MESSAGE).getMessage(ChatUtil.getLocale(sender))));
+            ChatUtil.sendMessage(player, ChatConstant.ERROR_NO_MESSAGE);
             return;
         }
 
         GamePlateAllowedChatEvent canChatEvent = new GamePlateAllowedChatEvent(player);
         Bukkit.getPluginManager().callEvent(canChatEvent);
 
+        GamePlatePrefixEvent prefixEvent = new GamePlatePrefixEvent(player);
+        Bukkit.getPluginManager().callEvent(prefixEvent);
+
         if (canChatEvent.isAllowedChat()) {
-            ChatModule.sendToTeam(team, new LocalizedChatMessage(ChatConstant.UI_TEAM_CHAT, team.getColor().toString(), player.getDisplayName(), cmd.getJoinedStrings(0)).getMessage(ChatUtil.getLocale(sender)));
+            if (prefixEvent.getPrefix().equals("")) {
+                ChatModule.sendToTeam(team, new LocalizedChatMessage(ChatConstant.UI_TEAM_CHAT, team.getColor().toString(), player.getDisplayName(), ChatColor.GRAY + cmd.getJoinedStrings(0)).getMessage(ChatUtil.getLocale(sender)));
+            } else {
+                ChatModule.sendToTeam(team, new LocalizedChatMessage(ChatConstant.UI_TEAM_CHAT, team.getColor().toString(), prefixEvent.getPrefix() + " " + player.getDisplayName(), cmd.getJoinedStrings(0)).getMessage(ChatUtil.getLocale(sender)));
+            }
         }
     }
 

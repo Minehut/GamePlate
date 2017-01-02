@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.*;
 import com.minehut.gameplate.module.modules.team.TeamModule;
+import com.minehut.gameplate.util.ChatUtil;
 import com.minehut.gameplate.util.Numbers;
 import com.minehut.gameplate.util.Parser;
 import org.bukkit.ChatColor;
@@ -28,7 +29,7 @@ public class TeamManagerBuilder extends ModuleBuilder {
                 teamType = TeamManager.TeamType.valueOf(teamsElement.getAttributeValue("mode").toUpperCase().replace(" ", "_"));
             }
             results.add(new TeamManager(teamType));
-            results.add(new TeamModule("observers", "Observers", true, ChatColor.AQUA, Integer.MAX_VALUE, Integer.MAX_VALUE, TeamModule.JoinAllowance.ALL));
+            results.add(new TeamModule("observers", "Observers", true, ChatUtil.HIGHLIGHT, Integer.MAX_VALUE, Integer.MAX_VALUE, TeamModule.JoinAllowance.ALL));
 
             for (Element element : teamsElement.getChildren()) {
                 String id = element.getAttributeValue("id");

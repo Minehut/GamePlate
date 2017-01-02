@@ -16,10 +16,14 @@ import java.util.logging.Level;
  */
 public class ChatUtil {
 
-    public static String divider = "######################################";
+    public static ChatColor HEADER = ChatColor.YELLOW;
+    public static ChatColor TEXT = ChatColor.DARK_AQUA;
+    public static ChatColor HIGHLIGHT = ChatColor.AQUA;
+
+    public static String DIVIDER = "======================================";
 
     public static void sendMessage(Player player, ChatConstant chatConstant, String... messages) {
-        sendMessage(player, ChatColor.DARK_PURPLE,  chatConstant, messages);
+        sendMessage(player, ChatUtil.HEADER,  chatConstant, messages);
     }
 
     public static void sendMessage(Player player, ChatColor chatColor, ChatConstant chatConstant, String... messages) {

@@ -5,6 +5,7 @@ import com.minehut.gameplate.event.TeamCreateEvent;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
+import com.minehut.gameplate.util.ChatUtil;
 import com.minehut.gameplate.util.SimpleScoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -28,7 +29,7 @@ public class ScoreboardModule extends Module {
     public ScoreboardModule(TeamModule teamModule) {
         this.teamModule = teamModule;
 
-        this.simpleScoreboard = new SimpleScoreboard(ChatColor.AQUA + "Objectives");
+        this.simpleScoreboard = new SimpleScoreboard(ChatUtil.HIGHLIGHT + "Objectives");
 
         for (TeamModule other : TeamManager.getTeamModules()) {
             setupTeam(other);

@@ -21,15 +21,15 @@ public class RotationCommands {
     @Command(desc = "View the rotation", aliases = {"rotation", "rot"})
     public static void rotation(CommandContext cmd, CommandSender sender) {
         sender.sendMessage(" ");
-        sender.sendMessage(ChatColor.DARK_PURPLE + new LocalizedChatMessage(ChatConstant.UI_ROTATION_HEAD).getMessage(ChatUtil.getLocale(sender)));
+        sender.sendMessage(ChatUtil.HEADER + new LocalizedChatMessage(ChatConstant.UI_ROTATION_HEAD).getMessage(ChatUtil.getLocale(sender)));
 
         for(int i = 0; i < GamePlate.getInstance().getGameHandler().getRepositoryManager().getRotation().size(); i++) {
             LoadedMap loadedMap = GameHandler.getGameHandler().getRepositoryManager().getRotation().get(i);
             ChatColor color;
             if (GameHandler.getGameHandler().getMatch().getCurrentMap().getMap() == loadedMap) {
-                color = ChatColor.GOLD;
+                color = ChatUtil.HIGHLIGHT;
             } else {
-                color = ChatColor.DARK_AQUA;
+                color = ChatUtil.TEXT;
             }
             sender.sendMessage(color.toString() + (i + 1) + ". " + loadedMap.getName());
         }

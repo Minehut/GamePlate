@@ -120,14 +120,14 @@ public class InventoryViewModule extends Module {
                 String effectName = WordUtils.capitalizeFully(effect.getType().getName().toLowerCase().replaceAll("_", " "));
                 effects.add(ChatColor.YELLOW + effectName + " " + (effect.getAmplifier() + 1));
             }
-            potion = Items.createItem(Material.POTION, 1, (short) 0, ChatColor.AQUA + "" + ChatColor.ITALIC + new LocalizedChatMessage(ChatConstant.UI_POTION_EFFECTS).getMessage(locale), effects);
+            potion = Items.createItem(Material.POTION, 1, (short) 0, ChatUtil.HIGHLIGHT + "" + ChatColor.ITALIC + new LocalizedChatMessage(ChatConstant.UI_POTION_EFFECTS).getMessage(locale), effects);
         } else {
-            potion = Items.createItem(Material.GLASS_BOTTLE, 1, (short) 0, ChatColor.AQUA + "" + ChatColor.ITALIC + new LocalizedChatMessage(ChatConstant.UI_POTION_EFFECTS).getMessage(locale), new ArrayList<>(Collections.singletonList(ChatColor.YELLOW + new LocalizedChatMessage(ChatConstant.UI_NO_POTION_EFFECTS).getMessage(locale))));
+            potion = Items.createItem(Material.GLASS_BOTTLE, 1, (short) 0, ChatUtil.HIGHLIGHT + "" + ChatColor.ITALIC + new LocalizedChatMessage(ChatConstant.UI_POTION_EFFECTS).getMessage(locale), new ArrayList<>(Collections.singletonList(ChatColor.YELLOW + new LocalizedChatMessage(ChatConstant.UI_NO_POTION_EFFECTS).getMessage(locale))));
         }
         inventory.setItem(6, potion);
-        ItemStack food = Items.createItem(Material.COOKED_BEEF, player.getFoodLevel(), (short) 0, ChatColor.AQUA + "" + ChatColor.ITALIC + new LocalizedChatMessage(ChatConstant.UI_HUNGER_LEVEL).getMessage(locale));
+        ItemStack food = Items.createItem(Material.COOKED_BEEF, player.getFoodLevel(), (short) 0, ChatUtil.HIGHLIGHT + "" + ChatColor.ITALIC + new LocalizedChatMessage(ChatConstant.UI_HUNGER_LEVEL).getMessage(locale));
         inventory.setItem(7, food);
-        ItemStack health = Items.createItem(Material.REDSTONE, (int) Math.ceil(player.getHealth()), (short) 0, ChatColor.AQUA + "" + ChatColor.ITALIC + new LocalizedChatMessage(ChatConstant.UI_HEALTH_LEVEL).getMessage(locale));
+        ItemStack health = Items.createItem(Material.REDSTONE, (int) Math.ceil(player.getHealth()), (short) 0, ChatUtil.HIGHLIGHT + "" + ChatColor.ITALIC + new LocalizedChatMessage(ChatConstant.UI_HEALTH_LEVEL).getMessage(locale));
         inventory.setItem(8, health);
         for (int i = 36; i <= 44; i++) {
             inventory.setItem(i, player.getInventory().getItem(i - 36));

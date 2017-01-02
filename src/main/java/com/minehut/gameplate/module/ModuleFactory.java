@@ -13,6 +13,7 @@ import com.minehut.gameplate.module.modules.inventoryView.InventoryViewModuleBui
 import com.minehut.gameplate.module.modules.kit.KitModuleBuilder;
 import com.minehut.gameplate.module.modules.lives.LivesModuleBuilder;
 import com.minehut.gameplate.module.modules.matchAlerts.MatchAlertsModuleBuilder;
+import com.minehut.gameplate.module.modules.mobSpawn.MobSpawnModuleBuilder;
 import com.minehut.gameplate.module.modules.objectives.capturable.CapturableObjectiveBuilder;
 import com.minehut.gameplate.module.modules.scoreboard.ScoreboardModuleBuilder;
 import com.minehut.gameplate.module.modules.time.MatchTimerModuleBuilder;
@@ -72,7 +73,8 @@ public class ModuleFactory {
                 TimeNotificationsModuleBuilder.class,
                 FriendlyFireModuleBuilder.class,
                 ScoreboardModuleBuilder.class,
-                CapturableObjectiveBuilder.class
+                CapturableObjectiveBuilder.class,
+                MobSpawnModuleBuilder.class
         ));
     }
 

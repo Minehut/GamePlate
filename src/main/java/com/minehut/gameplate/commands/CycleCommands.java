@@ -54,8 +54,8 @@ public class CycleCommands {
             return;
         }
 
-        GameHandler.getGameHandler().getRepositoryManager().getRotation().setNextMap(found);
-        sender.sendMessage(ChatColor.DARK_PURPLE + new LocalizedChatMessage(ChatConstant.UI_NEXT_MAP_SET, new UnlocalizedChatMessage(ChatColor.AQUA + "{0}", found.getName())).getMessage(ChatUtil.getLocale(sender)));
+        GameHandler.getGameHandler().getRepositoryManager().getRotation().setForcedNextMap(found);
+        sender.sendMessage(ChatUtil.HEADER + new LocalizedChatMessage(ChatConstant.UI_NEXT_MAP_SET, new UnlocalizedChatMessage(ChatUtil.HIGHLIGHT + "{0}", found.getName())).getMessage(ChatUtil.getLocale(sender)));
     }
 
     @Command(aliases = {"end"}, desc = "End the match.")

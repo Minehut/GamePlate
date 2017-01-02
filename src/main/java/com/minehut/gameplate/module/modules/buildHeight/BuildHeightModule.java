@@ -34,13 +34,13 @@ public class BuildHeightModule extends Module {
         if (event.getBlock().getY() >= height && !event.isCancelled()) {
             event.setCancelled(true);
             event.getPlayer().closeInventory();
-            ChatUtil.sendWarningMessage(event.getPlayer(), ChatConstant.ERROR_BUILD_HEIGHT, ChatColor.AQUA.toString() + height + ChatColor.GRAY.toString());
+            ChatUtil.sendWarningMessage(event.getPlayer(), ChatConstant.ERROR_BUILD_HEIGHT, ChatUtil.HIGHLIGHT.toString() + height + ChatColor.GRAY.toString());
         }
         if ((event.getBlock().getType().equals(Material.ACACIA_DOOR) || event.getBlock().getType().equals(Material.BIRCH_DOOR) || event.getBlock().getType().equals(Material.DARK_OAK_DOOR) || event.getBlock().getType().equals(Material.IRON_DOOR_BLOCK) || event.getBlock().getType().equals(Material.JUNGLE_DOOR) || event.getBlock().getType().equals(Material.SPRUCE_DOOR) || event.getBlock().getType().equals(Material.WOOD_DOOR) || event.getBlock().getType().equals(Material.WOODEN_DOOR) || event.getBlock().getType().equals(Material.LONG_GRASS)) && event.getBlock().getY() + 1 >= height) {
             event.setCancelled(true);
             event.getPlayer().closeInventory();
 
-            ChatUtil.sendWarningMessage(event.getPlayer(), ChatConstant.ERROR_BUILD_HEIGHT, ChatColor.AQUA.toString() + height + ChatColor.GRAY.toString());
+            ChatUtil.sendWarningMessage(event.getPlayer(), ChatConstant.ERROR_BUILD_HEIGHT, ChatUtil.HIGHLIGHT.toString() + height + ChatColor.GRAY.toString());
         }
     }
 
@@ -48,7 +48,7 @@ public class BuildHeightModule extends Module {
     public void onBlockBreak(BlockBreakEvent event) {
         if (event.getBlock().getY() >= height && !event.isCancelled()) {
             event.setCancelled(true);
-            ChatUtil.sendWarningMessage(event.getPlayer(), ChatConstant.ERROR_BUILD_HEIGHT, ChatColor.AQUA.toString() + height + ChatColor.GRAY.toString());
+            ChatUtil.sendWarningMessage(event.getPlayer(), ChatConstant.ERROR_BUILD_HEIGHT, ChatUtil.HIGHLIGHT.toString() + height + ChatColor.GRAY.toString());
         }
     }
 
@@ -57,7 +57,7 @@ public class BuildHeightModule extends Module {
         Block toFill = event.getBlockClicked().getRelative(event.getBlockFace());
         if (toFill.getY() >= height && !event.isCancelled()) {
             event.setCancelled(true);
-            ChatUtil.sendWarningMessage(event.getPlayer(), ChatConstant.ERROR_BUILD_HEIGHT, ChatColor.AQUA.toString() + height + ChatColor.GRAY.toString());
+            ChatUtil.sendWarningMessage(event.getPlayer(), ChatConstant.ERROR_BUILD_HEIGHT, ChatUtil.HIGHLIGHT.toString() + height + ChatColor.GRAY.toString());
         }
     }
 
@@ -66,7 +66,7 @@ public class BuildHeightModule extends Module {
         Block toEmpty = event.getBlockClicked().getRelative(event.getBlockFace());
         if (toEmpty.getY() >= height && !event.isCancelled()) {
             event.setCancelled(true);
-            ChatUtil.sendWarningMessage(event.getPlayer(), ChatConstant.ERROR_BUILD_HEIGHT, ChatColor.AQUA.toString() + height + ChatColor.GRAY.toString());
+            ChatUtil.sendWarningMessage(event.getPlayer(), ChatConstant.ERROR_BUILD_HEIGHT, ChatUtil.HIGHLIGHT.toString() + height + ChatColor.GRAY.toString());
         }
     }
 

@@ -32,15 +32,15 @@ public class MatchAlertsModule extends Module {
     public void onMatchStart(MatchStartEvent event) {
         for (TeamModule teamModule : TeamManager.getTeamModules()) {
             for (Player player : teamModule.getPlayers()) {
-                player.sendMessage(ChatColor.DARK_PURPLE + ChatUtil.divider);
-                player.sendMessage(ChatColor.DARK_PURPLE + "# " + ChatColor.AQUA + "The match has started!");
-                player.sendMessage(ChatColor.DARK_PURPLE + "#");
+                player.sendMessage(ChatUtil.HEADER + ChatUtil.DIVIDER);
+                player.sendMessage(ChatUtil.HEADER + "= " + ChatUtil.HIGHLIGHT + "The match has started!");
+                player.sendMessage(ChatUtil.HEADER + "=");
                 if (!teamModule.isObserver()) {
-                    player.sendMessage(ChatColor.DARK_PURPLE + "# " + ChatColor.DARK_AQUA + "You are on the " + teamModule.getColor() + teamModule.getName());
+                    player.sendMessage(ChatUtil.HEADER + "= " + ChatUtil.TEXT + "You are on the " + teamModule.getColor() + teamModule.getName());
                 } else {
-                    player.sendMessage(ChatColor.DARK_PURPLE + "# " + ChatColor.DARK_AQUA + "Join the game with " + ChatColor.AQUA + "/join");
+                    player.sendMessage(ChatUtil.HEADER + "= " + ChatUtil.TEXT + "Join the game with " + ChatUtil.HIGHLIGHT + "/join");
                 }
-                player.sendMessage(ChatColor.DARK_PURPLE + ChatUtil.divider);
+                player.sendMessage(ChatUtil.HEADER + ChatUtil.DIVIDER);
             }
         }
 
@@ -51,8 +51,8 @@ public class MatchAlertsModule extends Module {
                 public void run() {
                     if (GameHandler.getGameHandler().getMatch().getUuid().equals(matchUuid)) {
                         for (Player player : Bukkit.getOnlinePlayers()) {
-                            player.sendMessage(ChatColor.DARK_PURPLE + "[" + new LocalizedChatMessage(ChatConstant.UI_OBJECTIVE_PREFIX).getMessage(player.spigot().getLocale()) + "] "
-                                    + ChatColor.DARK_AQUA + GameHandler.getGameHandler().getCurrentMap().getMap().getObjective());
+                            player.sendMessage(ChatUtil.HEADER + "[" + new LocalizedChatMessage(ChatConstant.UI_OBJECTIVE_PREFIX).getMessage(player.spigot().getLocale()) + "] "
+                                    + ChatUtil.TEXT + GameHandler.getGameHandler().getCurrentMap().getMap().getObjective());
                         }
                     }
                 }
@@ -65,18 +65,18 @@ public class MatchAlertsModule extends Module {
         for (TeamModule teamModule : TeamManager.getTeamModules()) {
             for (Player player : teamModule.getPlayers()) {
 
-                player.sendMessage(ChatColor.GREEN + ChatUtil.divider);
-                player.sendMessage(ChatColor.GREEN + "#");
+                player.sendMessage(ChatColor.GREEN + ChatUtil.DIVIDER);
+                player.sendMessage(ChatColor.GREEN + "=");
                 if (event.getTeam() != null) {
-                    player.sendMessage(ChatColor.GREEN + "# " + event.getTeam().getColor() + event.getTeam().getName() + ChatColor.DARK_AQUA + " won the match!");
+                    player.sendMessage(ChatColor.GREEN + "= " + event.getTeam().getColor() + event.getTeam().getName() + ChatUtil.TEXT + " won the match!");
                 } else {
-                    player.sendMessage(ChatColor.GREEN + "# " + ChatColor.DARK_AQUA + "The match resulted in a tie.");
+                    player.sendMessage(ChatColor.GREEN + "= " + ChatUtil.TEXT + "The match resulted in a tie.");
                 }
 
-                player.sendMessage(ChatColor.GREEN + "#");
-                player.sendMessage(ChatColor.GREEN + ChatUtil.divider);
+                player.sendMessage(ChatColor.GREEN + "=");
+                player.sendMessage(ChatColor.GREEN + ChatUtil.DIVIDER);
 
-                ChatColor color = ChatColor.AQUA;
+                ChatColor color = ChatUtil.HIGHLIGHT;
                 if (event.getTeam() != null) {
                     color = event.getTeam().getColor();
                 }

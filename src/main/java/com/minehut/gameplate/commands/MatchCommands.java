@@ -22,11 +22,11 @@ public class MatchCommands {
     public static void match(final CommandContext cmd, CommandSender sender) throws CommandException {
         Match match = GameHandler.getGameHandler().getMatch();
 
-        sender.sendMessage(ChatColor.DARK_PURPLE + ChatUtil.divider);
-        sender.sendMessage(ChatColor.DARK_PURPLE + "# " + ChatColor.DARK_AQUA + "Playing on " + ChatColor.AQUA + match.getCurrentMap().getMap().getName());
-        sender.sendMessage(ChatColor.DARK_PURPLE + "# ");
-        sender.sendMessage(ChatColor.DARK_PURPLE + "# " + ChatColor.DARK_AQUA + "The current match time is " + ChatColor.AQUA + Strings.formatTime(MatchTimerModule.getTimeInSeconds()));
-        sender.sendMessage(ChatColor.DARK_PURPLE + "# " + ChatColor.DARK_AQUA + "The time limit is " + ChatColor.RED + Strings.formatTime(TimeLimitModule.getTimeLimit()));
-        sender.sendMessage(ChatColor.DARK_PURPLE + ChatUtil.divider);
+        sender.sendMessage(ChatUtil.HEADER + ChatUtil.DIVIDER);
+        sender.sendMessage(ChatUtil.HEADER + "= " + ChatUtil.TEXT + "Playing on " + ChatUtil.HIGHLIGHT + match.getCurrentMap().getMap().getName());
+        sender.sendMessage(ChatUtil.HEADER + "= ");
+        sender.sendMessage(ChatUtil.HEADER + "= " + ChatUtil.TEXT + "The current match time is " + ChatUtil.HIGHLIGHT + Strings.formatTime(MatchTimerModule.getTimeInSeconds()));
+        sender.sendMessage(ChatUtil.HEADER + "= " + ChatUtil.TEXT + "The time limit is " + ChatColor.RED + Strings.formatTime(TimeLimitModule.getTimeLimit()));
+        sender.sendMessage(ChatUtil.HEADER + ChatUtil.DIVIDER);
     }
 }

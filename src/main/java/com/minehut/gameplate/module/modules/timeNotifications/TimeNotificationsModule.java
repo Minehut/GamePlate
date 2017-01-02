@@ -7,6 +7,7 @@ import com.minehut.gameplate.chat.UnlocalizedChatMessage;
 import com.minehut.gameplate.module.TaskedModule;
 import com.minehut.gameplate.module.modules.time.MatchTimerModule;
 import com.minehut.gameplate.module.modules.timeLimit.TimeLimitModule;
+import com.minehut.gameplate.util.ChatUtil;
 import com.minehut.gameplate.util.Strings;
 import com.sk89q.minecraft.util.commands.ChatColor;
 import org.bukkit.Bukkit;
@@ -28,10 +29,10 @@ public class TimeNotificationsModule extends TaskedModule {
                 int timeRemaining = (int) (TimeLimitModule.getTimeLimit() - MatchTimerModule.getTimeInSeconds());
                 if (timeRemaining != lastSecond && (timeRemaining % 60 == 0 || timeRemaining == 10 || timeRemaining <= 5)) {
                     lastSecond = timeRemaining;
-                    String formated = Strings.formatTime(timeRemaining);
+                    String formatted = Strings.formatTime(timeRemaining);
 
                     for (Player player : Bukkit.getOnlinePlayers()) {
-                        player.sendMessage(ChatColor.DARK_AQUA + new LocalizedChatMessage(ChatConstant.UI_TIME_REMAINING, new UnlocalizedChatMessage(ChatColor.AQUA + "{0}", formated)).getMessage(player.spigot().getLocale()));
+                        player.sendMessage(ChatUtil.TEXT + new LocalizedChatMessage(ChatConstant.UI_TIME_REMAINING, new UnlocalizedChatMessage(ChatUtil.HIGHLIGHT + "{0}", formatted)).getMessage(player.spigot().getLocale()));
                     }
                 }
             }

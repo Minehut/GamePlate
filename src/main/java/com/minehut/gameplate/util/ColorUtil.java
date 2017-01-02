@@ -162,7 +162,7 @@ public class ColorUtil {
             case CYAN:
                 return ChatColor.DARK_AQUA;
             case PURPLE:
-                return ChatColor.DARK_PURPLE;
+                return ChatUtil.HEADER;
             case BLUE:
                 return ChatColor.BLUE;
             case BROWN:
