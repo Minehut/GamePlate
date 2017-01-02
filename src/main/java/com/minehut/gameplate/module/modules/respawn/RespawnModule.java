@@ -2,6 +2,8 @@ package com.minehut.gameplate.module.modules.respawn;
 
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.GamePlate;
+import com.minehut.gameplate.chat.ChatConstant;
+import com.minehut.gameplate.chat.LocalizedChatMessage;
 import com.minehut.gameplate.event.GameDeathEvent;
 import com.minehut.gameplate.event.GameSpawnEvent;
 import com.minehut.gameplate.module.Module;
@@ -46,8 +48,7 @@ public class RespawnModule extends Module {
                     respawnPlayer(player);
                 } else {
                     double d = round(getTimeLeft(player), 1);
-                    //TODO: This method apparently is deprecated and doesn't exist.
-                    //player.sendTitle(ChatColor.RED + ChatColor.BOLD.toString() + "DEAD", ChatColor.DARK_AQUA + "Respawning in " + ChatColor.AQUA + d, 0, Integer.MAX_VALUE, 0);
+                    player.sendTitle(ChatColor.RED + ChatColor.BOLD.toString() + new LocalizedChatMessage(ChatConstant.UI_DEAD).getMessage(player.spigot().getLocale()), ChatColor.DARK_AQUA + new LocalizedChatMessage(ChatConstant.UI_RESPAWN_TIMER, ChatColor.AQUA.toString() + d).getMessage(player.spigot().getLocale()), 0, Integer.MAX_VALUE, 0);
                 }
             }
         }, 1L, 1L);
