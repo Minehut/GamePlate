@@ -6,6 +6,7 @@ import com.minehut.gameplate.module.modules.kit.types.KitInventoryItem;
 import com.minehut.gameplate.module.modules.kit.types.KitPotionItem;
 import com.minehut.gameplate.util.ColorUtil;
 import com.minehut.gameplate.util.Numbers;
+import com.minehut.gameplate.util.Strings;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -76,8 +77,7 @@ public class KitModuleBuilder extends ModuleBuilder {
         List<Element> enchants = new ArrayList<>();
         enchants.addAll(element.getChildren("enchantment"));
         for (Element enchantElement : enchants) {
-            Enchantment enchantment = Enchantment.getByName(enchantElement.getAttributeValue("id"));
-            if (enchantment == null) continue;
+            Enchantment enchantment = Enchantment.getByName(Strings.getTechnicalName(enchantElement.getAttributeValue("id")));
             int level = 1;
             if (enchantElement.getAttributeValue("level") != null) {
                 level = Numbers.parseInt(enchantElement.getAttributeValue("level"));
