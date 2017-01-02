@@ -1,7 +1,5 @@
 package com.minehut.gameplate.module.modules.spawn;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.Module;
@@ -13,12 +11,10 @@ import com.minehut.gameplate.module.modules.regions.RegionModuleBuilder;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
 import com.minehut.gameplate.util.Numbers;
-import org.bukkit.Bukkit;
 import org.jdom2.Element;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 /**
  * Created by luke on 12/22/16.

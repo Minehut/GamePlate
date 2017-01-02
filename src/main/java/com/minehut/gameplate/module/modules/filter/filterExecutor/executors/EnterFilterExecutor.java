@@ -5,7 +5,6 @@ import com.minehut.gameplate.module.modules.filter.filterComparator.FilterRespon
 import com.minehut.gameplate.module.modules.filter.filterExecutor.FilterExecutor;
 import com.minehut.gameplate.module.modules.regions.RegionModule;
 import com.minehut.gameplate.util.ChatUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 

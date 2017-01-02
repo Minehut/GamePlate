@@ -6,7 +6,6 @@ import com.minehut.gameplate.module.modules.kit.types.KitInventoryItem;
 import com.minehut.gameplate.module.modules.kit.types.KitPotionItem;
 import com.minehut.gameplate.util.ColorUtil;
 import com.minehut.gameplate.util.Numbers;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -15,7 +14,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.jdom2.DataConversionException;
 import org.jdom2.Element;
 
 import java.util.ArrayList;

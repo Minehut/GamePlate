@@ -1,11 +1,8 @@
 package com.minehut.gameplate.map.repository;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.minehut.gameplate.GamePlate;
 import com.minehut.gameplate.map.LoadedMap;
 import com.minehut.gameplate.map.repository.exception.RotationLoadException;
-import com.minehut.gameplate.map.repository.repositories.DefaultRepository;
 import com.minehut.gameplate.map.repository.repositories.FileRepository;
 import com.minehut.gameplate.map.repository.repositories.Repository;
 import com.minehut.gameplate.util.Config;
@@ -35,7 +32,7 @@ public class RepositoryManager {
     /**
      * Refreshes the maps in the repository and the data associated with them
      *
-     * @throws RotationLoadException
+     * @throws RotationLoadException If no maps are found
      */
     public void refreshRepos() throws RotationLoadException, IOException {
 //        List<Repository> newRepos = Lists.newArrayList(new DefaultRepository());

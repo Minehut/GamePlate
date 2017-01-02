@@ -2,10 +2,7 @@ package com.minehut.gameplate.module.modules.kit.types;
 
 import com.minehut.gameplate.module.modules.kit.KitItem;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionType;
 
 /**
  * Created by luke on 1/1/17.

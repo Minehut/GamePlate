@@ -37,9 +37,6 @@ public class LivesModule extends Module {
     }
 
     public boolean isTeamOutOfLives(TeamModule teamModule) {
-        if (this.lives.containsKey(teamModule)) {
-            return this.lives.get(teamModule) <= 0;
-        }
-        return false;
+        return this.lives.containsKey(teamModule) && this.lives.get(teamModule) <= 0;
     }
 }

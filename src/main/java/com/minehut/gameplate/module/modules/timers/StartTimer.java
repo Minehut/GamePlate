@@ -6,7 +6,6 @@ import com.minehut.gameplate.chat.ChatMessage;
 import com.minehut.gameplate.chat.LocalizedChatMessage;
 import com.minehut.gameplate.chat.UnlocalizedChatMessage;
 import com.minehut.gameplate.event.CycleCompleteEvent;
-import com.minehut.gameplate.event.MatchEndEvent;
 import com.minehut.gameplate.event.MatchStartEvent;
 import com.minehut.gameplate.match.MatchState;
 import com.minehut.gameplate.util.Config;

@@ -3,7 +3,6 @@ package com.minehut.gameplate.module.modules.connection;
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.GamePlate;
 import com.minehut.gameplate.event.CycleCompleteEvent;
-import com.minehut.gameplate.event.GameSpawnEvent;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;

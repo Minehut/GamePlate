@@ -1,14 +1,11 @@
 package com.minehut.gameplate.map.repository.repositories;
 
 import com.google.common.collect.Lists;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.minehut.gameplate.GamePlate;
 import com.minehut.gameplate.map.Contributor;
 import com.minehut.gameplate.map.LoadedMap;
 import com.minehut.gameplate.map.repository.exception.RotationLoadException;
 import com.minehut.gameplate.util.Config;
-import com.minehut.gameplate.util.JsonUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.jdom2.Document;

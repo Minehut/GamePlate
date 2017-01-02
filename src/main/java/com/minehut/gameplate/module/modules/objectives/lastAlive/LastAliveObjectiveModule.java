@@ -2,12 +2,10 @@ package com.minehut.gameplate.module.modules.objectives.lastAlive;
 
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.event.GameDeathEvent;
-import com.minehut.gameplate.event.objective.ObjectiveCompleteEvent;
 import com.minehut.gameplate.module.modules.objectives.ObjectiveModule;
 import com.minehut.gameplate.module.modules.lives.LivesModule;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 

@@ -8,9 +8,7 @@ import com.minehut.gameplate.module.modules.regions.RegionModule;
 import com.minehut.gameplate.module.modules.regions.RegionModuleBuilder;
 import com.minehut.gameplate.util.ColorUtil;
 import com.minehut.gameplate.util.Numbers;
-import com.minehut.gameplate.util.Parser;
 import com.minehut.gameplate.util.Strings;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.jdom2.Element;
 

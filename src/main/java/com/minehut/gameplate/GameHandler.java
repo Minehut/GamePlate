@@ -9,10 +9,7 @@ import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.ModuleFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.lang.ref.WeakReference;
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -34,12 +31,7 @@ public class GameHandler {
         repositoryManager.setupRotation();
 
         currentMap = new CurrentMap(repositoryManager.getRotation().getNext(), UUID.randomUUID());
-        Bukkit.getScheduler().scheduleSyncDelayedTask(GamePlate.getInstance(), new Runnable() {
-            @Override
-            public void run() {
-                cycleAndMakeMatch();
-            }
-        });
+        Bukkit.getScheduler().scheduleSyncDelayedTask(GamePlate.getInstance(), () -> cycleAndMakeMatch());
     }
 
     public static GameHandler getGameHandler() {

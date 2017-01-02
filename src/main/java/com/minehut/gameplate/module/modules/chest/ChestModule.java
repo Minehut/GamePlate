@@ -13,8 +13,8 @@ import com.minehut.gameplate.module.Module;
 
 public class ChestModule extends Module {
 
-	private ArrayList<Chest> chests = new ArrayList<Chest>();
-	private ArrayList<GameChest> finds = new ArrayList<GameChest>();
+	private ArrayList<Chest> chests = new ArrayList<>();
+	private ArrayList<GameChest> finds = new ArrayList<>();
 	
 	private int totalChance = 0;
 	
@@ -50,7 +50,9 @@ public class ChestModule extends Module {
 	}
 	
 	private void populate(Inventory inventory){
-		getRandomInventory().fillInventory(inventory);
+		GameChest randomInv = getRandomInventory();
+		if (randomInv == null) return;
+		randomInv.fillInventory(inventory);
 	}
 	
 }

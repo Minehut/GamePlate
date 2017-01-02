@@ -5,7 +5,6 @@ import com.minehut.gameplate.module.modules.tracker.event.TrackerDamageEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.HandlerList;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 
@@ -23,9 +22,9 @@ public class SpleefTracker extends Module {
         return events.containsKey(player.getUniqueId()) ? events.get(player.getUniqueId()) : null;
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onBlockBreak(BlockBreakEvent event) {
-        //todo: anti-spleef
+//    @EventHandler(priority = EventPriority.MONITOR)
+//    public void onBlockBreak(BlockBreakEvent event) {
+//        //todo: anti-spleef
 //        if (event.isCancelled()) return;
 //        for (Player player : Bukkit.getOnlinePlayers()) {
 //            Location location = event.getBlock().getLocation();
@@ -45,11 +44,11 @@ public class SpleefTracker extends Module {
 //                Bukkit.getServer().getPluginManager().callEvent(new TrackerDamageEvent(player, event.getPlayer(), event.getPlayer().getItemInHand(), Cause.PLAYER, description, Type.SPLEEFED));
 //            }
 //        }
-    }
+//    }
 
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onEntityExplode(EntityExplodeEvent event) {
-        //todo: anti-spleef
+//    @EventHandler(priority = EventPriority.MONITOR)
+//    public void onEntityExplode(EntityExplodeEvent event) {
+//        todo: anti-spleef
 //        if (event.isCancelled()) return;
 //        for (Block block : event.blockList()) {
 //            for (Player player : Bukkit.getOnlinePlayers()) {
@@ -72,6 +71,6 @@ public class SpleefTracker extends Module {
 //                }
 //            }
 //        }
-    }
+//    }
 
 }

@@ -98,12 +98,7 @@ public class Visibility extends Module {
         for (Player viewer : Bukkit.getOnlinePlayers()) {
             setVisibility(viewer, player, false);
         }
-        Bukkit.getScheduler().scheduleSyncDelayedTask(GamePlate.getInstance(), new Runnable() {
-            @Override
-            public void run() {
-                showOrHide(player);
-            }
-        }, 5L);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(GamePlate.getInstance(), () -> showOrHide(player), 5L);
 
     }
 

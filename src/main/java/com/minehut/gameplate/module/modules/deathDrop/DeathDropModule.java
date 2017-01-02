@@ -1,9 +1,7 @@
 package com.minehut.gameplate.module.modules.deathDrop;
 
-import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.event.GameDeathEvent;
 import com.minehut.gameplate.module.TaskedModule;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
@@ -14,7 +12,6 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by luke on 12/31/16.

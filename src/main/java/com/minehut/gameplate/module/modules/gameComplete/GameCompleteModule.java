@@ -6,7 +6,6 @@ import com.minehut.gameplate.module.modules.objectives.ObjectiveModule;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 
 public class GameCompleteModule extends Module {

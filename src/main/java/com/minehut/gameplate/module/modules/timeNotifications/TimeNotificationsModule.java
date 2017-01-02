@@ -9,7 +9,6 @@ import com.minehut.gameplate.module.modules.time.MatchTimerModule;
 import com.minehut.gameplate.module.modules.timeLimit.TimeLimitModule;
 import com.minehut.gameplate.util.ChatUtil;
 import com.minehut.gameplate.util.Strings;
-import com.sk89q.minecraft.util.commands.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

@@ -1,6 +1,5 @@
 package com.minehut.gameplate.module.modules.friendlyFire;
 
-import com.google.common.base.Optional;
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.event.TeamCreateEvent;
 import com.minehut.gameplate.module.Module;
@@ -10,7 +9,6 @@ import com.minehut.gameplate.module.modules.teamManager.TeamManager;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;

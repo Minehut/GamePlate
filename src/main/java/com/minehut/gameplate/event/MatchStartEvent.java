@@ -1,6 +1,5 @@
 package com.minehut.gameplate.event;
 
-import com.minehut.gameplate.match.Match;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 

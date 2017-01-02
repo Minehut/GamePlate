@@ -1,7 +1,6 @@
 package com.minehut.gameplate.util;
 
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -61,7 +60,7 @@ public class Players {
             Object playerConnection = entityPlayer.getClass().getField("playerConnection").get(entityPlayer);
 
             playerConnection.getClass().getMethod("sendPacket", getNMSClass("Packet")).invoke(playerConnection, packet);
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchFieldException | InstantiationException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

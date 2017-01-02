@@ -1,9 +1,7 @@
 package com.minehut.gameplate.module.modules.kit;
 
 import com.minehut.gameplate.module.Module;
-import com.minehut.gameplate.module.modules.kit.types.KitInventoryItem;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
 
 import java.util.ArrayList;
 import java.util.List;

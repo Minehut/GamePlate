@@ -24,9 +24,9 @@ public class ModuleCollection<M extends Module> extends ArrayList<M> {
     /**
      * Returns a module with matching class.
      *
-     * @param clazz
-     * @param <T>
-     * @return
+     * @param clazz Class of the module to get
+     * @param <T> Type of module
+     * @return Module of requested type
      */
     public <T extends Module> T getModule(Class<T> clazz) {
         for (M module : this) {
@@ -44,7 +44,7 @@ public class ModuleCollection<M extends Module> extends ArrayList<M> {
      */
     @SuppressWarnings("unchecked")
     public <T extends Module> ModuleCollection<T> getModules(Class<T> clazz) {
-        ModuleCollection<T> results = new ModuleCollection<T>();
+        ModuleCollection<T> results = new ModuleCollection<>();
         for (Module module : this) {
             if (clazz.isInstance(module)) results.add((T) module);
         }

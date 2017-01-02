@@ -38,17 +38,14 @@ public class ObserverModule extends Module {
 
     @EventHandler
     public void onCycleComplete(CycleCompleteEvent event) {
-        this.hotbarId = Bukkit.getScheduler().scheduleSyncRepeatingTask(GamePlate.getInstance(), new Runnable() {
-            @Override
-            public void run() {
-                TeamModule observes = TeamManager.getObservers();
+        this.hotbarId = Bukkit.getScheduler().scheduleSyncRepeatingTask(GamePlate.getInstance(), () -> {
+            TeamModule observes = TeamManager.getObservers();
 
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    if (!GameHandler.getGameHandler().getMatch().isRunning() || observes.containsPlayer(player)) {
-                        Players.sendActionbar(player, ChatColor.AQUA + new LocalizedChatMessage(ChatConstant.UI_CURRENTLY_SPECTATING).getMessage(player.spigot().getLocale()));
-                    } else {
-                        Players.sendActionbar(player, "");
-                    }
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                if (!GameHandler.getGameHandler().getMatch().isRunning() || observes.containsPlayer(player)) {
+                    Players.sendActionbar(player, ChatColor.AQUA + new LocalizedChatMessage(ChatConstant.UI_CURRENTLY_SPECTATING).getMessage(player.spigot().getLocale()));
+                } else {
+                    Players.sendActionbar(player, "");
                 }
             }
         }, 0, 10);
@@ -62,11 +59,8 @@ public class ObserverModule extends Module {
 
         if (team != null && team.isObserver() || RespawnModule.isPlayerDead(player)) {
             return true;
-        } else if (!GameHandler.getGameHandler().getMatch().isRunning()) { //the game hasn't started yet
-            return true;
-        } else {
-            return false;
-        }
+        } else //the game hasn't started yet
+            return !GameHandler.getGameHandler().getMatch().isRunning();
     }
 
     private void giveObserversKit(Player player) {

@@ -1,12 +1,10 @@
 package com.minehut.gameplate.map;
 
-import com.minehut.gameplate.GamePlate;
 import com.minehut.gameplate.map.generate.GenerateMap;
 import com.minehut.gameplate.map.generate.NullChunkGenerator;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 
-import java.io.File;
 import java.util.UUID;
 
 public class CurrentMap implements Runnable {

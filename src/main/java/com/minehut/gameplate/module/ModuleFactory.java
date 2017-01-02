@@ -33,7 +33,6 @@ import com.minehut.gameplate.module.modules.tracker.TrackerBuilder;
 import com.minehut.gameplate.module.modules.visibility.VisibilityModuleBuilder;
 import org.bukkit.Bukkit;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.logging.Level;

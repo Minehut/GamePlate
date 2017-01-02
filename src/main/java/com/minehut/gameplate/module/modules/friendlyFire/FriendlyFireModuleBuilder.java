@@ -16,11 +16,7 @@ public class FriendlyFireModuleBuilder extends ModuleBuilder {
         boolean on = false;
         if (match.getDocument().getRootElement().getChild("friendlyFire") != null) {
             String s = match.getDocument().getRootElement().getChild("friendlyFire").getTextNormalize();
-            if (s.equals("on") || s.equals("allow")) {
-                on = true;
-            } else {
-                on = false;
-            }
+            on = s.equals("on") || s.equals("allow");
         }
 
         if (!on) {

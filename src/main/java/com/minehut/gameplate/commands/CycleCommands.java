@@ -15,9 +15,7 @@ import com.minehut.gameplate.module.modules.timers.CycleTimer;
 import com.minehut.gameplate.module.modules.timers.StartTimer;
 import com.minehut.gameplate.util.ChatUtil;
 import com.sk89q.minecraft.util.commands.*;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import java.io.IOException;
 
@@ -54,7 +52,7 @@ public class CycleCommands {
             return;
         }
 
-        GameHandler.getGameHandler().getRepositoryManager().getRotation().setForcedNextMap(found);
+        GameHandler.getGameHandler().getRepositoryManager().getRotation().setNextMap(found);
         sender.sendMessage(ChatUtil.HEADER + new LocalizedChatMessage(ChatConstant.UI_NEXT_MAP_SET, new UnlocalizedChatMessage(ChatUtil.HIGHLIGHT + "{0}", found.getName())).getMessage(ChatUtil.getLocale(sender)));
     }
 

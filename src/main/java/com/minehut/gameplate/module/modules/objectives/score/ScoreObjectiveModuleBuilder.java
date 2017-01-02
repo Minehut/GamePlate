@@ -7,7 +7,6 @@ import com.minehut.gameplate.module.ModuleCollection;
 import com.minehut.gameplate.module.modules.objectives.score.types.DeathScoreTypeModule;
 import com.minehut.gameplate.module.modules.objectives.score.types.KillScoreTypeModule;
 import com.minehut.gameplate.util.Numbers;
-import org.jdom2.Document;
 import org.jdom2.Element;
 
 /**

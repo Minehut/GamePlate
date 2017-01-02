@@ -23,9 +23,7 @@ public class JsonUtil {
             JsonParser parser = new JsonParser();
             JsonElement jsonElement = parser.parse(new FileReader(file));
             jsonObject = jsonElement.getAsJsonObject();
-        } catch (FileNotFoundException e) {
-
-        } catch (IOException ioe) {
+        } catch (IOException e) {
 
         }
 

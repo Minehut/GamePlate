@@ -54,7 +54,7 @@ public class InventoryViewModule extends Module {
         if (ObserverModule.isObserver(viewer) && !ObserverModule.isObserver(view)) {
             viewer.openInventory(getFakeInventory(view, viewer.spigot().getLocale()));
             if (!viewing.containsKey(view.getUniqueId())) {
-                viewing.put(view.getUniqueId(), new ArrayList<UUID>());
+                viewing.put(view.getUniqueId(), new ArrayList<>());
             }
             viewing.get(view.getUniqueId()).add(viewer.getUniqueId());
         } else if (message){
@@ -168,12 +168,7 @@ public class InventoryViewModule extends Module {
     }
 
     private void updateNextTick(final Player player) {
-        Bukkit.getScheduler().scheduleSyncDelayedTask(GamePlate.getInstance(), new Runnable() {
-            @Override
-            public void run() {
-                refreshView(player.getUniqueId());
-            }
-        });
+        Bukkit.getScheduler().scheduleSyncDelayedTask(GamePlate.getInstance(), () -> refreshView(player.getUniqueId()));
     }
 
     @EventHandler(priority = EventPriority.HIGH)

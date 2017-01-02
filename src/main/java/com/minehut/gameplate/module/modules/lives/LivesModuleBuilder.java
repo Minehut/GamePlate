@@ -1,17 +1,14 @@
 package com.minehut.gameplate.module.modules.lives;
 
-import com.google.gson.JsonObject;
 import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.ModuleBuilder;
 import com.minehut.gameplate.module.ModuleCollection;
-import com.minehut.gameplate.module.modules.observers.ObserverModule;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
 import com.minehut.gameplate.util.Numbers;
 import org.jdom2.Element;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**

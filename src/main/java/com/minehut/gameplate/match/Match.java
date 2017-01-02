@@ -1,6 +1,5 @@
 package com.minehut.gameplate.match;
 
-import com.google.gson.JsonObject;
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.event.MatchEndEvent;
 import com.minehut.gameplate.event.MatchStartEvent;

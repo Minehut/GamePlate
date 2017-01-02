@@ -4,7 +4,6 @@ import com.minehut.gameplate.event.GameDeathEvent;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.modules.objectives.score.ScoreObjectiveModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 
 /**

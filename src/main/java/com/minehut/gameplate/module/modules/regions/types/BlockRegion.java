@@ -5,8 +5,6 @@ import com.minehut.gameplate.module.modules.regions.RegionModule;
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
-import java.util.Arrays;
-
 /**
  * Created by luke on 12/22/16.
  */

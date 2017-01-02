@@ -9,8 +9,7 @@ public class Parser {
 
     public static ChatColor parseColor(String s) {
         s = s.toUpperCase().replace(" ", "_");
-        ChatColor color = ChatColor.valueOf(s);
-        return color;
+        return ChatColor.valueOf(s);
     }
 
     public static int timeStringToSeconds(String input) {

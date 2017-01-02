@@ -13,15 +13,12 @@ import com.minehut.gameplate.module.modules.filter.filterComparator.comparators.
 import com.minehut.gameplate.module.modules.filter.filterExecutor.executors.BlockBreakFilterExecutor;
 import com.minehut.gameplate.module.modules.filter.filterExecutor.executors.BlockPlaceFilterExecutor;
 import com.minehut.gameplate.module.modules.filter.filterExecutor.executors.EnterFilterExecutor;
-import com.minehut.gameplate.module.modules.regions.RegionModule;
 import com.minehut.gameplate.module.modules.regions.RegionModuleBuilder;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
-import org.bukkit.Bukkit;
 import org.jdom2.Element;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by luke on 12/27/16.
@@ -73,12 +70,16 @@ public class FilterModuleBuilder extends ModuleBuilder {
 
         FilterComparator parentComparator = null;
 
-        if (split[0].equals("only")) {
-            parentComparator = new OnlyComparator(Arrays.asList(filterComparator));
-        } else if (split[0].equals("deny")) {
-            parentComparator = new DenyComparator(filterComparator);
-        } else if (split[0].equals("allow")) {
-            parentComparator = new AllowComparator(filterComparator);
+        switch (split[0]) {
+            case "only":
+                parentComparator = new OnlyComparator(Arrays.asList(filterComparator));
+                break;
+            case "deny":
+                parentComparator = new DenyComparator(filterComparator);
+                break;
+            case "allow":
+                parentComparator = new AllowComparator(filterComparator);
+                break;
         }
 
         return parentComparator;

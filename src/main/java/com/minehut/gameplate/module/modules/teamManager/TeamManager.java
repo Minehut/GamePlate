@@ -2,7 +2,6 @@ package com.minehut.gameplate.module.modules.teamManager;
 
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.chat.ChatConstant;
-import com.minehut.gameplate.event.PlayerChangeTeamEvent;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.ModuleCollection;
 import com.minehut.gameplate.module.modules.spawn.SpawnModule;
@@ -11,7 +10,6 @@ import com.minehut.gameplate.util.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerRespawnEvent;
 
 import java.util.logging.Level;
 

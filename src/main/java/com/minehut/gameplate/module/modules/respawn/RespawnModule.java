@@ -11,7 +11,6 @@ import com.minehut.gameplate.module.modules.visibility.Visibility;
 import com.minehut.gameplate.util.Players;
 import com.sk89q.minecraft.util.commands.ChatColor;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -39,18 +38,16 @@ public class RespawnModule extends Module {
     private ArrayList<TeamModule> denyRespawns = new ArrayList<>();
 
     public RespawnModule() {
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(GamePlate.getInstance(), new Runnable() {
-            @Override
-            public void run() {
-                for (UUID uuid : deadPlayers.keySet()) {
-                    Player player = Bukkit.getPlayer(uuid);
-                    if (canPlayerRespawn(player)) {
-                        player.resetTitle();
-                        respawnPlayer(player);
-                    } else {
-                        double d = round(getTimeLeft(player), 1);
-                        player.sendTitle(ChatColor.RED + ChatColor.BOLD.toString() + "DEAD", ChatColor.DARK_AQUA + "Respawning in " + ChatColor.AQUA + d, 0, Integer.MAX_VALUE, 0);
-                    }
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(GamePlate.getInstance(), () -> {
+            for (UUID uuid : deadPlayers.keySet()) {
+                Player player = Bukkit.getPlayer(uuid);
+                if (canPlayerRespawn(player)) {
+                    player.resetTitle();
+                    respawnPlayer(player);
+                } else {
+                    double d = round(getTimeLeft(player), 1);
+                    //TODO: This apparently is deprecated and doesn't exist.
+                    player.sendTitle(ChatColor.RED + ChatColor.BOLD.toString() + "DEAD", ChatColor.DARK_AQUA + "Respawning in " + ChatColor.AQUA + d, 0, Integer.MAX_VALUE, 0);
                 }
             }
         }, 1L, 1L);

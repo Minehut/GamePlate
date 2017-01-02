@@ -2,7 +2,6 @@ package com.minehut.gameplate.module.modules.objectives.capturable;
 
 import com.minehut.gameplate.chat.ChatConstant;
 import com.minehut.gameplate.chat.LocalizedChatMessage;
-import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.modules.objectives.ObjectiveModule;
 import com.minehut.gameplate.module.modules.regions.RegionModule;
 import com.minehut.gameplate.module.modules.team.TeamModule;
@@ -45,6 +44,7 @@ public class CapturableObjective extends ObjectiveModule {
             if(this.touches.contains(event.getPlayer().getUniqueId())) return;
 
             TeamModule teamModule = TeamManager.getTeamByPlayer(event.getPlayer());
+            if (teamModule == null) return;
             if (teamModule.getObjectives().contains(this)) {
                 this.touches.add(event.getPlayer().getUniqueId());
 
@@ -60,6 +60,7 @@ public class CapturableObjective extends ObjectiveModule {
         if (event.getBlockPlaced().getType() == this.material && event.getBlockPlaced().getData() == this.data) {
             if (contains(event.getBlockPlaced().getLocation())) {
                 TeamModule teamModule = TeamManager.getTeamByPlayer(event.getPlayer());
+                if (teamModule == null) return;
                 if (!teamModule.getObjectives().contains(this)) {
                     ChatUtil.sendWarningMessage(event.getPlayer(), ChatConstant.GAME_NOT_YOUR_OBJECTIVE);
                     return;

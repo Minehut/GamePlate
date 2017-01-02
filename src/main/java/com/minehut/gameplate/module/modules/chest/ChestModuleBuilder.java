@@ -1,12 +1,9 @@
 package com.minehut.gameplate.module.modules.chest;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.ModuleBuilder;
 import com.minehut.gameplate.module.ModuleCollection;
-import com.minehut.gameplate.util.Items;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +20,7 @@ public class ChestModuleBuilder extends ModuleBuilder {
     @Override
     public ModuleCollection<? extends Module> load(Match match) {
 
-    	ArrayList<GameChest> gameChests = new ArrayList<GameChest>();
+    	ArrayList<GameChest> gameChests = new ArrayList<>();
 
         for (Element chests : match.getDocument().getRootElement().getChildren("chests")) {
 			for (Element chest : chests.getChildren("chest")) {

@@ -8,10 +8,8 @@ import com.minehut.gameplate.map.LoadedMap;
 import com.minehut.gameplate.util.ChatUtil;
 import com.sk89q.minecraft.util.commands.Command;
 import com.sk89q.minecraft.util.commands.CommandContext;
-import com.sk89q.minecraft.util.commands.CommandPermissions;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 /**
  * Created by Lucas on 12/30/2016.

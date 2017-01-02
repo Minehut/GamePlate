@@ -1,7 +1,5 @@
 package com.minehut.gameplate.module.modules.regions;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.*;
@@ -11,7 +9,6 @@ import com.minehut.gameplate.module.modules.regions.types.CylinderRegion;
 import com.minehut.gameplate.util.Numbers;
 import org.bukkit.Bukkit;
 import org.bukkit.util.Vector;
-import org.jdom2.Document;
 import org.jdom2.Element;
 
 import java.util.ArrayList;

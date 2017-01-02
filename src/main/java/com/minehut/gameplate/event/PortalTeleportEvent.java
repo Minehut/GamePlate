@@ -2,7 +2,6 @@ package com.minehut.gameplate.event;
 
 import com.minehut.gameplate.module.modules.portal.PortalModule;
 import com.minehut.gameplate.module.modules.regions.RegionModule;
-import com.minehut.gameplate.module.modules.team.TeamModule;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;

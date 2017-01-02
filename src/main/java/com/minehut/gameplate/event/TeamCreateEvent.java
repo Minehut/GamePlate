@@ -1,6 +1,5 @@
 package com.minehut.gameplate.event;
 
-import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

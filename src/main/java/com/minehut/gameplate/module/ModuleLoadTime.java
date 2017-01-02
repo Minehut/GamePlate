@@ -36,7 +36,7 @@ public enum ModuleLoadTime {
 
     private final int slot;
 
-    private ModuleLoadTime(int slot) {
+    ModuleLoadTime(int slot) {
         this.slot = slot;
     }
 

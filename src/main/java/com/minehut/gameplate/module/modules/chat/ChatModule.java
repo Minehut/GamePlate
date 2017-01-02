@@ -29,6 +29,8 @@ public class ChatModule extends Module {
             prefix = ChatColor.GRAY.toString();
         }
 
+        if (teamModule == null) return;
+
         String formatted = teamModule.getColor() + "[" + teamModule.getName().substring(0, 1) + "] " + prefix + event.getPlayer().getName() + ChatColor.WHITE + ": " + event.getMessage();
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.sendMessage(formatted);

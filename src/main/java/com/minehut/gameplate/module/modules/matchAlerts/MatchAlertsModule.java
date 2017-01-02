@@ -14,9 +14,7 @@ import com.minehut.gameplate.util.ColorUtil;
 import com.minehut.gameplate.util.Fireworks;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
-import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -46,14 +44,11 @@ public class MatchAlertsModule extends Module {
 
         if (GameHandler.getGameHandler().getCurrentMap().getMap().getObjective() != null) {
             final UUID matchUuid = GameHandler.getGameHandler().getMatch().getUuid();
-            Bukkit.getScheduler().scheduleSyncDelayedTask(GamePlate.getInstance(), new Runnable() {
-                @Override
-                public void run() {
-                    if (GameHandler.getGameHandler().getMatch().getUuid().equals(matchUuid)) {
-                        for (Player player : Bukkit.getOnlinePlayers()) {
-                            player.sendMessage(ChatUtil.HEADER + "[" + new LocalizedChatMessage(ChatConstant.UI_OBJECTIVE_PREFIX).getMessage(player.spigot().getLocale()) + "] "
-                                    + ChatUtil.TEXT + GameHandler.getGameHandler().getCurrentMap().getMap().getObjective());
-                        }
+            Bukkit.getScheduler().scheduleSyncDelayedTask(GamePlate.getInstance(), () -> {
+                if (GameHandler.getGameHandler().getMatch().getUuid().equals(matchUuid)) {
+                    for (Player player : Bukkit.getOnlinePlayers()) {
+                        player.sendMessage(ChatUtil.HEADER + "[" + new LocalizedChatMessage(ChatConstant.UI_OBJECTIVE_PREFIX).getMessage(player.spigot().getLocale()) + "] "
+                                + ChatUtil.TEXT + GameHandler.getGameHandler().getCurrentMap().getMap().getObjective());
                     }
                 }
             }, 2 * 20);

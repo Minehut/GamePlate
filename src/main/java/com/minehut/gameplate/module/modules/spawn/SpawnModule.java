@@ -11,14 +11,12 @@ import com.minehut.gameplate.module.modules.teamManager.TeamManager;
 import com.minehut.gameplate.util.Players;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**

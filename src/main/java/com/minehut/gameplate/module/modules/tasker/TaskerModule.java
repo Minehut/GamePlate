@@ -3,11 +3,9 @@ package com.minehut.gameplate.module.modules.tasker;
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.GamePlate;
 import com.minehut.gameplate.event.CycleCompleteEvent;
-import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.TaskedModule;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.HandlerList;
 
 import java.util.UUID;
 

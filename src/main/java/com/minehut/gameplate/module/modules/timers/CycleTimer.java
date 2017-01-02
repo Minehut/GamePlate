@@ -8,7 +8,6 @@ import com.minehut.gameplate.chat.UnlocalizedChatMessage;
 import com.minehut.gameplate.event.MatchEndEvent;
 import com.minehut.gameplate.event.MatchStartEvent;
 import com.minehut.gameplate.match.MatchState;
-import com.minehut.gameplate.util.ChatUtil;
 import com.minehut.gameplate.util.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
