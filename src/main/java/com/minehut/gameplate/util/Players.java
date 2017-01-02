@@ -37,6 +37,7 @@ public class Players {
         player.setLevel(0);
         player.setWalkSpeed(0.2F);
         player.setFlySpeed(0.1F);
+        player.setFallDistance(0);
 
         player.setFlying(false);
         player.setAllowFlight(false);
