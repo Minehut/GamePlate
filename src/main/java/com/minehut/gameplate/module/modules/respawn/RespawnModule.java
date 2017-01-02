@@ -9,8 +9,10 @@ import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
 import com.minehut.gameplate.module.modules.visibility.Visibility;
 import com.minehut.gameplate.util.Players;
+import com.sk89q.minecraft.util.commands.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -29,7 +31,7 @@ import java.util.UUID;
  * Created by luke on 12/21/16.
  */
 public class RespawnModule extends Module {
-    private static int DEFAULT_RESPAWN_TIME = 20; //ticks
+    private static int DEFAULT_RESPAWN_TIME = 60; //ticks
 
     private Map<UUID, Long> deadPlayers = new HashMap<>(); //Long = System time when player died. Used for respawn timers.
     private HashMap<TeamModule, Double> respawnTimers = new HashMap<>();
@@ -43,11 +45,20 @@ public class RespawnModule extends Module {
                 for (UUID uuid : deadPlayers.keySet()) {
                     Player player = Bukkit.getPlayer(uuid);
                     if (canPlayerRespawn(player)) {
+                        player.resetTitle();
                         respawnPlayer(player);
+                    } else {
+                        double d = round(getTimeLeft(player), 1);
+                        player.sendTitle(ChatColor.RED + ChatColor.BOLD.toString() + "DEAD", ChatColor.DARK_AQUA + "Respawning in " + ChatColor.AQUA + d, 0, Integer.MAX_VALUE, 0);
                     }
                 }
             }
-        }, 0L, 0L);
+        }, 1L, 1L);
+    }
+
+    private static double round(double value, int precision) {
+        int scale = (int) Math.pow(10, precision);
+        return (double) Math.round(value * scale) / scale;
     }
 
     public void setTeamCanRespawn(TeamModule team, boolean state) {
@@ -68,7 +79,7 @@ public class RespawnModule extends Module {
             timer = this.respawnTimers.get(team);
         }
 
-        return System.currentTimeMillis() - this.deadPlayers.get(player.getUniqueId()) + timer;
+        return ((timer * 50) - (System.currentTimeMillis() - this.deadPlayers.get(player.getUniqueId()))) / 1000;
     }
 
     public boolean canPlayerRespawn(Player player) {
@@ -85,7 +96,7 @@ public class RespawnModule extends Module {
             timer = this.respawnTimers.get(team);
         }
 
-        return System.currentTimeMillis() - this.deadPlayers.get(player.getUniqueId()) > timer;
+        return System.currentTimeMillis() - this.deadPlayers.get(player.getUniqueId()) > timer * 50;
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -130,16 +141,32 @@ public class RespawnModule extends Module {
         }
     }
 
-    public void killPlayer(Player player, Player killer, EntityDamageEvent.DamageCause cause) {
-        this.deadPlayers.put(player.getUniqueId(), System.currentTimeMillis());
+    public void killPlayer(Player dead, Player killer, EntityDamageEvent.DamageCause cause) {
+        this.deadPlayers.put(dead.getUniqueId(), System.currentTimeMillis());
 
-        GameDeathEvent cardinalDeathEvent = new GameDeathEvent(player, killer, cause);
+        GameDeathEvent cardinalDeathEvent = new GameDeathEvent(dead, killer, cause);
         Bukkit.getServer().getPluginManager().callEvent(cardinalDeathEvent);
 
-        Players.resetPlayer(player);
-        player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20, 10)); //todo: something better
+        Players.resetPlayer(dead);
+        GameHandler.getGameHandler().getMatch().getModules().getModule(Visibility.class).showOrHide(dead);
 
-        GameHandler.getGameHandler().getMatch().getModules().getModule(Visibility.class).showOrHide(player);
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (player == dead) {
+                player.playSound(player.getLocation(), Sound.ENTITY_IRONGOLEM_DEATH, 1, 1);
+            } else if (killer != null && player == killer) {
+                player.playSound(player.getLocation(), Sound.ENTITY_IRONGOLEM_DEATH, 1, 1.35F);
+            } else {
+                player.playSound(dead.getLocation(), Sound.ENTITY_IRONGOLEM_HURT, 1, 1.35F);
+            }
+        }
+
+        if (killer != null) {
+            killer.playSound(killer.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1.5F);
+        }
+
+        new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 0).apply(dead);
+        new PotionEffect(PotionEffectType.CONFUSION, 100, 0).apply(dead);
+        new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 6).apply(dead);
 
     }
 

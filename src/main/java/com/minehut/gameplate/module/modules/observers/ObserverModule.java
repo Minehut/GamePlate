@@ -90,6 +90,14 @@ public class ObserverModule extends Module {
         }
     }
 
+    public void onTarget(EntityTargetLivingEntityEvent event) {
+        if (event.getTarget() instanceof Player) {
+            if (isObserver((Player) event.getTarget())) {
+                event.setCancelled(true);
+            }
+        }
+    }
+
     @EventHandler
     public void onHunger(FoodLevelChangeEvent event) {
         if (isObserver((Player) event.getEntity())) {
@@ -113,6 +121,13 @@ public class ObserverModule extends Module {
 
     @EventHandler
     public void onBlockChange(BlockBreakEvent event) {
+        if (isObserver(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onItemPickup(PlayerPickupItemEvent event) {
         if (isObserver(event.getPlayer())) {
             event.setCancelled(true);
         }
