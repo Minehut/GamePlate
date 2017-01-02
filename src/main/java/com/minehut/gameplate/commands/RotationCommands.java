@@ -22,7 +22,6 @@ public class RotationCommands {
     @CommandPermissions("gameplate.rotation")
     public static void rotation(CommandContext cmd, CommandSender sender) {
         if (!(sender instanceof Player)) return;
-        Player player = (Player) sender;
         sender.sendMessage(" ");
         sender.sendMessage(ChatColor.DARK_PURPLE + new LocalizedChatMessage(ChatConstant.UI_ROTATION_HEAD).getMessage(ChatUtil.getLocale(sender)));
 
