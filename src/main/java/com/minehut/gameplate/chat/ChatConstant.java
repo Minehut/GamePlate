@@ -32,6 +32,7 @@ public enum ChatConstant {
     GAME_OBJECTIVE_ALREADY_COMPLETE("game.objectiveAlreadyComplete"),
     GAME_CAPTURABLE_TOUCHED("game.capturableTouched"),
     GAME_CAPTURABLE_COMPLETED("game.capturableCompleted"),
+    GAME_GOAL_SCORE("game.goalScore"),
 
     ERROR_JSON("error.json"),
     ERROR_INVENTORY_NOT_VIEWABLE("error.inventoryNotViewable"),

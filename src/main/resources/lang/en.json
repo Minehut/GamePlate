@@ -32,7 +32,8 @@
         { "id": "notYourObjective", "message": "You can't complete another team's objective!"},
         { "id": "objectiveAlreadyComplete", "message": "This objective has already been completed!"},
         { "id": "capturableTouched", "message": "{0} picked up {1} for {2}!"},
-        { "id": "capturableCompleted", "message": "{0} placed {1} for {2}!"}
+        { "id": "capturableCompleted", "message": "{0} placed {1} for {2}!"},
+        { "id": "goalScore", "message": "{0} scored {1} points for {2}!"}
       ]
     },
 
