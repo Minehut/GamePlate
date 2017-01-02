@@ -78,9 +78,11 @@ public class ScoreboardModule extends Module {
     @Override
     public void disable() {
         HandlerList.unregisterAll(this);
+
         for (Team team : this.simpleScoreboard.getScoreboard().getTeams()) {
             team.unregister();
         }
+        this.simpleScoreboard = null;
     }
 
     public TeamModule getTeamModule() {

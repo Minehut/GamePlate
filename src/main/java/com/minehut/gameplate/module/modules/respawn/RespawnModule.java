@@ -7,6 +7,7 @@ import com.minehut.gameplate.chat.LocalizedChatMessage;
 import com.minehut.gameplate.event.GameDeathEvent;
 import com.minehut.gameplate.event.GameSpawnEvent;
 import com.minehut.gameplate.module.Module;
+import com.minehut.gameplate.module.TaskedModule;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
 import com.minehut.gameplate.module.modules.visibility.Visibility;
@@ -31,27 +32,27 @@ import java.util.UUID;
 /**
  * Created by luke on 12/21/16.
  */
-public class RespawnModule extends Module {
+public class RespawnModule extends TaskedModule {
     private static int DEFAULT_RESPAWN_TIME = 60; //ticks
+
 
     private Map<UUID, Long> deadPlayers = new HashMap<>(); //Long = System time when player died. Used for respawn timers.
     private HashMap<TeamModule, Double> respawnTimers = new HashMap<>();
 
     private ArrayList<TeamModule> denyRespawns = new ArrayList<>();
 
-    public RespawnModule() {
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(GamePlate.getInstance(), () -> {
-            for (UUID uuid : deadPlayers.keySet()) {
-                Player player = Bukkit.getPlayer(uuid);
-                if (canPlayerRespawn(player)) {
-                    player.resetTitle();
-                    respawnPlayer(player);
-                } else {
-                    double d = round(getTimeLeft(player), 1);
-                    player.sendTitle(ChatColor.RED + ChatColor.BOLD.toString() + new LocalizedChatMessage(ChatConstant.UI_DEAD).getMessage(player.spigot().getLocale()), ChatColor.DARK_AQUA + new LocalizedChatMessage(ChatConstant.UI_RESPAWN_TIMER, ChatColor.AQUA.toString() + d).getMessage(player.spigot().getLocale()), 0, Integer.MAX_VALUE, 0);
-                }
+    @Override
+    public void run() {
+        for (UUID uuid : deadPlayers.keySet()) {
+            Player player = Bukkit.getPlayer(uuid);
+            if (canPlayerRespawn(player)) {
+                player.resetTitle();
+                respawnPlayer(player);
+            } else {
+                double d = round(getTimeLeft(player), 1);
+                player.sendTitle(ChatColor.RED + ChatColor.BOLD.toString() + new LocalizedChatMessage(ChatConstant.UI_DEAD).getMessage(player.spigot().getLocale()), ChatColor.DARK_AQUA + new LocalizedChatMessage(ChatConstant.UI_RESPAWN_TIMER, ChatColor.AQUA.toString() + d).getMessage(player.spigot().getLocale()), 0, Integer.MAX_VALUE, 0);
             }
-        }, 1L, 1L);
+        }
     }
 
     private static double round(double value, int precision) {
