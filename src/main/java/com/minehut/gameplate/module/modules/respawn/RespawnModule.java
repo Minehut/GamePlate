@@ -46,8 +46,8 @@ public class RespawnModule extends Module {
                     respawnPlayer(player);
                 } else {
                     double d = round(getTimeLeft(player), 1);
-                    //TODO: This apparently is deprecated and doesn't exist.
-                    player.sendTitle(ChatColor.RED + ChatColor.BOLD.toString() + "DEAD", ChatColor.DARK_AQUA + "Respawning in " + ChatColor.AQUA + d, 0, Integer.MAX_VALUE, 0);
+                    //TODO: This method apparently is deprecated and doesn't exist.
+                    //player.sendTitle(ChatColor.RED + ChatColor.BOLD.toString() + "DEAD", ChatColor.DARK_AQUA + "Respawning in " + ChatColor.AQUA + d, 0, Integer.MAX_VALUE, 0);
                 }
             }
         }, 1L, 1L);
