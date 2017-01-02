@@ -42,6 +42,8 @@ public class Players {
         player.setFlying(false);
         player.setAllowFlight(false);
 
+        player.setCollidable(true);
+
         for (Attribute attribute : Attribute.values()) {
             if (player.getAttribute(attribute) == null) continue;
             for (AttributeModifier modifier : player.getAttribute(attribute).getModifiers()) {
