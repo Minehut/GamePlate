@@ -19,9 +19,7 @@ import org.bukkit.entity.Player;
 public class RotationCommands {
 
     @Command(desc = "View the rotation", aliases = {"rotation", "rot"})
-    @CommandPermissions("gameplate.rotation")
     public static void rotation(CommandContext cmd, CommandSender sender) {
-        if (!(sender instanceof Player)) return;
         sender.sendMessage(" ");
         sender.sendMessage(ChatColor.DARK_PURPLE + new LocalizedChatMessage(ChatConstant.UI_ROTATION_HEAD).getMessage(ChatUtil.getLocale(sender)));
 

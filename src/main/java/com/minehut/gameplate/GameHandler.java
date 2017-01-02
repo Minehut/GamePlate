@@ -2,6 +2,7 @@ package com.minehut.gameplate;
 
 import com.minehut.gameplate.event.CycleCompleteEvent;
 import com.minehut.gameplate.map.CurrentMap;
+import com.minehut.gameplate.map.LoadedMap;
 import com.minehut.gameplate.map.repository.RepositoryManager;
 import com.minehut.gameplate.map.repository.exception.RotationLoadException;
 import com.minehut.gameplate.match.Match;
@@ -13,6 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.UUID;
+import java.util.logging.Level;
 
 public class GameHandler {
 
@@ -53,7 +55,9 @@ public class GameHandler {
 
         if (match != null) match.unregisterModules();
 
-        currentMap = new CurrentMap(repositoryManager.getRotation().getNext(), UUID.randomUUID());
+        LoadedMap next = repositoryManager.getRotation().getNext();
+        Bukkit.getLogger().log(Level.INFO, "Loading map " + next.getName());
+        currentMap = new CurrentMap(next, UUID.randomUUID());
         repositoryManager.getRotation().setNextSelfAssignedMap(null);
 
         currentMap.run();

@@ -26,19 +26,8 @@ import java.io.IOException;
  */
 public class CycleCommands {
 
-    @Command(aliases = {"cycle"}, desc = "Cycle the map.")
-    @CommandPermissions("gameplate.cycle")
-    public static void join(final CommandContext cmd, CommandSender sender) throws CommandException {
-        sender.sendMessage("cycling...");
-        try {
-            GameHandler.getGameHandler().load();
-        } catch (RotationLoadException e) {
-            e.printStackTrace();
-        }
-        sender.sendMessage("cycled!");
-    }
-
     @Command(aliases = {"setnext", "sn"}, desc = "Set the next map.", usage = "[map]", min = 1)
+    @CommandPermissions({"gameplate.setnext"})
     public static void setNext(final CommandContext cmd, CommandSender sender) throws CommandException {
         LoadedMap found = null;
 
@@ -70,6 +59,7 @@ public class CycleCommands {
     }
 
     @Command(aliases = {"end"}, desc = "End the match.")
+    @CommandPermissions({"gameplate.end"})
     public static void end(final CommandContext cmd, CommandSender sender) throws CommandException {
         TeamModule teamModule = null;
 
@@ -85,6 +75,7 @@ public class CycleCommands {
     }
 
     @Command(aliases = {"cycle"}, desc = "Cycle the map.")
+    @CommandPermissions({"gameplate.cycle"})
     public static void cycle(final CommandContext cmd, CommandSender sender) throws CommandException {
         if (GameHandler.getGameHandler().getMatch().isRunning()) {
             sender.sendMessage(ChatUtil.getWarningMessage(ChatColor.RED + new LocalizedChatMessage(ChatConstant.ERROR_UNABLE_TO_CYCLE_MID_MATCH).getMessage(ChatUtil.getLocale(sender))));
@@ -121,11 +112,13 @@ public class CycleCommands {
     }
 
     @Command(aliases = {"cancel"}, desc = "Cancel countdowns.")
+    @CommandPermissions({"gameplate.cancel"})
     public static void cancel(final CommandContext cmd, CommandSender sender) throws CommandException {
         Countdown.stopCountdowns();
     }
 
     @Command(aliases = {"refresh"}, desc = "Refresh the map repositories and rotation file.")
+    @CommandPermissions({"gameplate.refresh"})
     public static void refresh(final CommandContext cmd, CommandSender sender) throws CommandException, IOException, RotationLoadException {
         GameHandler.getGameHandler().getRepositoryManager().refreshRepos();
         GameHandler.getGameHandler().getRepositoryManager().refreshRotation();

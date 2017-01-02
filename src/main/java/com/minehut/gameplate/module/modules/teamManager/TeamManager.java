@@ -103,7 +103,7 @@ public class TeamManager extends Module {
             if(smallest == null) {
                 smallest = teamModule;
             } else {
-                if ((teamModule.getPlayers().size() / teamModule.getMaxPlayers()) < (smallest.getPlayers().size() / smallest.getMaxPlayers())) {
+                if (((double) teamModule.getPlayers().size() / teamModule.getMaxPlayers()) < ((double) smallest.getPlayers().size() / smallest.getMaxPlayers())) {
                     smallest = teamModule;
                 }
             }

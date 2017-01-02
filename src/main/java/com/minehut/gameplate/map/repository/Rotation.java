@@ -4,12 +4,14 @@ import com.minehut.gameplate.map.LoadedMap;
 import com.minehut.gameplate.map.repository.exception.RotationLoadException;
 import com.minehut.gameplate.util.Config;
 import org.apache.commons.io.Charsets;
+import org.bukkit.Bukkit;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -59,8 +61,10 @@ public class Rotation extends ArrayList<LoadedMap> {
      */
     public LoadedMap getNext() {
         if (this.nextMap != null) {
+            Bukkit.getLogger().log(Level.INFO, "Loading force setNext map.");
             return this.nextMap;
         } else {
+            Bukkit.getLogger().log(Level.INFO, "Loading rotation specified map.");
             return get(position);
         }
     }

@@ -79,6 +79,8 @@ public class ObserverModule extends Module {
         player.setGameMode(GameMode.SURVIVAL);
         player.setAllowFlight(true);
         player.setFlying(true);
+
+        player.setCollidable(false);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -99,7 +101,14 @@ public class ObserverModule extends Module {
     public void onBlockChange(BlockPlaceEvent event) {
         if (isObserver(event.getPlayer())) {
             event.setCancelled(true);
+            return;
         }
+
+//        for (Player player : TeamManager.getObservers().getPlayers()) {
+//            if (event.getBlockPlaced().getLocation().distance(player.getLocation()) <= 3) {
+//                player.teleport(player.getLocation().add(0, 5, 0));
+//            }
+//        }
     }
 
     @EventHandler

@@ -105,6 +105,7 @@ public abstract class Repository {
                 result.addAll(loadMapsIn(map));
             }
         }
+
         return result;
     }
 
