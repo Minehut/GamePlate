@@ -1,5 +1,6 @@
 package com.minehut.gameplate.util;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -8,6 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;
 
 /**
@@ -46,5 +49,33 @@ public class Players {
             }
         }
         player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).addModifier(new AttributeModifier(UUID.randomUUID(), "generic.attackSpeed", 4.001D, AttributeModifier.Operation.ADD_SCALAR));
+    }
+
+    public static void sendActionbar(Player player, String message) {
+        try {
+            Constructor<?> constructor = getNMSClass("PacketPlayOutChat").getConstructor(getNMSClass("IChatBaseComponent"), byte.class);
+
+            Object icbc = getNMSClass("IChatBaseComponent").getDeclaredClasses()[0].getMethod("a", String.class).invoke(null, "{\"text\":\"" + message + "\"}");
+            Object packet = constructor.newInstance(icbc, (byte) 2);
+            Object entityPlayer= player.getClass().getMethod("getHandle").invoke(player);
+            Object playerConnection = entityPlayer.getClass().getField("playerConnection").get(entityPlayer);
+
+            playerConnection.getClass().getMethod("sendPacket", getNMSClass("Packet")).invoke(playerConnection, packet);
+        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchFieldException | InstantiationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static Class<?> getNMSClass(String name) {
+        try {
+            return Class.forName("net.minecraft.server." + getVersion() + "." + name);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static String getVersion() {
+        return Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
     }
 }

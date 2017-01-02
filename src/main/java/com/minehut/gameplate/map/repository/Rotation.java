@@ -81,6 +81,6 @@ public class Rotation extends ArrayList<LoadedMap> {
     }
 
     public void setNextSelfAssignedMap(LoadedMap loadedMap) {
-        this.nextMap = null;
+        this.nextMap = loadedMap;
     }
 }

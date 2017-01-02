@@ -20,7 +20,8 @@
         { "id": "rotationHead", "message": "[ROTATION]"},
         { "id": "teamChat", "message": "{0}[TEAM CHAT] {1}: {2}"},
         { "id": "timeRemaining", "message": "Time remaining {0}"},
-        { "id": "nextMapSet", "message": "Set the next map to {0}"}
+        { "id": "nextMapSet", "message": "Set the next map to {0}"},
+        { "id": "currentlySpectating", "message": "You are currently spectating"}
       ]
     },
 

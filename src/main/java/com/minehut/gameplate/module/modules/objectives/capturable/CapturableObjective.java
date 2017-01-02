@@ -42,14 +42,14 @@ public class CapturableObjective extends ObjectiveModule {
     @EventHandler
     public void onBlockPickup(PlayerPickupItemEvent event) {
         if (event.getItem().getItemStack().getType() == material && event.getItem().getItemStack().getData().getData() == data) {
-            if(this.touches.contains(event.getPlayer())) return;
+            if(this.touches.contains(event.getPlayer().getUniqueId())) return;
 
             TeamModule teamModule = TeamManager.getTeamByPlayer(event.getPlayer());
             if (teamModule.getObjectives().contains(this)) {
                 this.touches.add(event.getPlayer().getUniqueId());
 
                 for (Player player : Bukkit.getOnlinePlayers()) {
-                    player.sendMessage(teamModule.getColor() + new LocalizedChatMessage(ChatConstant.GAME_CAPTURABLE_TOUCHED, player.getName() + ChatColor.DARK_AQUA, ChatColor.AQUA + super.getName() + ChatColor.DARK_AQUA, teamModule.getColor() + teamModule.getName() + ChatColor.DARK_AQUA).getMessage(player.spigot().getLocale()));
+                    player.sendMessage(teamModule.getColor() + new LocalizedChatMessage(ChatConstant.GAME_CAPTURABLE_TOUCHED, event.getPlayer().getName() + ChatColor.DARK_AQUA, ChatColor.AQUA + super.getName() + ChatColor.DARK_AQUA, teamModule.getColor() + teamModule.getName() + ChatColor.DARK_AQUA).getMessage(player.spigot().getLocale()));
                 }
             }
         }
@@ -71,7 +71,7 @@ public class CapturableObjective extends ObjectiveModule {
                 }
 
                 for (Player player : Bukkit.getOnlinePlayers()) {
-                    player.sendMessage(teamModule.getColor() + new LocalizedChatMessage(ChatConstant.GAME_CAPTURABLE_COMPLETED, player.getName() + ChatColor.DARK_AQUA, ChatColor.AQUA + super.getName() + ChatColor.DARK_AQUA, teamModule.getColor() + teamModule.getName() + ChatColor.DARK_AQUA).getMessage(player.spigot().getLocale()));
+                    player.sendMessage(teamModule.getColor() + new LocalizedChatMessage(ChatConstant.GAME_CAPTURABLE_COMPLETED, event.getPlayer().getName() + ChatColor.DARK_AQUA, ChatColor.AQUA + super.getName() + ChatColor.DARK_AQUA, teamModule.getColor() + teamModule.getName() + ChatColor.DARK_AQUA).getMessage(player.spigot().getLocale()));
 
                     if (teamModule.containsPlayer(player)) {
                         player.playSound(player.getLocation(), Sound.BLOCK_PORTAL_TRAVEL, 0.7f, 2f);

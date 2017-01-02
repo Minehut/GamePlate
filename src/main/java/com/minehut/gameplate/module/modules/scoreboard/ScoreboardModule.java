@@ -11,6 +11,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.HandlerList;
 import org.bukkit.scoreboard.Team;
 
 /**
@@ -72,6 +73,14 @@ public class ScoreboardModule extends Module {
 
         if (event.getNewTeam().getId().equals(this.teamModule.getId())) {
             simpleScoreboard.send(event.getPlayer());
+        }
+    }
+
+    @Override
+    public void disable() {
+        HandlerList.unregisterAll(this);
+        for (Team team : this.simpleScoreboard.getScoreboard().getTeams()) {
+            team.unregister();
         }
     }
 

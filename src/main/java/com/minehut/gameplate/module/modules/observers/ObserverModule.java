@@ -1,12 +1,18 @@
 package com.minehut.gameplate.module.modules.observers;
 
 import com.minehut.gameplate.GameHandler;
+import com.minehut.gameplate.GamePlate;
+import com.minehut.gameplate.chat.ChatConstant;
+import com.minehut.gameplate.chat.LocalizedChatMessage;
+import com.minehut.gameplate.event.CycleCompleteEvent;
 import com.minehut.gameplate.event.GameSpawnEvent;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.modules.respawn.RespawnModule;
 import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.teamManager.TeamManager;
 import com.minehut.gameplate.util.Items;
+import com.minehut.gameplate.util.Players;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -27,6 +33,26 @@ import org.bukkit.event.vehicle.VehicleExitEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class ObserverModule extends Module {
+
+    private int hotbarId = -1;
+
+    @EventHandler
+    public void onCycleComplete(CycleCompleteEvent event) {
+        this.hotbarId = Bukkit.getScheduler().scheduleSyncRepeatingTask(GamePlate.getInstance(), new Runnable() {
+            @Override
+            public void run() {
+                TeamModule observes = TeamManager.getObservers();
+
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    if (!GameHandler.getGameHandler().getMatch().isRunning() || observes.containsPlayer(player)) {
+                        Players.sendActionbar(player, ChatColor.AQUA + new LocalizedChatMessage(ChatConstant.UI_CURRENTLY_SPECTATING).getMessage(player.spigot().getLocale()));
+                    } else {
+                        Players.sendActionbar(player, "");
+                    }
+                }
+            }
+        }, 0, 10);
+    }
 
     /*
      * Returns true if the player is on the observers team OR the player is dead.

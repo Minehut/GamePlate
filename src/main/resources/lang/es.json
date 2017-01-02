@@ -1,0 +1,10 @@
+{
+  "language": "es",
+  "data": [
+    { "type": "ui",
+      "messages": [
+        { "id": "currentlySpectating", "message": "Usted está actualmente espectando"}
+      ]
+    }
+  ] 
+}

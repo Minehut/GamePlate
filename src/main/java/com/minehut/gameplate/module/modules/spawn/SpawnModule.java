@@ -60,6 +60,7 @@ public class SpawnModule extends Module {
 
     @EventHandler
     public void onGameSpawn(GameSpawnEvent event) {
+        Players.resetPlayer(event.getPlayer());
         event.getPlayer().setGameMode(GameMode.SURVIVAL);
         event.setSpawn(event.getTeam().getRandomSpawn());
 
@@ -70,7 +71,6 @@ public class SpawnModule extends Module {
         }
 
         event.getPlayer().updateInventory();
-        Players.resetPlayer(event.getPlayer());
         event.getPlayer().setFlying(false);
         event.getPlayer().setAllowFlight(false);
     }

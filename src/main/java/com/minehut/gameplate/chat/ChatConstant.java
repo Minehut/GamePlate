@@ -24,6 +24,7 @@ public enum ChatConstant {
     UI_OBJECTIVE_PREFIX("ui.objectivePrefix"),
     UI_TIME_REMAINING("ui.timeRemaining"),
     UI_NEXT_MAP_SET("ui.nextMapSet"),
+    UI_CURRENTLY_SPECTATING("ui.currentlySpectating"),
 
     GAME_NOT_YOUR_OBJECTIVE("game.notYourObjective"),
     GAME_OBJECTIVE_ALREADY_COMPLETE("game.objectiveAlreadyComplete"),

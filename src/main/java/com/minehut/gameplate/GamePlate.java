@@ -45,7 +45,7 @@ public class GamePlate extends JavaPlugin {
         saveConfig();
 
         try {
-            this.localeHandler = new LocaleHandler(this, Arrays.asList("lang/en.json"));
+            this.localeHandler = new LocaleHandler(this, Arrays.asList("lang/en.json", "lang/es.json"));
         } catch (IOException e) {
             e.printStackTrace();
         }
