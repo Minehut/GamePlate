@@ -18,6 +18,7 @@ import org.bukkit.FireworkEffect;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.UUID;
 
@@ -77,7 +78,18 @@ public class MatchAlertsModule extends Module {
                 }
 
                 Fireworks.spawnFirework(player.getLocation(), FireworkEffect.builder().withColor(ColorUtil.convertChatColorToColor(color)).with(FireworkEffect.Type.BALL).build(), 1);
+
+                player.setAllowFlight(true);
+                player.setFlying(true);
             }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onJoin(PlayerJoinEvent event) {
+        if (GameHandler.getGameHandler().getMatch().hasEnded()) {
+            event.getPlayer().setAllowFlight(true);
+            event.getPlayer().setFlying(true);
         }
     }
 }
