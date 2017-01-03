@@ -8,6 +8,7 @@ import com.minehut.gameplate.commands.MatchCommands;
 import com.minehut.gameplate.commands.RotationCommands;
 import com.minehut.gameplate.commands.TeamCommands;
 import com.minehut.gameplate.map.repository.exception.RotationLoadException;
+import com.minehut.gameplate.tabList.TabList;
 import com.minehut.gameplate.util.ChatUtil;
 import com.minehut.gameplate.util.Config;
 import com.sk89q.bukkit.util.CommandsManagerRegistration;
@@ -30,6 +31,7 @@ public class GamePlate extends JavaPlugin {
 
     private LocaleHandler localeHandler;
     private GameHandler gameHandler;
+    private TabList tabList;
 
     private CommandsManager commands;
 
@@ -47,6 +49,8 @@ public class GamePlate extends JavaPlugin {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        this.tabList = new TabList();
 
         try {
             this.gameHandler = new GameHandler();

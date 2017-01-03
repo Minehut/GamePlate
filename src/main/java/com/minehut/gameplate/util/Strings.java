@@ -96,4 +96,8 @@ public class Strings {
         return value;
     }
 
+    public static String trimTo(String string, int start, int end) {
+        return string.length() > start ? (string.length() > end ? string.substring(start, end) : string.substring(start)) : "";
+    }
+
 }
