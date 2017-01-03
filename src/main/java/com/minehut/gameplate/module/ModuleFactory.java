@@ -2,6 +2,7 @@ package com.minehut.gameplate.module;
 
 import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.modules.arrowRemove.ArrowRemoveModuleBuilder;
+import com.minehut.gameplate.module.modules.axeDamage.AxeDamageModuleBuilder;
 import com.minehut.gameplate.module.modules.buildHeight.BuildHeightModuleBuilder;
 import com.minehut.gameplate.module.modules.chat.ChatModuleBuilder;
 import com.minehut.gameplate.module.modules.connection.ConnectionModuleBuilder;
@@ -79,7 +80,8 @@ public class ModuleFactory {
                 MobSpawnModuleBuilder.class,
                 TabHeaderBuilder.class,
                 DestroyableObjectiveBuilder.class,
-                PortalModuleBuilder.class
+                PortalModuleBuilder.class,
+                AxeDamageModuleBuilder.class
         ));
     }
 
