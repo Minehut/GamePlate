@@ -77,6 +77,8 @@ public class ScoreboardModule extends Module {
                     ObjectiveModule objectiveModule = ObjectiveModule.getObjective(element.getAttributeValue("id"));
                     if (objectiveModule instanceof ScoreObjectiveModule) {
                         line += TeamManager.getTeamModules().size() - 1;
+                    } else {
+                        line += 1;
                     }
                 } else if (element.getName().equalsIgnoreCase("space")) {
                     line += 1;

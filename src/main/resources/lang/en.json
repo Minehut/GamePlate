@@ -40,7 +40,9 @@
         { "id": "objectiveAlreadyComplete", "message": "This objective has already been completed!"},
         { "id": "capturableTouched", "message": "{0} picked up {1} for {2}!"},
         { "id": "capturableCompleted", "message": "{0} placed {1} for {2}!"},
-        { "id": "goalScore", "message": "{0} scored {1} points for {2}!"}
+        { "id": "goalScore", "message": "{0} scored {1} points for {2}!"},
+        { "id": "destroyableBreak", "message": "{0} damaged {1} for {2}!"},
+        { "id": "destroyableComplete", "message": "{0} destroyed {1} for {2}!"}
       ]
     },
 

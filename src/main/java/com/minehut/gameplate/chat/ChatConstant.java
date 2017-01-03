@@ -40,6 +40,8 @@ public enum ChatConstant {
     GAME_CAPTURABLE_TOUCHED("game.capturableTouched"),
     GAME_CAPTURABLE_COMPLETED("game.capturableCompleted"),
     GAME_GOAL_SCORE("game.goalScore"),
+    GAME_DESTROYABLE_BREAK("game.destroyableBreak"),
+    GAME_DESTROYABLE_COMPLETE("game.destroyableBreak"),
 
     MISC_AND("misc.and"),
 

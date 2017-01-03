@@ -4,6 +4,13 @@ import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.ModuleBuilder;
 import com.minehut.gameplate.module.ModuleCollection;
+import com.minehut.gameplate.module.modules.regions.RegionModule;
+import com.minehut.gameplate.module.modules.regions.RegionModuleBuilder;
+import com.minehut.gameplate.util.Numbers;
+import org.bukkit.Bukkit;
+import org.jdom2.Element;
+
+import java.util.List;
 
 /**
  * Created by lucascosolo on 12/24/16.
@@ -13,27 +20,33 @@ public class PortalModuleBuilder extends ModuleBuilder {
 
     @Override
     public ModuleCollection<? extends Module> load(Match match) {
+        ModuleCollection results = new ModuleCollection();
 
-//        if (match.getJson().has("portals")) {
-//            ModuleCollection<Module> collection = new ModuleCollection<>();
-//            match.getJson().get("portals").getAsJsonArray().forEach(element -> {
-//                JsonObject object = element.getAsJsonObject();
-//                String coords = object.get("coords").getAsString();
-//                String[] split = coords.replace(" ", "").split(",");
-//                double x, y, z;
-//                try {
-//                    x = Double.parseDouble(split[0]);
-//                    y = Double.parseDouble(split[1]);
-//                    z = Double.parseDouble(split[2]);
-//                } catch (NumberFormatException ex) {
-//                    throw new JsonParseException("Error on \"" + coords + "\"! Format should be: \"x, y, z\"");
-//                }
-//                collection.add(new PortalModule(RegionModuleBuilder.parseRegion(object, "region"), x, y, z));
-//            });
-//            return collection;
-//        }
+        for (Element portalsElement : match.getDocument().getRootElement().getChildren("portals")) {
+            for (Element element : portalsElement.getChildren("portal")) {
+                List<RegionModule> regions = RegionModuleBuilder.parseChildRegions(element);
+                RegionModule destination = RegionModule.getRegionById(element.getAttributeValue("destination"));
 
-        return null;
+                float yaw = 0;
+                if (element.getAttributeValue("yaw") != null) {
+                    yaw = (float) Numbers.parseDouble(element.getAttributeValue("yaw"));
+                }
+
+                float pitch = 0;
+                if (element.getAttributeValue("pitch") != null) {
+                    pitch = (float) Numbers.parseDouble(element.getAttributeValue("pitch"));
+                }
+
+                boolean sound = true;
+                if (element.getAttributeValue("sound") != null) {
+                    sound = Boolean.valueOf(element.getAttributeValue("sound"));
+                }
+
+                results.add(new PortalModule(regions, destination, yaw, pitch, sound));
+            }
+        }
+
+        return results;
 
     }
 

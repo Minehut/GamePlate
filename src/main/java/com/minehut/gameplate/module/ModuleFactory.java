@@ -15,6 +15,8 @@ import com.minehut.gameplate.module.modules.lives.LivesModuleBuilder;
 import com.minehut.gameplate.module.modules.matchAlerts.MatchAlertsModuleBuilder;
 import com.minehut.gameplate.module.modules.mobSpawn.MobSpawnModuleBuilder;
 import com.minehut.gameplate.module.modules.objectives.capturable.CapturableObjectiveBuilder;
+import com.minehut.gameplate.module.modules.objectives.destroyable.DestroyableObjectiveBuilder;
+import com.minehut.gameplate.module.modules.portal.PortalModuleBuilder;
 import com.minehut.gameplate.module.modules.scoreboard.ScoreboardModuleBuilder;
 import com.minehut.gameplate.module.modules.tabHeader.TabHeaderBuilder;
 import com.minehut.gameplate.module.modules.time.MatchTimerModuleBuilder;
@@ -75,7 +77,9 @@ public class ModuleFactory {
                 ScoreboardModuleBuilder.class,
                 CapturableObjectiveBuilder.class,
                 MobSpawnModuleBuilder.class,
-                TabHeaderBuilder.class
+                TabHeaderBuilder.class,
+                DestroyableObjectiveBuilder.class,
+                PortalModuleBuilder.class
         ));
     }
 
