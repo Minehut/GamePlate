@@ -32,12 +32,16 @@ public enum ChatConstant {
     UI_TEAM_PICKER_AUTOJOIN_DESC("ui.teamPickerAutoJoinDesc"),
     UI_TEAM_PICKER_AUTOJOIN_LEAVE("ui.teamPickerAutoJoinLeave"),
     UI_TEAM_PICKER_ITEM("ui.teamPickerItem"),
+    UI_TAB_HEADER("ui.tabHeader"),
+    UI_TAB_FOOTER("ui.tabFooter"),
 
     GAME_NOT_YOUR_OBJECTIVE("game.notYourObjective"),
     GAME_OBJECTIVE_ALREADY_COMPLETE("game.objectiveAlreadyComplete"),
     GAME_CAPTURABLE_TOUCHED("game.capturableTouched"),
     GAME_CAPTURABLE_COMPLETED("game.capturableCompleted"),
     GAME_GOAL_SCORE("game.goalScore"),
+
+    MISC_AND("misc.and"),
 
     ERROR_JSON("error.json"),
     ERROR_INVENTORY_NOT_VIEWABLE("error.inventoryNotViewable"),

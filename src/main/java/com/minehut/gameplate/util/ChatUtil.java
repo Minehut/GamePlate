@@ -3,11 +3,13 @@ package com.minehut.gameplate.util;
 import com.minehut.gameplate.chat.ChatConstant;
 import com.minehut.gameplate.chat.ChatMessage;
 import com.minehut.gameplate.chat.LocalizedChatMessage;
+import com.minehut.gameplate.chat.UnlocalizedChatMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 
@@ -59,5 +61,25 @@ public class ChatUtil {
             sendMessage(player, chatConstant, messages);
         }
         Bukkit.getLogger().log(Level.ALL, new LocalizedChatMessage(chatConstant, messages).getMessage(Locale.getDefault().toString()));
+    }
+
+    public static ChatMessage toChatMessage(List<String> names, ChatColor nameColor, ChatColor extraColor) {
+        int size = names.size();
+        if (size == 1) {
+            return new UnlocalizedChatMessage(nameColor + names.get(0));
+        } else if (size > 1) {
+            String first = "";
+            for (String name : names) {
+                int index = names.indexOf(name);
+                if (index < size - 2) {
+                    first += nameColor + name + extraColor + ", ";
+                } else if (index == size - 2) {
+                    first += nameColor + name + extraColor;
+                } else if (index == size - 1) {
+                    return new LocalizedChatMessage(ChatConstant.MISC_AND, first, nameColor + name + extraColor);
+                }
+            }
+        }
+        return new UnlocalizedChatMessage("");
     }
 }

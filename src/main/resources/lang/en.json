@@ -28,7 +28,9 @@
         { "id": "teamPickerAutoJoin", "message": "Auto assign a team"},
         { "id": "teamPickerAutoJoinDesc", "message": "Automatically joins the smallest team."},
         { "id": "teamPickerAutoJoinLeave", "message": "Join the observers team."},
-        { "id": "teamPickerItem", "message": "Team Picker"}
+        { "id": "teamPickerItem", "message": "Team Picker"},
+        { "id": "tabHeader", "message": "Currently playing {0}"},
+        { "id": "tabFooter", "message": "{0} - {1}"}
       ]
     },
 
@@ -39,6 +41,12 @@
         { "id": "capturableTouched", "message": "{0} picked up {1} for {2}!"},
         { "id": "capturableCompleted", "message": "{0} placed {1} for {2}!"},
         { "id": "goalScore", "message": "{0} scored {1} points for {2}!"}
+      ]
+    },
+
+    { "type": "misc",
+      "messages": [
+        { "id": "and", "message": "and"}
       ]
     },
 
