@@ -2,6 +2,7 @@ package com.minehut.gameplate.module.modules.teamManager;
 
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.chat.ChatConstant;
+import com.minehut.gameplate.chat.LocalizedChatMessage;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.ModuleCollection;
 import com.minehut.gameplate.module.modules.spawn.SpawnModule;
@@ -49,11 +50,11 @@ public class TeamManager extends Module {
         if (!teamModule.isObserver() && teamModule.getMembers().size() >= teamModule.getMaxPlayers()) {
             if (player.hasPermission("gameplate.joinFull")) {
                 if (teamModule.getMembers().size() >= teamModule.getMaxOverflow()) {
-                    ChatUtil.sendMessage(player, ChatConstant.ERROR_TEAM_OVERFLOWED, teamModule.getColor() + teamModule.getName() + ChatUtil.HEADER);
+                    player.sendMessage(ChatUtil.getWarningMessage(ChatColor.RED + new LocalizedChatMessage(ChatConstant.ERROR_TEAM_OVERFLOWED, teamModule.getColor() + teamModule.getName() + ChatColor.RED).getMessage(player.spigot().getLocale())));
                     return false;
                 }
             } else {
-                ChatUtil.sendMessage(player, ChatConstant.ERROR_TEAM_FULL, teamModule.getColor() + teamModule.getName() + ChatUtil.HEADER);
+                player.sendMessage(ChatUtil.getWarningMessage(ChatColor.RED + new LocalizedChatMessage(ChatConstant.ERROR_TEAM_FULL, teamModule.getColor() + teamModule.getName() + ChatColor.RED).getMessage(player.spigot().getLocale())));
                 return false;
             }
         }

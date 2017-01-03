@@ -12,6 +12,6 @@ public class ObserversModuleBuilder extends ModuleBuilder {
 
     @Override
     public ModuleCollection<? extends Module> load(Match match) {
-        return new ModuleCollection<>(new ObserverModule());
+        return new ModuleCollection<>(new ObserverModule(), new TeamPicker());
     }
 }

@@ -27,6 +27,11 @@ public enum ChatConstant {
     UI_CURRENTLY_SPECTATING("ui.currentlySpectating"),
     UI_DEAD("ui.dead"),
     UI_RESPAWN_TIMER("ui.respawnTimer"),
+    UI_TEAM_PICKER_TITLE("ui.teamPicker"),
+    UI_TEAM_PICKER_AUTOJOIN("ui.teamPickerAutoJoin"),
+    UI_TEAM_PICKER_AUTOJOIN_DESC("ui.teamPickerAutoJoinDesc"),
+    UI_TEAM_PICKER_AUTOJOIN_LEAVE("ui.teamPickerAutoJoinLeave"),
+    UI_TEAM_PICKER_ITEM("ui.teamPickerItem"),
 
     GAME_NOT_YOUR_OBJECTIVE("game.notYourObjective"),
     GAME_OBJECTIVE_ALREADY_COMPLETE("game.objectiveAlreadyComplete"),

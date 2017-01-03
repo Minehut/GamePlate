@@ -36,8 +36,8 @@ public class TeamManagerBuilder extends ModuleBuilder {
 
                 int maxPlayers = Numbers.parseInt(element.getAttributeValue("max"));
                 int maxOverfill = maxPlayers;
-                if (element.getAttributeValue("maxOverfill") != null) {
-                    maxOverfill = Numbers.parseInt(element.getAttributeValue("maxOverfill"));
+                if (element.getAttributeValue("overfill") != null) {
+                    maxOverfill = Numbers.parseInt(element.getAttributeValue("overfill"));
                 }
                 TeamModule teamModule = new TeamModule(id, name, false, color, maxPlayers, maxOverfill, TeamModule.JoinAllowance.ALL);
                 results.add(teamModule);

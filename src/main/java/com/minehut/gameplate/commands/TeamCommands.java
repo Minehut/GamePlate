@@ -54,7 +54,7 @@ public class TeamCommands {
                 if (existingTeam.isObserver()) {
                     teamManager.attemptJoinTeam(player, TeamManager.getTeamWithFewestPlayers());
                 } else {
-                    player.sendMessage(new LocalizedChatMessage(ChatConstant.ERROR_ALREADY_ON_TEAM).getMessage(player.spigot().getLocale()));
+                    player.sendMessage(ChatUtil.getWarningMessage(ChatColor.RED + new LocalizedChatMessage(ChatConstant.ERROR_ALREADY_ON_TEAM).getMessage(player.spigot().getLocale())));
                 }
             }
         }

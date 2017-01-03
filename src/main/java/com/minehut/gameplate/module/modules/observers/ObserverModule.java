@@ -67,7 +67,10 @@ public class ObserverModule extends Module {
 
     private void giveObserversKit(Player player) {
         player.getInventory().clear();
-        player.getInventory().setItem(0, Items.createItem(Material.COMPASS, 1, (short) 0, ChatColor.BLUE + "Teleport Tool"));
+
+        player.getInventory().setItem(0, Items.createItem(Material.COMPASS, 1, (short) 0, ChatColor.YELLOW + "Teleport Tool"));
+        player.getInventory().setItem(1, TeamPicker.getTeamPickerHotbarItem(player));
+
         player.updateInventory();
 
         player.getInventory().setChestplate(new ItemStack(Material.ELYTRA));

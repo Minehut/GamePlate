@@ -23,7 +23,12 @@
         { "id": "nextMapSet", "message": "Set the next map to {0}"},
         { "id": "currentlySpectating", "message": "You are currently spectating"},
         { "id": "dead", "message": "Dead"},
-        { "id": "respawnTimer", "message": "Respawning in {0}"}
+        { "id": "respawnTimer", "message": "Respawning in {0}"},
+        { "id": "teamPicker", "message": "Choose your team"},
+        { "id": "teamPickerAutoJoin", "message": "Auto assign a team"},
+        { "id": "teamPickerAutoJoinDesc", "message": "Automatically joins the smallest team."},
+        { "id": "teamPickerAutoJoinLeave", "message": "Join the observers team."},
+        { "id": "teamPickerItem", "message": "Team Picker"}
       ]
     },
 
@@ -41,8 +46,8 @@
       "messages": [
         { "id": "json", "message": "There was an error loading the map.json: {0}"},
         { "id": "buildHeight", "message": "You have reached the maximum build height ({0} blocks)"},
-        { "id": "teamFull", "message": "{0} is full."},
-        { "id": "teamOverflowed", "message": "{0} is completely full."},
+        { "id": "teamFull", "message": "Sorry, {0} is full."},
+        { "id": "teamOverflowed", "message": "Sorry, {0} is completely full."},
         { "id": "blockedCraft", "message": "Crafting {0} is not allowed!" },
         { "id": "error.blockedPlace", "message": "Placement of {0} is not allowed!" },
         { "id": "inventoryNotViewable", "message": "Player's inventory is not currently viewable"},
