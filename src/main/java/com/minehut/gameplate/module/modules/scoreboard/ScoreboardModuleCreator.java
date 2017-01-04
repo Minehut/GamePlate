@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
  * Created by luke on 12/31/16.
  */
 public class ScoreboardModuleCreator extends Module {
+    private String title;
 
     /*
      * This class was created to allow teams to be created
@@ -18,7 +19,8 @@ public class ScoreboardModuleCreator extends Module {
      * FFA gamemodes, where a new team is created each time a player joins.
      */
 
-    public ScoreboardModuleCreator() {
+    public ScoreboardModuleCreator(String title) {
+        this.title = title;
 
         //we have to call it here because the team modules will
         //be initialized before this module is initialized.
@@ -30,7 +32,7 @@ public class ScoreboardModuleCreator extends Module {
     }
 
     private void createTeam(TeamModule teamModule) {
-        ScoreboardModule scoreboardModule = new ScoreboardModule(teamModule);
+        ScoreboardModule scoreboardModule = new ScoreboardModule(teamModule, title);
         scoreboardModule.enable();
 
         GameHandler.getGameHandler().getMatch().getModules().add(scoreboardModule);

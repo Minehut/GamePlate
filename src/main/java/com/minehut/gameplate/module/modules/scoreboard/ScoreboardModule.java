@@ -41,10 +41,14 @@ public class ScoreboardModule extends Module {
      * Each team initializes its own ScoreboardModule.
      */
 
-    public ScoreboardModule(TeamModule teamModule) {
+    public ScoreboardModule(TeamModule teamModule, String title) {
         this.teamModule = teamModule;
 
-        this.simpleScoreboard = new SimpleScoreboard(ChatUtil.HIGHLIGHT + "Objectives");
+        if (title.equals(null)) {
+            title = ChatUtil.HIGHLIGHT + "Objectives";
+        }
+
+        this.simpleScoreboard = new SimpleScoreboard(title);
 
         for (TeamModule other : TeamManager.getTeamModules()) {
             setupTeam(other);
