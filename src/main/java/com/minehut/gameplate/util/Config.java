@@ -16,6 +16,7 @@ public class Config {
     public static String serverMessage = "GamePlate Server";
     public static int startDefault = 20;
     public static int cycleDefault = 20;
+    public static String motd = "";
 
     public static void reload(FileConfiguration config) {
         try {
