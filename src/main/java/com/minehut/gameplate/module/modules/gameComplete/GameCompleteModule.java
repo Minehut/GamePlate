@@ -32,6 +32,10 @@ public class GameCompleteModule extends Module {
         int completed = 0;
         int needed = team.getObjectives().size();
 
+        if (needed <= 0) { //objective = time
+            return false;
+        }
+
         for (ObjectiveModule objective : team.getObjectives()) {
             if (objective.isCompletedBy(team)) {
                 completed++;
