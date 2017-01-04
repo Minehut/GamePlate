@@ -1,6 +1,6 @@
 package com.minehut.gameplate.module.modules.itemDrop.types;
 
-import com.minehut.gameplate.module.modules.itemDrop.ItemDropModule;
+import com.minehut.gameplate.module.modules.itemDrop.ItemSpawnerModule;
 import org.bukkit.Location;
 import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
@@ -8,14 +8,14 @@ import org.bukkit.inventory.ItemStack;
 /**
  * Created by Lucas on 1/4/2017.
  */
-public class PickupItemDropModule extends ItemDropModule {
+public class PickupItemSpawnerModule extends ItemSpawnerModule {
 
     private Item item;
 
     /**
      * @param item The ItemStack to drop
      */
-    public PickupItemDropModule(Location location, ItemStack item) {
+    public PickupItemSpawnerModule(Location location, ItemStack item) {
         super(location, item);
     }
 

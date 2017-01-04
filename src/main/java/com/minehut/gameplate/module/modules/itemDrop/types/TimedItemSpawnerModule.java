@@ -1,15 +1,13 @@
 package com.minehut.gameplate.module.modules.itemDrop.types;
 
-import com.minehut.gameplate.GamePlate;
-import com.minehut.gameplate.module.modules.itemDrop.ItemDropModule;
-import org.bukkit.Bukkit;
+import com.minehut.gameplate.module.modules.itemDrop.ItemSpawnerModule;
 import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
 
 /**
  * Created by Lucas on 1/4/2017.
  */
-public class TimedItemDropModule extends ItemDropModule {
+public class TimedItemSpawnerModule extends ItemSpawnerModule {
 
     private long lastUpdate = 0;
 
@@ -19,7 +17,7 @@ public class TimedItemDropModule extends ItemDropModule {
      * @param item The ItemStack to drop
      * @param delay Delay in seconds between drops
      */
-    public TimedItemDropModule(Location location, ItemStack item, int delay) {
+    public TimedItemSpawnerModule(Location location, ItemStack item, int delay) {
         super(location, item);
         this.delay = delay;
     }

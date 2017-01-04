@@ -9,12 +9,12 @@ import org.bukkit.util.Vector;
 /**
  * Created by Lucas on 1/4/2017.
  */
-public abstract class ItemDropModule extends TaskedModule {
+public abstract class ItemSpawnerModule extends TaskedModule {
 
     private Location location;
     private ItemStack item;
 
-    public ItemDropModule(Location location, ItemStack item) {
+    public ItemSpawnerModule(Location location, ItemStack item) {
         this.location = location;
         this.item = item;
     }
