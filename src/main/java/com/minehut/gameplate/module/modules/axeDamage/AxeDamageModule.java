@@ -13,6 +13,8 @@ public class AxeDamageModule extends Module {
 
     @EventHandler
     public void on(EntityDamageByEntityEvent event) {
+        if(event.isCancelled()) return;
+
         if ((event.getDamager() instanceof Player)) {
             Player player = (Player)event.getDamager();
             if (player.getInventory().getItemInMainHand().getType() == Material.DIAMOND_AXE) {

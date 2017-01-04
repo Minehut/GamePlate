@@ -4,6 +4,8 @@ import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.ModuleBuilder;
 import com.minehut.gameplate.module.ModuleCollection;
+import com.minehut.gameplate.module.modules.team.TeamModule;
+import com.minehut.gameplate.module.modules.teamManager.TeamManager;
 import com.minehut.gameplate.util.Strings;
 import org.jdom2.Element;
 
@@ -17,7 +19,13 @@ public class TimeLimitModuleBuilder extends ModuleBuilder {
 
         for (Element timeLimitElement : match.getDocument().getRootElement().getChildren("timeLimit")) {
             int time = Strings.timeStringToSeconds(timeLimitElement.getTextNormalize());
-            return new ModuleCollection<>(new TimeLimitModule(time));
+
+            TeamModule teamModule = null;
+            if (timeLimitElement.getAttributeValue("team") != null) {
+                teamModule = TeamManager.getTeamById(timeLimitElement.getAttributeValue("team"));
+            }
+
+            return new ModuleCollection<>(new TimeLimitModule(time, teamModule));
         }
 
         return null;

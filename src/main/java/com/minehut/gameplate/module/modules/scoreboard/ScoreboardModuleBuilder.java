@@ -6,7 +6,7 @@ import com.minehut.gameplate.module.*;
 /**
  * Created by luke on 12/31/16.
  */
-@BuilderData(load = ModuleLoadTime.LATEST)
+@BuilderData(load = ModuleLoadTime.NORMAL)
 public class ScoreboardModuleBuilder extends ModuleBuilder {
 
     @Override

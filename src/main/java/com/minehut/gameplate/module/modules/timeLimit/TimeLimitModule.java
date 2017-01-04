@@ -2,6 +2,7 @@ package com.minehut.gameplate.module.modules.timeLimit;
 
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.module.TaskedModule;
+import com.minehut.gameplate.module.modules.team.TeamModule;
 import com.minehut.gameplate.module.modules.time.MatchTimerModule;
 
 /**
@@ -9,9 +10,11 @@ import com.minehut.gameplate.module.modules.time.MatchTimerModule;
  */
 public class TimeLimitModule extends TaskedModule {
     private int timeLimit;
+    private TeamModule teamModule;
 
-    public TimeLimitModule(int timeLimit) {
+    public TimeLimitModule(int timeLimit, TeamModule teamModule) {
         this.timeLimit = timeLimit;
+        this.teamModule = teamModule;
     }
 
     public int getLimit() {
@@ -30,7 +33,7 @@ public class TimeLimitModule extends TaskedModule {
     public void run() {
         if (GameHandler.getGameHandler().getMatch().isRunning()) {
             if (MatchTimerModule.getTimeInSeconds() >= timeLimit) {
-                GameHandler.getGameHandler().getMatch().end(null);
+                GameHandler.getGameHandler().getMatch().end(teamModule);
             }
         }
     }
