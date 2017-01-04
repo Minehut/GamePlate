@@ -77,7 +77,7 @@ public class ChestModuleBuilder extends ModuleBuilder {
     	s = s.replaceAll(" ", "_");
     	s = s.toUpperCase();
     	try{
-    		return Material.valueOf(s);
+    		return Material.getMaterial(s);
     	}catch(Exception ex){
     		System.out.println("Material: " + s + " not found!");
     	}

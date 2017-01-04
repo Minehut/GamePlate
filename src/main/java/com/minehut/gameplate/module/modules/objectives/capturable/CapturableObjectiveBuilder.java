@@ -36,7 +36,7 @@ public class CapturableObjectiveBuilder extends ModuleBuilder {
                         material = Material.WOOL;
                         data = ColorUtil.parseDyeColor(element.getAttributeValue("wool")).getWoolData();
                     } else {
-                        material = Material.valueOf(Strings.getTechnicalName(element.getAttributeValue("material")));
+                        material = Material.getMaterial(Strings.getTechnicalName(element.getAttributeValue("material")));
                         if (element.getAttributeValue("data") != null) {
                             data = (byte) Numbers.parseInt(element.getAttributeValue("data"));
                         }

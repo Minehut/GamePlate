@@ -5,6 +5,7 @@ import com.minehut.gameplate.module.*;
 import com.minehut.gameplate.module.modules.kit.types.KitInventoryItem;
 import com.minehut.gameplate.module.modules.kit.types.KitPotionItem;
 import com.minehut.gameplate.util.ColorUtil;
+import com.minehut.gameplate.util.Items;
 import com.minehut.gameplate.util.Numbers;
 import com.minehut.gameplate.util.Strings;
 import org.bukkit.ChatColor;
@@ -52,50 +53,6 @@ public class KitModuleBuilder extends ModuleBuilder {
         return results;
     }
 
-    private static ItemStack parseItemstack(Element element) {
-        Material material = Material.valueOf(element.getAttributeValue("material").toUpperCase().replace(" ", "_"));
-
-        int amount = 1;
-        if (element.getAttributeValue("amount") != null) {
-            amount = Numbers.parseInt(element.getAttributeValue("amount"));
-        }
-
-        ItemStack item = new ItemStack(material, amount);
-        ItemMeta meta = item.getItemMeta();
-
-        if (element.getAttribute("name") != null) {
-            meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', element.getAttributeValue("name")));
-        }
-        if (element.getChild("lore") != null) {
-            List<String> lore = new ArrayList<>();
-            for (Element loreElement : element.getChildren("lore")) {
-                lore.add(ChatColor.translateAlternateColorCodes('&', loreElement.getValue()));
-            }
-            meta.setLore(lore);
-        }
-        item.setItemMeta(meta);
-        List<Element> enchants = new ArrayList<>();
-        enchants.addAll(element.getChildren("enchantment"));
-        for (Element enchantElement : enchants) {
-            Enchantment enchantment = Enchantment.getByName(Strings.getTechnicalName(enchantElement.getAttributeValue("id")));
-            int level = 1;
-            if (enchantElement.getAttributeValue("level") != null) {
-                level = Numbers.parseInt(enchantElement.getAttributeValue("level"));
-            }
-            item.addEnchantment(enchantment, level);
-        }
-
-        if (element.getAttributeValue("color") != null) {
-            if (item.getType().toString().contains("LEATHER")) {
-                LeatherArmorMeta armorMeta = (LeatherArmorMeta) item.getItemMeta();
-                armorMeta.setColor(ColorUtil.convertHexToRGB(element.getAttributeValue("color")));
-                item.setItemMeta(armorMeta);
-            }
-        }
-
-        return item;
-    }
-
     public static PotionEffect parsePotionEffect(Element element) {
         PotionEffectType effectType = PotionEffectType.getByName(element.getAttributeValue("id").toUpperCase().replace(" ", "_"));
         int level = 0;
@@ -116,33 +73,33 @@ public class KitModuleBuilder extends ModuleBuilder {
         for (Element element : kitElement.getChildren()) {
             if (element.getName().equalsIgnoreCase("item")) {
 
-                ItemStack itemStack = parseItemstack(element);
+                ItemStack itemStack = Items.parseItemstack(element);
                 int slot = Numbers.parseInt(element.getAttributeValue("slot"));
 
                 kitItems.add(new KitInventoryItem(slot, itemStack));
             }
             else if (element.getName().equalsIgnoreCase("helmet")) {
-                ItemStack itemStack = parseItemstack(element);
+                ItemStack itemStack = Items.parseItemstack(element);
                 int slot = 103;
                 kitItems.add(new KitInventoryItem(slot, itemStack));
             }
             else if (element.getName().equalsIgnoreCase("chestplate")) {
-                ItemStack itemStack = parseItemstack(element);
+                ItemStack itemStack = Items.parseItemstack(element);
                 int slot = 102;
                 kitItems.add(new KitInventoryItem(slot, itemStack));
             }
             else if (element.getName().equalsIgnoreCase("leggings")) {
-                ItemStack itemStack = parseItemstack(element);
+                ItemStack itemStack = Items.parseItemstack(element);
                 int slot = 101;
                 kitItems.add(new KitInventoryItem(slot, itemStack));
             }
             else if (element.getName().equalsIgnoreCase("boots")) {
-                ItemStack itemStack = parseItemstack(element);
+                ItemStack itemStack = Items.parseItemstack(element);
                 int slot = 100;
                 kitItems.add(new KitInventoryItem(slot, itemStack));
             }
             else if (element.getName().equalsIgnoreCase("offhand")) {
-                ItemStack itemStack = parseItemstack(element);
+                ItemStack itemStack = Items.parseItemstack(element);
                 int slot = -2;
                 kitItems.add(new KitInventoryItem(slot, itemStack));
             }
