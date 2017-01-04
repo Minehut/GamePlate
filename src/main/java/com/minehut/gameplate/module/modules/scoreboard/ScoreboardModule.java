@@ -44,7 +44,7 @@ public class ScoreboardModule extends Module {
     public ScoreboardModule(TeamModule teamModule, String title) {
         this.teamModule = teamModule;
 
-        if (title.equals(null)) {
+        if (title == null) {
             title = ChatUtil.HIGHLIGHT + "Objectives";
         }
 
