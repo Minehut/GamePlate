@@ -24,10 +24,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by luke on 12/21/16.
@@ -43,15 +40,19 @@ public class RespawnModule extends TaskedModule {
 
     @Override
     public void run() {
+        List<Player> toRemove = new ArrayList<>();
         for (UUID uuid : deadPlayers.keySet()) {
             Player player = Bukkit.getPlayer(uuid);
             if (canPlayerRespawn(player)) {
-                player.resetTitle();
-                respawnPlayer(player);
+                toRemove.add(player);
             } else {
                 double d = round(getTimeLeft(player), 1);
                 player.sendTitle(ChatColor.RED + ChatColor.BOLD.toString() + new LocalizedChatMessage(ChatConstant.UI_DEAD).getMessage(player.spigot().getLocale()), ChatColor.DARK_AQUA + new LocalizedChatMessage(ChatConstant.UI_RESPAWN_TIMER, ChatColor.AQUA.toString() + d).getMessage(player.spigot().getLocale()), 0, Integer.MAX_VALUE, 0);
             }
+        }
+        for (Player player : toRemove) {
+            player.resetTitle();
+            respawnPlayer(player);
         }
     }
 
