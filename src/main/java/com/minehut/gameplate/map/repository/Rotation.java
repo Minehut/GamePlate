@@ -61,11 +61,13 @@ public class Rotation extends ArrayList<LoadedMap> {
      */
     public LoadedMap getNext() {
         if (this.nextMap != null) {
-            Bukkit.getLogger().log(Level.INFO, "Loading force setNext map.");
             return this.nextMap;
         } else {
-            Bukkit.getLogger().log(Level.INFO, "Loading rotation specified map.");
-            return get(position);
+            if (position >= size()) {
+                return get(0);
+            } else {
+                return get(position);
+            }
         }
     }
 
