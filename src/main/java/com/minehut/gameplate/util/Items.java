@@ -68,12 +68,12 @@ public class Items {
         ItemMeta meta = item.getItemMeta();
 
         if (element.getAttribute("name") != null) {
-            meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', element.getAttributeValue("name")));
+            meta.setDisplayName(ChatColor.translateAlternateColorCodes('*', element.getAttributeValue("name")));
         }
         if (element.getChild("lore") != null) {
             List<String> lore = new ArrayList<>();
             for (Element loreElement : element.getChildren("lore")) {
-                lore.add(ChatColor.translateAlternateColorCodes('&', loreElement.getValue()));
+                lore.add(ChatColor.translateAlternateColorCodes('*', loreElement.getValue()));
             }
             meta.setLore(lore);
         }
