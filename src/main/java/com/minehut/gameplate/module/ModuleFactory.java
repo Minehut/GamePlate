@@ -11,7 +11,7 @@ import com.minehut.gameplate.module.modules.filter.FilterModuleBuilder;
 import com.minehut.gameplate.module.modules.friendlyFire.FriendlyFireModuleBuilder;
 import com.minehut.gameplate.module.modules.gameComplete.GameCompleteModuleBuilder;
 import com.minehut.gameplate.module.modules.inventoryView.InventoryViewModuleBuilder;
-import com.minehut.gameplate.module.modules.itemDrop.ItemDropModuleBuilder;
+import com.minehut.gameplate.module.modules.itemDrop.ItemSpawnerModuleBuilder;
 import com.minehut.gameplate.module.modules.kit.KitModuleBuilder;
 import com.minehut.gameplate.module.modules.lives.LivesModuleBuilder;
 import com.minehut.gameplate.module.modules.matchAlerts.MatchAlertsModuleBuilder;
@@ -84,7 +84,7 @@ public class ModuleFactory {
                 DestroyableObjectiveBuilder.class,
                 PortalModuleBuilder.class,
                 AxeDamageModuleBuilder.class,
-                ItemDropModuleBuilder.class
+                ItemSpawnerModuleBuilder.class,
                 MotdModuleBuilder.class
         ));
     }
