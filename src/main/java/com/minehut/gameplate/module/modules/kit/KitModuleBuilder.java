@@ -4,18 +4,11 @@ import com.minehut.gameplate.match.Match;
 import com.minehut.gameplate.module.*;
 import com.minehut.gameplate.module.modules.kit.types.KitInventoryItem;
 import com.minehut.gameplate.module.modules.kit.types.KitPotionItem;
-import com.minehut.gameplate.util.ColorUtil;
+import com.minehut.gameplate.util.Effects;
 import com.minehut.gameplate.util.Items;
 import com.minehut.gameplate.util.Numbers;
-import com.minehut.gameplate.util.Strings;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.jdom2.Element;
 
 import java.util.ArrayList;
@@ -51,19 +44,6 @@ public class KitModuleBuilder extends ModuleBuilder {
         }
 
         return results;
-    }
-
-    public static PotionEffect parsePotionEffect(Element element) {
-        PotionEffectType effectType = PotionEffectType.getByName(element.getAttributeValue("id").toUpperCase().replace(" ", "_"));
-        int level = 0;
-        if (element.getAttribute("level") != null) {
-            level = Numbers.parseInt(element.getAttributeValue("level"));
-        }
-        int amplifier = 0;
-        if (element.getAttributeValue("amplifier") != null) {
-            amplifier = Numbers.parseInt(element.getAttributeValue("amplifier"));
-        }
-        return new PotionEffect(effectType, level, amplifier);
     }
 
     public static KitModule parseKit(Element kitElement) {
@@ -104,7 +84,7 @@ public class KitModuleBuilder extends ModuleBuilder {
                 kitItems.add(new KitInventoryItem(slot, itemStack));
             }
             else if (element.getName().equalsIgnoreCase("potion")) {
-                PotionEffect potionEffect = parsePotionEffect(element);
+                PotionEffect potionEffect = Effects.parsePotionEffect(element);
 
                 int slot = -1;
                 if (element.getAttributeValue("slot") != null) {
