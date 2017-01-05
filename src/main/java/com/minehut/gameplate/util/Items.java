@@ -1,9 +1,6 @@
 package com.minehut.gameplate.util;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Color;
-import org.bukkit.DyeColor;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -16,6 +13,7 @@ import org.jdom2.Element;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
 
 public class Items {
 
@@ -64,7 +62,13 @@ public class Items {
             amount = Numbers.parseInt(element.getAttributeValue("amount"));
         }
 
-        ItemStack item = new ItemStack(material, amount);
+        ItemStack item;
+        if (element.getAttributeValue("color") != null && material == Material.WOOL) {
+            item = new ItemStack(material, amount, ColorUtil.parseDyeColor(element.getAttributeValue("color")).getWoolData());
+        } else {
+            item = new ItemStack(material, amount);
+        }
+
         ItemMeta meta = item.getItemMeta();
 
         if (element.getAttribute("name") != null) {
@@ -94,12 +98,15 @@ public class Items {
                 LeatherArmorMeta armorMeta = (LeatherArmorMeta) item.getItemMeta();
                 armorMeta.setColor(ColorUtil.convertHexToRGB(element.getAttributeValue("color")));
                 item.setItemMeta(armorMeta);
-            } else if (item.getType().toString().contains("WOOL")) {
-                DyeColor color = ColorUtil.parseDyeColor(element.getAttributeValue("color").toUpperCase());
-                Wool wool = (Wool)item.getData();
-                wool.setColor(color);
-                item.setData(wool);
             }
+
+//            else if (item.getType().toString().contains("WOOL")) {
+//                DyeColor color = ColorUtil.parseDyeColor(element.getAttributeValue("color").toUpperCase());
+//                Bukkit.getLogger().log(Level.INFO, "Creating colored wool: " + color.toString());
+//                Wool wool = (Wool) item.getData();
+//                wool.setColor(color);
+//                item.setData(wool);
+//            }
         }
 
         return item;

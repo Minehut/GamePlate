@@ -10,7 +10,6 @@ import org.bukkit.inventory.ItemStack;
 public class TimedItemSpawnerModule extends ItemSpawnerModule {
 
     private long lastUpdate = 0;
-
     private int delay;
 
     /**

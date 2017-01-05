@@ -20,7 +20,7 @@ public abstract class ItemSpawnerModule extends TaskedModule {
     }
 
     public Item respawn() {
-        Item itemSpawn = location.getWorld().dropItem(location, item);
+        Item itemSpawn = location.getWorld().dropItem(location, item.clone());
         itemSpawn.setVelocity(new Vector(0, 0, 0));
         itemSpawn.setPickupDelay(20 * 2);
         return itemSpawn;

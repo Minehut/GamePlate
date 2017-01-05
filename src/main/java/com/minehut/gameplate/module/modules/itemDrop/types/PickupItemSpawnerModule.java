@@ -3,6 +3,8 @@ package com.minehut.gameplate.module.modules.itemDrop.types;
 import com.minehut.gameplate.module.modules.itemDrop.ItemSpawnerModule;
 import org.bukkit.Location;
 import org.bukkit.entity.Item;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 
 /**

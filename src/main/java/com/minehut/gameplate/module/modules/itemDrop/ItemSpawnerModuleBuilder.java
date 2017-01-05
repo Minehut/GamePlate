@@ -35,6 +35,7 @@ public class ItemSpawnerModuleBuilder extends ModuleBuilder {
                     continue;
                 }
                 Location location = new Location(GameHandler.getGameHandler().getMatch().getCurrentMap().getWorld(), x, y, z);
+
                 ItemStack item = Items.parseItemstack(itemDropElement);
                 ItemSpawnerModule module;
                 if (itemDropElement.getAttribute("delay") != null) {
