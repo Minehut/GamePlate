@@ -15,6 +15,7 @@ import org.jdom2.Element;
 
 @BuilderData(load = ModuleLoadTime.EARLIER)
 public class TeamManagerBuilder extends ModuleBuilder {
+
     @Override
     public ModuleCollection<? extends Module> load(Match match) {
 
@@ -26,6 +27,7 @@ public class TeamManagerBuilder extends ModuleBuilder {
             if (teamsElement.getAttributeValue("mode") != null) {
                 teamType = TeamManager.TeamType.valueOf(teamsElement.getAttributeValue("mode").toUpperCase().replace(" ", "_"));
             }
+
             results.add(new TeamManager(teamType));
             results.add(new TeamModule("observers", "Observers", true, ChatUtil.HIGHLIGHT, Integer.MAX_VALUE, Integer.MAX_VALUE, TeamModule.JoinAllowance.ALL));
 
@@ -36,10 +38,16 @@ public class TeamManagerBuilder extends ModuleBuilder {
 
                 int maxPlayers = Numbers.parseInt(element.getAttributeValue("max"));
                 int maxOverfill = maxPlayers;
+                TeamModule.JoinAllowance joinAllowance = TeamModule.JoinAllowance.ALL;
+
+                if (element.getAttributeValue("join") != null) {
+                    joinAllowance = TeamModule.JoinAllowance.valueOf(element.getAttributeValue("join").toUpperCase().replace(" ", "_"));
+                }
                 if (element.getAttributeValue("overfill") != null) {
                     maxOverfill = Numbers.parseInt(element.getAttributeValue("overfill"));
                 }
-                TeamModule teamModule = new TeamModule(id, name, false, color, maxPlayers, maxOverfill, TeamModule.JoinAllowance.ALL);
+
+                TeamModule teamModule = new TeamModule(id, name, false, color, maxPlayers, maxOverfill, joinAllowance);
                 results.add(teamModule);
             }
         }

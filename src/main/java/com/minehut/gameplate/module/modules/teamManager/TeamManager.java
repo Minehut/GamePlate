@@ -3,6 +3,7 @@ package com.minehut.gameplate.module.modules.teamManager;
 import com.minehut.gameplate.GameHandler;
 import com.minehut.gameplate.chat.ChatConstant;
 import com.minehut.gameplate.chat.LocalizedChatMessage;
+import com.minehut.gameplate.match.MatchState;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.ModuleCollection;
 import com.minehut.gameplate.module.modules.spawn.SpawnModule;
@@ -45,6 +46,31 @@ public class TeamManager extends Module {
      */
     public boolean attemptJoinTeam(Player player, TeamModule teamModule) {
         TeamModule oldTeam = getTeamByPlayer(player);
+
+        //Check if players are allowed to join before the game starts.
+        if (teamModule.getJoinAllowance() == TeamModule.JoinAllowance.PRE_GAME && !GameHandler.getGameHandler().getMatch().isStarting()) {
+            player.sendMessage(ChatUtil.getWarningMessage(ChatColor.RED + new LocalizedChatMessage(ChatConstant.ERROR_MATCH_ALREADY_STARTED, teamModule.getColor() + teamModule.getName() + ChatColor.RED).getMessage(player.spigot().getLocale())));
+            return false;
+        }
+
+        //Check if players are allowed to join mid game.
+        if (teamModule.getJoinAllowance() == TeamModule.JoinAllowance.MID_GAME) {
+            if (GameHandler.getGameHandler().getMatch().isStarting()) {
+                player.sendMessage(ChatUtil.getWarningMessage(ChatColor.RED + new LocalizedChatMessage(ChatConstant.ERROR_MATCH_NOT_STARTED, teamModule.getColor() + teamModule.getName() + ChatColor.RED).getMessage(player.spigot().getLocale())));
+                return false;
+            }
+
+            if (GameHandler.getGameHandler().getMatch().isState(MatchState.CYCLING) || GameHandler.getGameHandler().getMatch().isState(MatchState.ENDED)) {
+                player.sendMessage(ChatUtil.getWarningMessage(ChatColor.RED + new LocalizedChatMessage(ChatConstant.ERROR_MATCH_CYCLING, teamModule.getColor() + teamModule.getName() + ChatColor.RED).getMessage(player.spigot().getLocale())));
+                return false;
+            }
+        }
+
+        //Check if players are allowed to join at all.
+        if (teamModule.getJoinAllowance() == TeamModule.JoinAllowance.NEVER) {
+            player.sendMessage(ChatUtil.getWarningMessage(ChatColor.RED + new LocalizedChatMessage(ChatConstant.ERROR_TEAM_NO_JOIN, teamModule.getColor() + teamModule.getName() + ChatColor.RED).getMessage(player.spigot().getLocale())));
+            return false;
+        }
 
         //Check if the team is full.
         if (!teamModule.isObserver() && teamModule.getMembers().size() >= teamModule.getMaxPlayers()) {

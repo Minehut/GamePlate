@@ -48,6 +48,7 @@ public enum ChatConstant {
     ERROR_JSON("error.json"),
     ERROR_INVENTORY_NOT_VIEWABLE("error.inventoryNotViewable"),
     ERROR_TEAM_FULL("error.teamFull"),
+    ERROR_TEAM_NO_JOIN("error.noJoinTeam"),
     ERROR_TEAM_OVERFLOWED("error.teamOverflowed"),
     ERROR_JOIN_SAME_TEAM("error.joinSameTeam"),
     ERROR_BUILD_HEIGHT("error.buildHeight"),
@@ -60,6 +61,8 @@ public enum ChatConstant {
     ERROR_NO_TEAM_FOUND("error.noTeamFound"),
     ERROR_UNABLE_TO_CYCLE_MID_MATCH("error.unableToCycleMidMatch"),
     ERROR_MATCH_ALREADY_STARTED("error.matchAlreadyStarted"),
+    ERROR_MATCH_NOT_STARTED("error.matchNotStarted"),
+    ERROR_MATCH_CYCLING("error.matchCycling"),
     ERROR_MAP_NOT_FOUND("error.mapNotFound"),
     ERROR_ALREADY_ON_TEAM("error.alreadyOnTeam"),
     ERROR_NO_MESSAGE("error.noMessage");
