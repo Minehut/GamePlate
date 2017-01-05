@@ -2,6 +2,7 @@ package com.minehut.gameplate.util;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -9,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.material.Wool;
 import org.jdom2.Element;
 
 import java.util.ArrayList;
@@ -92,6 +94,11 @@ public class Items {
                 LeatherArmorMeta armorMeta = (LeatherArmorMeta) item.getItemMeta();
                 armorMeta.setColor(ColorUtil.convertHexToRGB(element.getAttributeValue("color")));
                 item.setItemMeta(armorMeta);
+            } else if (item.getType().toString().contains("WOOL")) {
+                DyeColor color = ColorUtil.parseDyeColor(element.getAttributeValue("color").toUpperCase());
+                Wool wool = (Wool)item.getData();
+                wool.setColor(color);
+                item.setData(wool);
             }
         }
 
