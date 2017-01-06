@@ -55,7 +55,7 @@
     { "type": "error",
       "messages": [
         { "id": "json", "message": "Ha ocurrido un error al tratar de cargar map.json: {0}"},
-        { "id": "buildHeight", "message": "Haz alcanzado la máxima altura de construcción ({0} blocks)"},
+        { "id": "buildHeight", "message": "Haz alcanzado la máxima altura de construcción ({0} bloques)"},
         { "id": "teamFull", "message": "Perdón, {0} está lleno."},
         { "id": "teamOverflowed", "message": "Perdón, {0} está completamente lleno."},
         { "id": "blockedCraft", "message": "No está permitido crear {0}!" },
