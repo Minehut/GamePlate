@@ -1,0 +1,81 @@
+{
+  "language": "pt-br",
+  "data": [
+    { "type": "ui",
+      "messages": [
+        { "id": "welcome", "message": "Bem vindo á placa de jogo."},
+        { "id": "teamJoin", "message": "Você entrou {0}."},
+        { "id": "potionEffects", "message": "Efeito de poções"},
+        { "id": "noPotionEffects", "message": "Sem efeito de poções"},
+        { "id": "hungerLevel", "message": "Nível de fome"},
+        { "id": "healthLevel", "message": "Nível de vida"},
+        { "id": "kitMenuTitle", "message": "Seletor de kits"},
+        { "id": "second", "message": "{0} segundo"},
+        { "id": "seconds", "message": "{0} segundos"},
+        { "id": "cycleTimer", "message": "Ciclando para {0} em {1}"},
+        { "id": "cycledTo", "message": "Ciclado para {0}"},
+        { "id": "startingTimer", "message": "Iniciando em {0}"},
+        { "id": "refreshed", "message": "Atualizado todos os repositórios e arquivos de rotação."},
+        { "id": "objectivePrefix", "message": "Objetivo"},
+        { "id": "rotationHead", "message": "[ROTAÇÃO]"},
+        { "id": "teamChat", "message": "{0}[CHAT DO TIME] {1}: {2}"},
+        { "id": "timeRemaining", "message": "Tempo restante {0}"},
+        { "id": "nextMapSet", "message": "Próximo mapa colocado para {0}"},
+        { "id": "currentlySpectating", "message": "Você está agora espectando!"},
+        { "id": "dead", "message": "Morto"},
+        { "id": "respawnTimer", "message": "Renascendo em {0}"},
+        { "id": "teamPicker", "message": "Selecione seu time"},
+        { "id": "teamPickerAutoJoin", "message": "Selecionar um time automaticamente"},
+        { "id": "teamPickerAutoJoinDesc", "message": "Automaticamente entrar no menor time"},
+        { "id": "teamPickerAutoJoinLeave", "message": "Se juntar aos observadores"},
+        { "id": "teamPickerItem", "message": "Seletor de times"},
+        { "id": "tabHeader", "message": "Atualmente jogando {0}"},
+        { "id": "tabFooter", "message": "{0} - {1}"}
+      ]
+    },
+
+    { "type": "game",
+      "messages": [
+        { "id": "notYourObjective", "message": "Você não pode fazer o objetivo de outro time!"},
+        { "id": "objectiveAlreadyComplete", "message": "Esse objetivo ja foi cumprido!"},
+        { "id": "capturableTouched", "message": "{0} coletou {1} para {2}!"},
+        { "id": "capturableCompleted", "message": "{0} colocou {1} para {2}!"},
+        { "id": "goalScore", "message": "{0} fez {1} pontos para {2}!"},
+        { "id": "destroyableBreak", "message": "{0} causou {1} de dano para {2}!"},
+        { "id": "destroyableComplete", "message": "{0} destruiu {1} para {2}!"}
+      ]
+    },
+
+    { "type": "misc",
+      "messages": [
+        { "id": "e", "message": "e"}
+      ]
+    },
+
+    { "type": "error",
+      "messages": [
+        { "id": "json", "message": "Houve um erro ao carregar map.json: {0}"},
+        { "id": "buildHeight", "message": "Você atingiu a altura maxima de construção! ({0} blocos)"},
+        { "id": "teamFull", "message": "Desculpe, {0} está cheio."},
+        { "id": "teamOverflowed", "message": "Desculpe, {0} está completamente cheio."},
+        { "id": "blockedCraft", "message": "Criar {0} não é permitido!" },
+        { "id": "error.blockedPlace", "message": "Colocamento de {0} não é permitido!" },
+        { "id": "inventoryNotViewable", "message": "O inventario dos jogadores não pode ser vistos atualmente."},
+        { "id": "unknownError", "message": "Um erro desconhecido aconteceu. Por favor checar o console."},
+        { "id": "noPermission", "message": "Você não tem permissão!"},
+        { "id": "numberString", "message": "Número esperado, recebido uma 'string' ao invés disso."},
+        { "id": "commandPlayerOnly", "message": "Esse comando não pode ser executado do console."},
+        { "id": "noTeamFound", "message": "Nenhum time encontrado."},
+        { "id": "noJoinTeam", "message": "Você não tem permissão de entrar neste time no momento."},
+        { "id": "unableToCycleMidMatch", "message": "Não foi possivel ciclar enquanto a partida está em andamento."},
+        { "id": "matchAlreadyStarted", "message": "A partida já começou."},
+        { "id": "matchNotStarted", "message": "A partida ainda não começou."},
+        { "id": "matchCycling", "message": "A partida está atualmente ciclando."},
+        { "id": "joinSameTeam", "message": "Você já esta neste time."},
+        { "id": "noMessage", "message": "Por favor inclua uma mensagem!"},
+        { "id": "mapNotFound", "message": "Mapa não encontrado."},
+        { "id": "alreadyOnTeam", "message": "Você já está em um time!"}
+      ]
+    }
+  ] 
+}
