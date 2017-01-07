@@ -1,5 +1,6 @@
 package com.minehut.gameplate.module.modules.chat;
 
+import com.minehut.gameplate.event.api.GamePlateAllowedChatEvent;
 import com.minehut.gameplate.event.api.GamePlatePrefixEvent;
 import com.minehut.gameplate.module.Module;
 import com.minehut.gameplate.module.modules.team.TeamModule;
@@ -21,21 +22,26 @@ public class ChatModule extends Module {
 
         TeamModule teamModule = TeamManager.getTeamByPlayer(event.getPlayer());
 
-        GamePlatePrefixEvent prefixEvent = new GamePlatePrefixEvent(event.getPlayer());
-        Bukkit.getPluginManager().callEvent(prefixEvent);
+        GamePlateAllowedChatEvent allowedChatEvent = new GamePlateAllowedChatEvent(event.getPlayer());
+        Bukkit.getPluginManager().callEvent(allowedChatEvent);
 
-        String prefix = prefixEvent.getPrefix();
-        if (prefix.equals("")) {
-            prefix = ChatColor.GRAY.toString();
+        if (allowedChatEvent.isAllowedChat()) {
+            GamePlatePrefixEvent prefixEvent = new GamePlatePrefixEvent(event.getPlayer());
+            Bukkit.getPluginManager().callEvent(prefixEvent);
+
+            String prefix = prefixEvent.getPrefix();
+            if (prefix.equals("")) {
+                prefix = ChatColor.GRAY.toString();
+            }
+
+            if (teamModule == null) return;
+
+            String formatted = teamModule.getColor() + "[" + teamModule.getName().substring(0, 1) + "] " + prefix + event.getPlayer().getName() + ChatColor.WHITE + ": " + event.getMessage();
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                player.sendMessage(formatted);
+            }
+            System.out.println(formatted);
         }
-
-        if (teamModule == null) return;
-
-        String formatted = teamModule.getColor() + "[" + teamModule.getName().substring(0, 1) + "] " + prefix + event.getPlayer().getName() + ChatColor.WHITE + ": " + event.getMessage();
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            player.sendMessage(formatted);
-        }
-        System.out.println(formatted);
     }
 
     public static void sendToTeam(TeamModule teamModule, String msg) {
@@ -43,4 +49,5 @@ public class ChatModule extends Module {
             player.sendMessage(msg);
         }
     }
+
 }
