@@ -46,6 +46,12 @@
       ]
     },
 
+    { "type": "kill",
+      "messages": [
+        { "id": "message", "message": "You killed {0}"}
+      ]
+    },
+
     { "type": "misc",
       "messages": [
         { "id": "and", "message": "and"}

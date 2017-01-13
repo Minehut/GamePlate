@@ -35,6 +35,8 @@ public enum ChatConstant {
     UI_TAB_HEADER("ui.tabHeader"),
     UI_TAB_FOOTER("ui.tabFooter"),
 
+    KILL_MESSAGE("kill.message"),
+
     GAME_NOT_YOUR_OBJECTIVE("game.notYourObjective"),
     GAME_OBJECTIVE_ALREADY_COMPLETE("game.objectiveAlreadyComplete"),
     GAME_CAPTURABLE_TOUCHED("game.capturableTouched"),

@@ -150,20 +150,6 @@ public class RespawnModule extends TaskedModule {
         Players.resetPlayer(dead);
         GameHandler.getGameHandler().getMatch().getModules().getModule(Visibility.class).showOrHide(dead);
 
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (player == dead) {
-                player.playSound(player.getLocation(), Sound.ENTITY_IRONGOLEM_DEATH, 1, 1);
-            } else if (killer != null && player == killer) {
-                player.playSound(player.getLocation(), Sound.ENTITY_IRONGOLEM_DEATH, 1, 1.35F);
-            } else {
-                player.playSound(dead.getLocation(), Sound.ENTITY_IRONGOLEM_HURT, 1, 1.35F);
-            }
-        }
-
-        if (killer != null) {
-            killer.playSound(killer.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1.5F);
-        }
-
         new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 0).apply(dead);
         new PotionEffect(PotionEffectType.CONFUSION, 100, 0).apply(dead);
         new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 7).apply(dead);

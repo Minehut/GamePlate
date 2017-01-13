@@ -7,6 +7,7 @@ import com.minehut.gameplate.module.modules.buildHeight.BuildHeightModuleBuilder
 import com.minehut.gameplate.module.modules.chat.ChatModuleBuilder;
 import com.minehut.gameplate.module.modules.connection.ConnectionModuleBuilder;
 import com.minehut.gameplate.module.modules.deathDrop.DeathDropModuleBuilder;
+import com.minehut.gameplate.module.modules.deathMessage.DeathMessageModuleBuilder;
 import com.minehut.gameplate.module.modules.filter.FilterModuleBuilder;
 import com.minehut.gameplate.module.modules.friendlyFire.FriendlyFireModuleBuilder;
 import com.minehut.gameplate.module.modules.gameComplete.GameCompleteModuleBuilder;
@@ -85,7 +86,8 @@ public class ModuleFactory {
                 PortalModuleBuilder.class,
                 AxeDamageModuleBuilder.class,
                 ItemSpawnerModuleBuilder.class,
-                MotdModuleBuilder.class
+                MotdModuleBuilder.class,
+                DeathMessageModuleBuilder.class
         ));
     }
 
